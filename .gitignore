@@ -22,3 +22,15 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+
+### IntelliJ IDEA ###
+../../../travel-app-CSC325/.idea/modules.xml
+../../../travel-app-CSC325/.idea/jarRepositories.xml
+../../../travel-app-CSC325/.idea/compiler.xml
+../../../travel-app-CSC325/.idea/libraries/
+*.iws
+*.iml
+*.ipr
+
+### Mac OS ###
+.DS_Store
