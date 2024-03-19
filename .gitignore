@@ -34,3 +34,7 @@ replay_pid*
 
 ### Mac OS ###
 .DS_Store
+
+.idea/
+
+adminSDK.json
