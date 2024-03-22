@@ -23,9 +23,9 @@ public class TripPreviewCardController {
         imageOfDestination.setImage(image);
         imageOfDestination.setPreserveRatio(false);
         imageOfDestination.setOpacity(0.65);
-        imageOfDestination.setFitWidth(600);
+        imageOfDestination.setFitWidth(550);
         destinationName.setText(trip.getCityName() + ", " + trip.getCountryName());
-        tripBudget.setText(String.valueOf("$" + trip.getBudget()));
-        tripLength.setText(String.valueOf(trip.getLength()) + " Days");
+        tripBudget.setText("$" + trip.getBudget());
+        tripLength.setText(trip.getLength() + " Days");
     }
 }
