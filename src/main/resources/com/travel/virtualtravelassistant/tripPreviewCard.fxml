@@ -8,17 +8,17 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane prefHeight="191.0" prefWidth="590.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.travel.virtualtravelassistant.TripPreviewCardController">
+<Pane prefHeight="191.0" prefWidth="550.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.travel.virtualtravelassistant.TripPreviewCardController">
    <children>
       <ImageView fx:id="imageOfDestination" fitHeight="191.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true" />
-      <HBox layoutY="91.0" prefHeight="100.0" prefWidth="590.0">
+      <HBox layoutY="91.0" prefHeight="100.0" prefWidth="550.0">
          <children>
             <Label fx:id="destinationName" alignment="BOTTOM_LEFT" prefHeight="75.0" prefWidth="339.0" text="New York, NY" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
             </Label>
-            <VBox alignment="BOTTOM_RIGHT" prefHeight="75.0" prefWidth="223.0">
+            <VBox alignment="BOTTOM_RIGHT" prefHeight="75.0" prefWidth="226.0">
                <children>
                   <Label fx:id="tripLength" prefHeight="21.0" prefWidth="63.0" text="10 Days" textFill="WHITE">
                      <font>
