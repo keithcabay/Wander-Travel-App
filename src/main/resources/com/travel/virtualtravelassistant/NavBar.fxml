@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="200.0" stylesheets="@NavBar.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.travel.virtualtravelassistant.NavBarController">
+   <children>
+      <AnchorPane prefHeight="768.0" prefWidth="200.0" styleClass="subMainContainer" stylesheets="@NavBar.css">
+         <children>
+            <VBox prefHeight="125.0" prefWidth="200.0" styleClass="vbox-top" stylesheets="@NavBar.css">
+               <children>
+                  <HBox prefHeight="50.0" prefWidth="200.0">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <padding>
+                        <Insets left="50.0" />
+                     </padding>
+                  </HBox>
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="200.0" text="WANDER" textAlignment="CENTER">
+                     <font>
+                        <Font name="Avenir Next Bold" size="26.0" />
+                     </font>
+                  </Label>
+               </children></VBox>
+            <VBox layoutY="125.0" prefHeight="400.0" prefWidth="200.0" styleClass="vbox-middle">
+               <children>
+                  <Label fx:id="helloGuest" prefHeight="38.0" prefWidth="200.0" text="Hello " textFill="WHITE">
+                     <font>
+                        <Font name="Lao MN" size="24.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </Label>
+                  <Separator prefHeight="61.0" prefWidth="200.0" />
+                  <Button fx:id="planTrip" mnemonicParsing="false" onAction="#onPlanTripClick" text="Plan A Trip">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin></Button>
+                  <Button fx:id="viewTrip" mnemonicParsing="false" onAction="#onViewTripClick" text="My Trips">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin></Button>
+                  <Button fx:id="viewPhotos" mnemonicParsing="false" onAction="#onViewPhotosClick" text="My Photos">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin></Button>
+                  <Button fx:id="viewInbox" mnemonicParsing="false" onAction="#onViewInboxClick" text="Inbox">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin></Button>
+                  <Button fx:id="settings" mnemonicParsing="false" onAction="#onSettingsClick" text="Settings">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin></Button>
+               </children>
+            </VBox>
+            <VBox layoutY="525.0" prefHeight="243.0" prefWidth="200.0" styleClass="vbox-bottom">
+               <children>
+                  <Button fx:id="help" mnemonicParsing="false" onAction="#onHelpClick" text="Help">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin></Button>
+                  <Button fx:id="logOut" mnemonicParsing="false" onAction="#onLogOutClick" text="Log Out">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin></Button>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </children>
+</VBox>

@@ -1,0 +1,48 @@
+.root {
+    -fx-background-color: #ececec; /* first-color */
+}
+
+.label {
+    -fx-text-fill: #385170; /* third-color */
+    -fx-font-weight: bold;
+}
+
+.button {
+    -fx-background-color: #9fd3c7; /* second-color */
+    -fx-text-fill: #142d4c; /* fourth-color */
+    -fx-font-weight: bold;
+    -fx-border-color: #385170; /* third-color */
+    -fx-border-width: 2;
+}
+
+.button:hover {
+    -fx-background-color: #385170; /* third-color */
+    -fx-text-fill: #ececec; /* first-color */
+}
+
+.separator {
+    -fx-border-color: #385170; /* third-color */
+    -fx-border-width: 0 0 1 0;
+}
+
+.font-awesome-icon {
+    -fx-fill: #385170; /* third-color */
+}
+
+/* Unique styles for each VBox container */
+.vbox-top {
+    -fx-background-color: #85e2ec; /* first-color */
+}
+
+.vbox-middle {
+    -fx-background-color: #385170; /* second-color */
+
+}
+.vbox-middle .label {
+    -fx-text-fill: #ececec;
+}
+
+.vbox-bottom {
+    -fx-background-color: #385170; /* third-color */
+}
+
