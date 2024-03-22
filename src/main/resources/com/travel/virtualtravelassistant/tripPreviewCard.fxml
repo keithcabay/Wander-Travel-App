@@ -13,14 +13,14 @@
       <ImageView fx:id="imageOfDestination" fitHeight="191.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true" />
       <HBox layoutY="91.0" prefHeight="100.0" prefWidth="550.0">
          <children>
-            <Label fx:id="destinationName" alignment="BOTTOM_LEFT" prefHeight="75.0" prefWidth="339.0" text="New York, NY" textFill="WHITE">
+            <Label fx:id="destinationName" alignment="BOTTOM_LEFT" prefHeight="75.0" prefWidth="339.0" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
             </Label>
             <VBox alignment="BOTTOM_RIGHT" prefHeight="75.0" prefWidth="226.0">
                <children>
-                  <Label fx:id="tripLength" prefHeight="21.0" prefWidth="63.0" text="10 Days" textFill="WHITE">
+                  <Label fx:id="tripLength" prefHeight="21.0" prefWidth="63.0" textFill="WHITE">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -28,7 +28,7 @@
                         <Insets right="25.0" />
                      </VBox.margin>
                   </Label>
-                  <Label fx:id="tripBudget" prefHeight="27.0" prefWidth="74.0" text="\$2000" textFill="WHITE">
+                  <Label fx:id="tripBudget" prefHeight="27.0" prefWidth="74.0" textFill="WHITE">
                      <font>
                         <Font size="18.0" />
                      </font>
