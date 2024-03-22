@@ -85,13 +85,13 @@
                                 <Insets top="25.0" />
                             </VBox.margin>
                             <children>
-                                <Button mnemonicParsing="false" onAction="#onCreateAccountButtonClick" prefHeight="30.0" prefWidth="155.0" styleClass="tripsButton" stylesheets="@ProfilePage.css" text="Create Account">
+                                <Button mnemonicParsing="false" onAction="#onCreateAccountButtonClick" prefHeight="30.0" prefWidth="155.0" styleClass="tripsButton" stylesheets="@Button.css" text="Create Account">
                                     <font>
                                         <Font name="System Bold" size="14.0" />
                                     </font>
                                 </Button>
                                 <Pane prefHeight="42.0" prefWidth="77.0" HBox.hgrow="ALWAYS" />
-                                <Button mnemonicParsing="false" onAction="#onGoToLogInButtonClick" prefHeight="30.0" prefWidth="127.0" styleClass="editProfileButton" stylesheets="@ProfilePage.css" text="Go to Log in">
+                                <Button mnemonicParsing="false" onAction="#onGoToLogInButtonClick" prefHeight="30.0" prefWidth="127.0" styleClass="editProfileButton" stylesheets="@Button.css" text="Go to Log in">
                                     <font>
                                         <Font name="System Bold" size="12.0" />
                                     </font>

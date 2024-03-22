@@ -19,7 +19,7 @@
       <fx:include maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" source="NavBar.fxml" />
    </left>
    <center>
-      <VBox prefHeight="768.0" prefWidth="1151.0" stylesheets="@ProfilePage.css" BorderPane.alignment="CENTER">
+      <VBox prefHeight="768.0" prefWidth="1151.0" stylesheets="@Button.css" BorderPane.alignment="CENTER">
          <children>
             <VBox alignment="CENTER" prefHeight="278.0" prefWidth="1166.0">
                <children>
