@@ -50,7 +50,10 @@ public class NavBarController {
             e.printStackTrace();
         }
     }
-
+    @FXML
+    protected void onMyProfileClick(ActionEvent event) {
+        switchScene(event, "/com/travel/virtualtravelassistant/profilePage.fxml");
+    }
     @FXML
     protected void onPlanTripClick(ActionEvent event) {
         switchScene(event, "/path/to/planTripView.fxml");
