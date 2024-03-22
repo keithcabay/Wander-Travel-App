@@ -37,6 +37,13 @@ public class MainApplication extends Application {
         primaryStage.setTitle("Home");
     }
 
+    public static void showProfileView() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("profilePage.fxml"));
+        Parent root = fxmlLoader.load();
+        primaryStage.setScene(new Scene(root));
+        primaryStage.setTitle("Profile Page");
+    }
+
     private void initializeFirebase() {
         // Initialize Firebase only once.
         if (fstore == null || fauth == null) {
