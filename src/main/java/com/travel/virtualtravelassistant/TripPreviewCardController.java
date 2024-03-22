@@ -5,6 +5,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.util.Objects;
+
 public class TripPreviewCardController {
     @FXML
     private ImageView imageOfDestination;
@@ -19,7 +21,7 @@ public class TripPreviewCardController {
     private Label tripLength;
 
     public void setTrip(Trip trip){
-        Image image = new Image(getClass().getResourceAsStream(trip.getImageSource()));
+        Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream(trip.getImageSource())));
         imageOfDestination.setImage(image);
         imageOfDestination.setPreserveRatio(false);
         imageOfDestination.setOpacity(0.65);
