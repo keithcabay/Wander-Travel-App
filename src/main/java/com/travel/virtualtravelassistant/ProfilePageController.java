@@ -2,7 +2,6 @@ package com.travel.virtualtravelassistant;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
@@ -12,13 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProfilePageController {
-    private List<Trip> trips;
 
     @FXML
     private GridPane upcomingTripsGrid;
 
     public void initialize(){
-        trips = getTrips();
+        List<Trip> trips = getTrips();
         int column = 0;
         int row = 0;
 
