@@ -1,5 +1,6 @@
 package com.travel.virtualtravelassistant;
 
+import com.travel.virtualtravelassistant.User.CurrentUser;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -33,6 +34,9 @@ public class NavBarController {
     // Method to set the username on the Hello label
     public void setUsername(String username) {
         helloGuest.setText("Hello, " + username + "!");
+    }
+    public void initialize(){
+        helloGuest.setText("Hello, " + CurrentUser.getInstance().getUserInfo().getFirst_name() + "!");
     }
 
     // Method to switch scenes
