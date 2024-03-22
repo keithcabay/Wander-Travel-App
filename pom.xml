@@ -89,6 +89,11 @@
             <artifactId>slf4j-api</artifactId>
             <version>1.7.30</version> <!-- Use the latest version -->
         </dependency>
+        <dependency>
+            <groupId>de.jensd</groupId>
+            <artifactId>fontawesomefx</artifactId>
+            <version>8.9</version> <!-- This is an example; make sure to check for the latest or required version -->
+        </dependency>
     </dependencies>
 
 

@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
@@ -9,7 +11,6 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
-<?import javafx.geometry.Insets?>
 
 <BorderPane prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.travel.virtualtravelassistant.HomeController">
     <top>
@@ -17,45 +18,57 @@
             <Menu text="File">
                 <MenuItem text="Close" />
             </Menu>
-            <Menu text="Plan Next Trip">
-                <MenuItem text="New Trip" />
-            </Menu>
-            <Menu text="Suggestions AI">
-                <MenuItem text="Get Suggestions" />
-            </Menu>
-            <Menu text="Settings">
-                <MenuItem text="Preferences" />
-            </Menu>
-            <Menu text="Help">
-                <MenuItem text="About" />
-            </Menu>
         </MenuBar>
     </top>
+    <left>
+        <fx:include source="NavBar.fxml" />
+    </left>
     <center>
-        <VBox spacing="20">
-            <padding>
-                <Insets top="10" right="10" bottom="10" left="10"/>
-            </padding>
+        <VBox spacing="20" style="-fx-padding: 10;">
             <!-- Ready to book your next trip? Section -->
             <VBox spacing="10">
-                <Label text="Ready to book your next trip?" style="-fx-font-weight: bold;"/>
+                <Label style="-fx-font-weight: bold;" text="Ready to book your next trip?">
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </VBox.margin></Label>
                 <HBox spacing="15">
-                    <ImageView fitHeight="150" fitWidth="200" pickOnBounds="true" preserveRatio="true"/>
+                    <ImageView fitHeight="150" fitWidth="200" pickOnBounds="true" preserveRatio="true">
+                  <HBox.margin>
+                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  </HBox.margin></ImageView>
+               <ImageView fitHeight="150" fitWidth="200" pickOnBounds="true" preserveRatio="true">
+                  <HBox.margin>
+                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  </HBox.margin>
+               </ImageView>
                     <VBox spacing="5">
-                        <Label text="Destination 1" />
-                        <Text text="Description of destination 1. A wonderful place to visit."/>
+                        <Label text="Find your next destination" />
+                        <Text text="A wonderful place to visit." />
                     </VBox>
+               <ImageView fitHeight="150" fitWidth="200" pickOnBounds="true" preserveRatio="true">
+                  <HBox.margin>
+                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  </HBox.margin>
+               </ImageView>
+               <ImageView fitHeight="150" fitWidth="200" pickOnBounds="true" preserveRatio="true">
+                  <HBox.margin>
+                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  </HBox.margin>
+               </ImageView>
                 </HBox>
-                <Button text="Plan Trip" />
+                <Button text="Plan Trip">
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </VBox.margin></Button>
             </VBox>
             <!-- Not Sure Where you want to go? Section -->
             <VBox spacing="10">
-                <Label text="Not Sure Where you want to go?" style="-fx-font-weight: bold;"/>
+                <Label style="-fx-font-weight: bold;" text="Not Sure Where you want to go?" />
                 <HBox spacing="15">
-                    <ImageView fitHeight="150" fitWidth="200" pickOnBounds="true" preserveRatio="true"/>
+                    <ImageView fitHeight="150" fitWidth="200" pickOnBounds="true" preserveRatio="true" />
                     <VBox spacing="5">
                         <Label text="AI Suggestions" />
-                        <Text text="Discover new destinations with our AI. It learns from your preferences to suggest the perfect places."/>
+                        <Text text="Discover new destinations with our AI. It learns from your preferences to suggest the perfect places." />
                     </VBox>
                 </HBox>
                 <Button text="Explore Suggestions" />

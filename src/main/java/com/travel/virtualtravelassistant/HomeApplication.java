@@ -1,4 +1,7 @@
 /*
+// you may delete this file since its not needed.
+
+
 package com.travel.virtualtravelassistant;
 
 import javafx.application.Application;

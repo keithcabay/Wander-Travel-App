@@ -1,5 +1,6 @@
 package com.travel.virtualtravelassistant;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -29,5 +30,11 @@ public class HomeController {
     private void exploreSuggestions() {
         // Implement your logic for exploring suggestions
         System.out.println("Exploring suggestions...");
+    }
+
+    @FXML
+    protected void handleCloseCLick(){
+        Platform.exit();
+        System.out.println("Exit CLicked");
     }
 }
