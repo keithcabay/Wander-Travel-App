@@ -1,4 +1,4 @@
-package com.travel.virtualtravelassistant;
+package com.travel.virtualtravelassistant.TripInfo;
 
 public class Trip {
     private String imageSource;
