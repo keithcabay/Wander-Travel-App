@@ -19,95 +19,87 @@
       <fx:include maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" source="NavBar.fxml" />
    </left>
    <center>
-      <VBox prefHeight="768.0" prefWidth="1151.0" stylesheets="@Button.css" BorderPane.alignment="CENTER">
-         <children>
-            <VBox alignment="CENTER" prefHeight="278.0" prefWidth="1166.0">
-               <children>
-                  <HBox alignment="CENTER" fillHeight="false" prefHeight="105.0" prefWidth="555.0">
-                     <children>
-                        <ImageView fitHeight="155.0" fitWidth="155.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@Images/default-profile-picture-icon.png" />
-                           </image>
-                        </ImageView>
-                        <VBox alignment="CENTER_LEFT" prefHeight="562.0" prefWidth="331.0">
-                           <children>
-                              <Label prefHeight="46.0" prefWidth="151.0" text="User Name">
-                                 <font>
-                                    <Font size="28.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets />
-                                 </VBox.margin>
-                                 <padding>
-                                    <Insets left="5.0" />
-                                 </padding>
-                              </Label>
-                              <HBox prefHeight="23.0" prefWidth="261.0">
-                                 <children>
-                                    <ImageView fitHeight="22.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Images/location-pin-drop-icon.png" />
-                                       </image>
-                                    </ImageView>
-                                    <Label text="Location">
-                                       <font>
-                                          <Font size="15.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                              </HBox>
-                           </children>
-                        </VBox>
-                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="136.0" styleClass="editProfileButton" text="Edit Profile" />
-                     </children>
-                  </HBox>
-                  <VBox alignment="CENTER">
-                     <children>
-                        <Label opacity="0.34" prefHeight="17.0" prefWidth="19.0" text="Bio" />
-                        <Label prefHeight="128.0" prefWidth="571.0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." wrapText="true">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </VBox>
-               </children>
-               <VBox.margin>
-                  <Insets bottom="25.0" />
-               </VBox.margin>
-            </VBox>
-            <HBox alignment="BOTTOM_CENTER" prefHeight="54.0" prefWidth="1166.0">
-               <children>
-                  <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                  <Button mnemonicParsing="false" prefHeight="54.0" prefWidth="450.0" styleClass="tripsButton" text="Upcoming Trips" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font></Button>
-                  <Button mnemonicParsing="false" prefHeight="54.0" prefWidth="450.0" styleClass="tripsButton" text="Previous Trips" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font></Button>
-                  <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-               <children>
-                  <ScrollPane prefHeight="768.0" prefWidth="1115.0">
-                     <content>
-                        <GridPane fx:id="upcomingTripsGrid" prefHeight="0.0" prefWidth="11.0">
-                           <rowConstraints>
-                              <RowConstraints minHeight="10.0" prefHeight="191.0" />
-                           </rowConstraints>
-                        </GridPane>
-                     </content>
-                  </ScrollPane>
-               </children>
-            </HBox>
-         </children>
+      <VBox prefHeight="768.0" prefWidth="1151.0" stylesheets="@CSS/Button.css" BorderPane.alignment="CENTER">
          <padding>
-            <Insets top="25.0" />
+            <Insets top="25.0"/>
          </padding>
+         <VBox alignment="CENTER" prefHeight="278.0" prefWidth="1166.0">
+            <VBox.margin>
+               <Insets bottom="25.0"/>
+            </VBox.margin>
+            <HBox alignment="CENTER" fillHeight="false" prefHeight="105.0" prefWidth="555.0">
+               <ImageView fx:id="imageView" fitHeight="155.0" fitWidth="155.0" pickOnBounds="true"
+                          preserveRatio="true">
+                  <image>
+                     <Image url="@Images/profile-pic.png"/>
+                  </image>
+               </ImageView>
+               <VBox alignment="CENTER_LEFT" prefHeight="562.0" prefWidth="331.0">
+                  <Label fx:id="userName" prefHeight="46.0" prefWidth="151.0" text="User Name">
+                     <font>
+                        <Font size="28.0"/>
+                     </font>
+                     <VBox.margin>
+                        <Insets/>
+                     </VBox.margin>
+                     <padding>
+                        <Insets left="5.0"/>
+                     </padding>
+                  </Label>
+                  <HBox prefHeight="23.0" prefWidth="261.0">
+                     <ImageView fitHeight="22.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@Images/location-pin-drop-icon.png"/>
+                        </image>
+                     </ImageView>
+                     <Label text="Location">
+                        <font>
+                           <Font size="15.0"/>
+                        </font>
+                     </Label>
+                  </HBox>
+               </VBox>
+               <Button mnemonicParsing="false" onAction="#onEditProfileClick" prefHeight="25.0" prefWidth="136.0"
+                       styleClass="editProfileButton" text="Edit Profile"/>
+            </HBox>
+            <VBox alignment="CENTER">
+               <Label opacity="0.34" prefHeight="17.0" prefWidth="19.0" text="Bio"/>
+               <Label prefHeight="128.0" prefWidth="571.0"
+                      text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                      wrapText="true">
+                  <font>
+                     <Font size="14.0"/>
+                  </font>
+               </Label>
+            </VBox>
+         </VBox>
+         <HBox alignment="BOTTOM_CENTER" prefHeight="54.0" prefWidth="1166.0">
+            <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS"/>
+            <Button mnemonicParsing="false" prefHeight="54.0" prefWidth="450.0" styleClass="tripsButton"
+                    text="Upcoming Trips" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0"/>
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" prefHeight="54.0" prefWidth="450.0" styleClass="tripsButton"
+                    text="Previous Trips" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0"/>
+               </font>
+            </Button>
+            <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS"/>
+         </HBox>
+         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+            <ScrollPane prefHeight="768.0" prefWidth="1115.0">
+               <content>
+                  <GridPane fx:id="upcomingTripsGrid" prefHeight="0.0" prefWidth="11.0">
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="191.0"/>
+                     </rowConstraints>
+                  </GridPane>
+               </content>
+            </ScrollPane>
+         </HBox>
       </VBox>
    </center>
 </BorderPane>
