@@ -1,10 +1,11 @@
-package com.travel.virtualtravelassistant;
+package com.travel.virtualtravelassistant.AuthenticationControllers;
 
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.WriteResult;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.UserRecord;
+import com.travel.virtualtravelassistant.MainApplication;
 import com.travel.virtualtravelassistant.User.CurrentUser;
 import com.travel.virtualtravelassistant.User.UserInfo;
 import javafx.event.ActionEvent;
@@ -45,10 +46,9 @@ public class RegistrationPageController {
         try {
             String UID = Objects.requireNonNull(createUser(userEmail, userPassword)).getUid();
             addUserToDB(UID, userPassword, userFirstName, userLastName);
-            goToPage(event, "homeView.fxml");
-            UserInfo user = new UserInfo(userFirstName, userLastName, userEmail);
+            UserInfo user = new UserInfo(UID, userFirstName, userLastName, userEmail);
             CurrentUser.getInstance().setUserInfo(user);
-
+            goToPage(event, "/com/travel/virtualtravelassistant/homeView.fxml");
         }catch (Exception e){
             System.out.println("Could not register user.");
         }
@@ -57,7 +57,7 @@ public class RegistrationPageController {
 
     @FXML
     protected void onGoToLogInButtonClick(ActionEvent event){
-        goToPage(event, "LogIn.fxml");
+        goToPage(event, "/com/travel/virtualtravelassistant/LogIn.fxml");
     }
 
     private UserRecord createUser(String email, String password){
@@ -74,7 +74,7 @@ public class RegistrationPageController {
 
     private void goToPage(ActionEvent event, String fxml){
         try {
-            Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxml)));
+            Parent parent = FXMLLoader.load((getClass().getResource(fxml)));
             Scene scene = new Scene(parent);
 
             // Get the Stage from the ActionEvent
@@ -84,6 +84,7 @@ public class RegistrationPageController {
             window.show();
         } catch (IOException e) {
             System.out.println("Failed to load " + fxml +  " page.");
+            e.printStackTrace();
         }
     }
 
@@ -95,7 +96,11 @@ public class RegistrationPageController {
         data.put("last_name", last_name);
         data.put("password", password);
 
-        ApiFuture<WriteResult> result = docRef.set(data);
+        try {
+            ApiFuture<WriteResult> result = docRef.set(data);
+        }catch (Exception e){
+            System.out.println("Could not add new register to DB");
+        }
     }
 
 }

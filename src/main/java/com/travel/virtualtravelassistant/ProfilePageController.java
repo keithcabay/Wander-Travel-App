@@ -1,10 +1,21 @@
 package com.travel.virtualtravelassistant;
 
+import com.travel.virtualtravelassistant.TripInfo.Trip;
+import com.travel.virtualtravelassistant.TripInfo.TripPreviewCardController;
+import com.travel.virtualtravelassistant.User.CurrentUser;
+import com.travel.virtualtravelassistant.Utility.FirebaseStorageAction;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,9 +24,18 @@ import java.util.List;
 public class ProfilePageController {
 
     @FXML
-    private GridPane upcomingTripsGrid;
+    ImageView imageView;
+
+    @FXML
+    GridPane upcomingTripsGrid;
+
+    @FXML
+    Label userName;
 
     public void initialize(){
+        userName.setText(CurrentUser.getInstance().getUserInfo().getFirst_name() + " " +  CurrentUser.getInstance().getUserInfo().getLast_name());
+        imageView.setImage(FirebaseStorageAction.getProfilePicture());
+
         List<Trip> trips = getTrips();
         int column = 0;
         int row = 0;
@@ -43,6 +63,21 @@ public class ProfilePageController {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    public void onEditProfileClick(ActionEvent event){
+        try {
+            Parent parent = FXMLLoader.load((getClass().getResource("profileSettings.fxml")));
+            Scene scene = new Scene(parent);
+
+            // Get the Stage from the ActionEvent
+            Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+
+            window.setScene(scene);
+            window.show();
+        } catch (IOException e) {
+            System.out.println("Failed to load " + "profileSettings.fxml" +  " page.");
         }
     }
 

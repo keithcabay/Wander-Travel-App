@@ -1,6 +1,7 @@
 package com.travel.virtualtravelassistant;
 
 import com.travel.virtualtravelassistant.User.CurrentUser;
+import com.travel.virtualtravelassistant.Utility.FirebaseStorageAction;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -91,5 +92,7 @@ public class NavBarController {
     @FXML
     protected void onLogOutClick(ActionEvent event) {
         switchScene(event, "LogIn.fxml");
+        CurrentUser.getInstance().setUserInfo(null);
+        FirebaseStorageAction.removeTempDirectory();
     }
 }

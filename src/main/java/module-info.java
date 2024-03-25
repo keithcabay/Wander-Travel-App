@@ -11,10 +11,15 @@ module com.travel.virtualtravelassistant {
     requires org.controlsfx.controls;
     requires com.dlsc.formsfx;
     requires org.kordamp.bootstrapfx.core;
+    requires google.cloud.storage;
 
 
     opens com.travel.virtualtravelassistant to javafx.fxml;
     exports com.travel.virtualtravelassistant;
     exports com.travel.virtualtravelassistant.User;
     opens com.travel.virtualtravelassistant.User to javafx.fxml;
+    exports com.travel.virtualtravelassistant.TripInfo;
+    opens com.travel.virtualtravelassistant.TripInfo to javafx.fxml;
+    exports com.travel.virtualtravelassistant.AuthenticationControllers;
+    opens com.travel.virtualtravelassistant.AuthenticationControllers to javafx.fxml;
 }

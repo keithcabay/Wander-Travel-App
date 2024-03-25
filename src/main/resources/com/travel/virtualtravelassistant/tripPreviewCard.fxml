@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 
 <Pane prefHeight="191.0" prefWidth="550.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/21"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.travel.virtualtravelassistant.TripPreviewCardController">
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.travel.virtualtravelassistant.TripInfo.TripPreviewCardController">
    <ImageView fx:id="imageOfDestination" fitHeight="191.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true"/>
    <HBox layoutY="91.0" prefHeight="100.0" prefWidth="550.0">
       <padding>
