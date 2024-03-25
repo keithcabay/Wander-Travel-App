@@ -15,4 +15,6 @@ module com.travel.virtualtravelassistant {
 
     opens com.travel.virtualtravelassistant to javafx.fxml;
     exports com.travel.virtualtravelassistant;
+    exports com.travel.virtualtravelassistant.User;
+    opens com.travel.virtualtravelassistant.User to javafx.fxml;
 }

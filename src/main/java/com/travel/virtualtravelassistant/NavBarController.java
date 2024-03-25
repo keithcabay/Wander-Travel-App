@@ -1,5 +1,6 @@
 package com.travel.virtualtravelassistant;
 
+import com.travel.virtualtravelassistant.User.CurrentUser;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -34,6 +35,9 @@ public class NavBarController {
     public void setUsername(String username) {
         helloGuest.setText("Hello, " + username + "!");
     }
+    public void initialize(){
+        helloGuest.setText("Hello, " + CurrentUser.getInstance().getUserInfo().getFirst_name() + "!");
+    }
 
     // Method to switch scenes
     private void switchScene(ActionEvent event, String fxmlFile) {
@@ -50,7 +54,10 @@ public class NavBarController {
             e.printStackTrace();
         }
     }
-
+    @FXML
+    protected void onMyProfileClick(ActionEvent event) {
+        switchScene(event, "/com/travel/virtualtravelassistant/profilePage.fxml");
+    }
     @FXML
     protected void onPlanTripClick(ActionEvent event) {
         switchScene(event, "/path/to/planTripView.fxml");

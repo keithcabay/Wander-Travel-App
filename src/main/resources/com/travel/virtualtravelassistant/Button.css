@@ -1,0 +1,28 @@
+.root {
+    -fx-background-color: #ececec; /* first-color */
+}
+
+.tripsButton {
+    -fx-background-color: #728c79;
+    -fx-background-radius: 20, 0, 0 0;
+    -fx-text-fill: white;
+}
+
+.tripsButton:hover{
+    -fx-background-color: #5c665c;
+    -fx-font-weight: 700;
+    -fx-text-fill: white;
+    -fx-font-size: 125%;
+}
+
+.editProfileButton{
+    -fx-background-color: #8d918d;
+    -fx-text-fill: black;
+    -fx-font-weight: 700;
+}
+
+.editProfileButton:hover{
+    -fx-background-color: #6a6e6a;
+    -fx-text-fill: white;
+    -fx-font-weight: 700;
+}
