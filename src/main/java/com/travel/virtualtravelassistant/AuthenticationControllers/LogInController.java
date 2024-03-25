@@ -1,12 +1,10 @@
-package com.travel.virtualtravelassistant;
+package com.travel.virtualtravelassistant.AuthenticationControllers;
 
 
 import com.google.api.core.ApiFuture;
-import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.DocumentSnapshot;
-import com.google.cloud.firestore.QuerySnapshot;
 import com.google.firebase.auth.FirebaseAuthException;
-import com.google.firebase.auth.UserRecord;
+import com.travel.virtualtravelassistant.MainApplication;
 import com.travel.virtualtravelassistant.User.CurrentUser;
 import com.travel.virtualtravelassistant.User.UserInfo;
 import javafx.event.ActionEvent;
@@ -19,12 +17,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import org.controlsfx.control.action.Action;
 
 import java.io.IOException;
-import java.util.Objects;
-import java.util.concurrent.ExecutionException;
-
 public class LogInController {
     @FXML
     private Label errorText;
@@ -43,14 +37,14 @@ public class LogInController {
         boolean authenticated = validateUser(userEmail, userPassword);
 
         if (authenticated) {
-            goToPage(event, "homeView.fxml");
+            goToPage(event, "/com/travel/virtualtravelassistant/homeView.fxml");
         }
 
     }
 
     @FXML
     protected void onCreateAccountButtonClicked(ActionEvent event){
-        goToPage(event, "registrationPage.fxml");
+        goToPage(event, "/com/travel/virtualtravelassistant/registrationPage.fxml");
     }
 
     private boolean validateUser(String email, String password){
@@ -73,7 +67,7 @@ public class LogInController {
             }
 
             if(password.equals(validPassword)){
-                UserInfo user = new UserInfo(userFirstName, userLastName, email);
+                UserInfo user = new UserInfo(UID, userFirstName, userLastName, email);
                 CurrentUser.getInstance().setUserInfo(user);
                 return true;
             }else{
@@ -83,6 +77,7 @@ public class LogInController {
 
         } catch (FirebaseAuthException e) {
             System.out.println("Failed to find user.");
+            errorText.setVisible(true);
         }
 
         return false;
@@ -90,7 +85,7 @@ public class LogInController {
 
     private void goToPage(ActionEvent event, String fxml){
         try {
-            Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxml)));
+            Parent parent = FXMLLoader.load((getClass().getResource(fxml)));
             Scene scene = new Scene(parent);
 
             // Get the Stage from the ActionEvent
