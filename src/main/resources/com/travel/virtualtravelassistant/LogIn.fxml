@@ -5,96 +5,96 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.travel.virtualtravelassistant.LogInController">
+<BorderPane prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.travel.virtualtravelassistant.AuthenticationControllers.LogInController">
    <left>
       <VBox prefHeight="768.0" prefWidth="389.0" BorderPane.alignment="CENTER">
-         <children>
-            <Pane prefHeight="225.0" prefWidth="298.0" style="-fx-background-color: #558644;" VBox.vgrow="ALWAYS" />
-            <VBox alignment="CENTER" prefHeight="241.0" prefWidth="298.0" style="-fx-background-color: #558644;">
-               <children>
-                  <Label text="Wander" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="32.0" />
-                     </font></Label>
-               </children>
-            </VBox>
-            <Pane prefHeight="376.0" prefWidth="298.0" style="-fx-background-color: #558644;" VBox.vgrow="ALWAYS" />
-         </children>
+         <Pane prefHeight="196.0" prefWidth="389.0" style="-fx-background-color: #558644;" VBox.vgrow="ALWAYS"/>
+         <VBox alignment="CENTER" prefHeight="241.0" prefWidth="389.0" style="-fx-background-color: #558644;">
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Images/wander-logo.png"/>
+               </image>
+            </ImageView>
+            <Label text="Wander" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="32.0"/>
+               </font>
+               <VBox.margin>
+                  <Insets top="25.0"/>
+               </VBox.margin>
+            </Label>
+         </VBox>
+         <Pane prefHeight="321.0" prefWidth="389.0" style="-fx-background-color: #558644;" VBox.vgrow="ALWAYS"/>
       </VBox>
    </left>
    <center>
       <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <children>
-            <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-            <VBox alignment="CENTER_LEFT" prefHeight="768.0" prefWidth="298.0">
-               <children>
-                  <Pane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
-                  <Label text="Log In">
-                     <font>
-                        <Font name="System Bold" size="40.0" />
-                     </font>
-                  </Label>
-                  <VBox prefHeight="70.0" prefWidth="298.0">
-                     <children>
-                        <Label text="E-mail">
-                           <font>
-                              <Font name="System Bold" size="27.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="email" prefHeight="40.0" prefWidth="298.0" />
-                     </children>
-                  </VBox>
-                  <VBox prefHeight="70.0" prefWidth="289.0">
-                     <children>
-                        <Label text="Password">
-                           <font>
-                              <Font name="System Bold" size="27.0" />
-                           </font>
-                        </Label>
-                        <PasswordField fx:id="password" prefHeight="40.0" prefWidth="303.0" />
-                     </children>
-                  </VBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="298.0">
-                     <VBox.margin>
-                        <Insets top="25.0" />
-                     </VBox.margin>
-                     <children>
-                        <Button mnemonicParsing="false" onAction="#onLoginButtonClick" prefHeight="37.0" prefWidth="95.0" styleClass="tripsButton" stylesheets="@Button.css" text="Log In">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </Button>
-                        <Pane prefHeight="42.0" prefWidth="77.0" HBox.hgrow="ALWAYS" />
-                        <Button mnemonicParsing="false" onAction="#onCreateAccountButtonClicked" prefHeight="37.0" prefWidth="127.0" styleClass="editProfileButton" stylesheets="@Button.css" text="Create Account">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                        </Button>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="56.0" prefWidth="298.0">
-                     <children>
-                        <Label fx:id="errorText" text="Incorrect password or email." textFill="#ff2727" visible="false">
-                           <font>
-                              <Font name="System Bold" size="15.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </HBox>
-                  <Pane prefHeight="234.0" prefWidth="298.0" VBox.vgrow="ALWAYS" />
-               </children>
+         <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS"/>
+         <VBox alignment="CENTER_LEFT" prefHeight="768.0" prefWidth="298.0">
+            <Pane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS"/>
+            <Label text="Log In">
+               <font>
+                  <Font name="System Bold" size="40.0"/>
+               </font>
+            </Label>
+            <VBox prefHeight="70.0" prefWidth="298.0">
+               <Label text="E-mail">
+                  <font>
+                     <Font name="System Bold" size="27.0"/>
+                  </font>
+               </Label>
+               <TextField fx:id="email" prefHeight="40.0" prefWidth="298.0"/>
             </VBox>
-            <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-         </children>
+            <VBox prefHeight="70.0" prefWidth="289.0">
+               <Label text="Password">
+                  <font>
+                     <Font name="System Bold" size="27.0"/>
+                  </font>
+               </Label>
+               <PasswordField fx:id="password" prefHeight="40.0" prefWidth="303.0"/>
+            </VBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="298.0">
+               <VBox.margin>
+                  <Insets top="25.0"/>
+               </VBox.margin>
+               <children>
+                  <Button mnemonicParsing="false" onAction="#onLoginButtonClick" prefHeight="37.0" prefWidth="95.0"
+                          styleClass="tripsButton" stylesheets="@CSS/Button.css" text="Log In">
+                     <font>
+                        <Font name="System Bold" size="14.0"/>
+                     </font>
+                  </Button>
+                  <Pane prefHeight="42.0" prefWidth="77.0" HBox.hgrow="ALWAYS"/>
+                  <Button mnemonicParsing="false" onAction="#onCreateAccountButtonClicked" prefHeight="37.0"
+                          prefWidth="127.0" styleClass="editProfileButton" stylesheets="@CSS/Button.css"
+                          text="Create Account">
+                     <font>
+                        <Font name="System Bold" size="14.0"/>
+                     </font>
+                     <HBox.margin>
+                        <Insets/>
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="56.0" prefWidth="298.0">
+               <Label fx:id="errorText" text="Incorrect password or email." textFill="#ff2727" visible="false">
+                  <font>
+                     <Font name="System Bold" size="15.0"/>
+                  </font>
+               </Label>
+            </HBox>
+            <Pane prefHeight="234.0" prefWidth="298.0" VBox.vgrow="ALWAYS"/>
+         </VBox>
+         <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS"/>
       </HBox>
    </center>
 </BorderPane>
