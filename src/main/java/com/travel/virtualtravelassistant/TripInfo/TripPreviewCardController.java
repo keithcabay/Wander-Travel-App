@@ -1,4 +1,4 @@
-package com.travel.virtualtravelassistant;
+package com.travel.virtualtravelassistant.TripInfo;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
