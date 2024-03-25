@@ -18,6 +18,7 @@ public class FirebaseInitializer {
 
             FirebaseOptions options = FirebaseOptions.builder()
                     .setCredentials(GoogleCredentials.fromStream(serviceAccount))
+                    .setStorageBucket("travel-app-f268d.appspot.com")
                     .build();
 
             if (FirebaseApp.getApps().isEmpty()) {
