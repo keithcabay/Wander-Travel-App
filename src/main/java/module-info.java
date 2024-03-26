@@ -14,6 +14,7 @@ module com.travel.virtualtravelassistant {
     requires google.cloud.storage;
 
 
+
     opens com.travel.virtualtravelassistant to javafx.fxml;
     exports com.travel.virtualtravelassistant;
     exports com.travel.virtualtravelassistant.User;
@@ -22,4 +23,6 @@ module com.travel.virtualtravelassistant {
     opens com.travel.virtualtravelassistant.TripInfo to javafx.fxml;
     exports com.travel.virtualtravelassistant.AuthenticationControllers;
     opens com.travel.virtualtravelassistant.AuthenticationControllers to javafx.fxml;
+    exports com.travel.virtualtravelassistant.NavBar;
+    opens com.travel.virtualtravelassistant.NavBar to javafx.fxml;
 }

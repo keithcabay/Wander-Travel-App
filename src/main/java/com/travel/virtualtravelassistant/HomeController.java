@@ -23,15 +23,17 @@ public class HomeController {
     @FXML
     private void planTrip() {
         // Implement your logic for planning a trip
+        //empty for now
         System.out.println("Planning a new trip...");
     }
 
     @FXML
     private void exploreSuggestions() {
         // Implement your logic for exploring suggestions
+        //empty for now
         System.out.println("Exploring suggestions...");
     }
-
+    //closes app from File Menu Bar
     @FXML
     protected void handleCloseCLick(){
         Platform.exit();

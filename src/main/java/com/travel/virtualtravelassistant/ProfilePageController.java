@@ -33,13 +33,19 @@ public class ProfilePageController {
     Label userName;
 
     public void initialize(){
+
+        // userName
         userName.setText(CurrentUser.getInstance().getUserInfo().getFirst_name() + " " +  CurrentUser.getInstance().getUserInfo().getLast_name());
+        //pfp picture
         imageView.setImage(FirebaseStorageAction.getProfilePicture());
 
+
+        // creates List of tips
         List<Trip> trips = getTrips();
         int column = 0;
         int row = 0;
 
+        // loads Trips into FXML
         for(Trip trip : trips){
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("tripPreviewCard.fxml"));
@@ -65,7 +71,7 @@ public class ProfilePageController {
             }
         }
     }
-
+    // opens profile settings and can be reused in Settings page
     public void onEditProfileClick(ActionEvent event){
         try {
             Parent parent = FXMLLoader.load((getClass().getResource("profileSettings.fxml")));
@@ -80,6 +86,9 @@ public class ProfilePageController {
             System.out.println("Failed to load " + "profileSettings.fxml" +  " page.");
         }
     }
+
+    //displays trips and populates with default values for now.
+    // added multiple instances of trip 1 to populate list for now to see how it may potentially appear once populated
 
     private List<Trip> getTrips(){
         List<Trip> list = new ArrayList<>();

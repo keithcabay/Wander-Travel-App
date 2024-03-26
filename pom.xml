@@ -107,13 +107,16 @@
             <version>1.7.30</version> <!-- Use the latest version -->
         </dependency>
         <dependency>
+            <groupId>com.google.cloud</groupId>
+            <artifactId>google-cloud-storage</artifactId>
+            <version>2.22.4</version>
+        </dependency>
+        <dependency>
             <groupId>de.jensd</groupId>
             <artifactId>fontawesomefx</artifactId>
             <version>8.9</version> <!-- This is an example; make sure to check for the latest or required version -->
         </dependency>
     </dependencies>
-
-
     <build>
         <plugins>
             <plugin>

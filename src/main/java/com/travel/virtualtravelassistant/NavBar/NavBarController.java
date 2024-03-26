@@ -1,4 +1,4 @@
-package com.travel.virtualtravelassistant;
+package com.travel.virtualtravelassistant.NavBar;
 
 import com.travel.virtualtravelassistant.User.CurrentUser;
 import com.travel.virtualtravelassistant.Utility.FirebaseStorageAction;
@@ -55,6 +55,7 @@ public class NavBarController {
             e.printStackTrace();
         }
     }
+    //redirects to profilePage
     @FXML
     protected void onMyProfileClick(ActionEvent event) {
         switchScene(event, "/com/travel/virtualtravelassistant/profilePage.fxml");
@@ -63,32 +64,34 @@ public class NavBarController {
     protected void onPlanTripClick(ActionEvent event) {
         switchScene(event, "/path/to/planTripView.fxml");
     }
-
+    // does not work for now
     @FXML
     protected void onViewTripClick(ActionEvent event) {
         switchScene(event, "/path/to/viewTripView.fxml");
     }
-
+    // does not work for now
     @FXML
     protected void onViewPhotosClick(ActionEvent event) {
         switchScene(event, "/path/to/viewPhotosView.fxml");
     }
-
+    // does not work for now
     @FXML
     protected void onViewInboxClick(ActionEvent event) {
         switchScene(event, "/path/to/viewInboxView.fxml");
     }
-
+    // does not work for now
     @FXML
     protected void onSettingsClick(ActionEvent event) {
         switchScene(event, "/path/to/settingsView.fxml");
     }
-
+    // does not work for now
     @FXML
     protected void onHelpClick(ActionEvent event) {
         switchScene(event, "/path/to/helpView.fxml");
     }
+    // does not work for now
 
+    //logs out and removes directory to clear app
     @FXML
     protected void onLogOutClick(ActionEvent event) {
         switchScene(event, "LogIn.fxml");

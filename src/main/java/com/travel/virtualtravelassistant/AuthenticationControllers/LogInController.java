@@ -41,12 +41,13 @@ public class LogInController {
         }
 
     }
-
+    // redirects to registration page
     @FXML
     protected void onCreateAccountButtonClicked(ActionEvent event){
         goToPage(event, "/com/travel/virtualtravelassistant/registrationPage.fxml");
     }
-
+    // method to validate user with email and password for now
+    // later on can add other authentication methods
     private boolean validateUser(String email, String password){
         try {
             String UID = MainApplication.fauth.getUserByEmail(email).getUid();
@@ -65,7 +66,7 @@ public class LogInController {
             }catch(Exception e){
                 System.out.println("Error getting document.");
             }
-
+            // checks password
             if(password.equals(validPassword)){
                 UserInfo user = new UserInfo(UID, userFirstName, userLastName, email);
                 CurrentUser.getInstance().setUserInfo(user);
@@ -74,7 +75,7 @@ public class LogInController {
                 errorText.setVisible(true);
                 return false;
             }
-
+        // runs if user can not be authenticated and displays an error message
         } catch (FirebaseAuthException e) {
             System.out.println("Failed to find user.");
             errorText.setVisible(true);
@@ -82,7 +83,7 @@ public class LogInController {
 
         return false;
     }
-
+    // goes to page similar to other controller classes
     private void goToPage(ActionEvent event, String fxml){
         try {
             Parent parent = FXMLLoader.load((getClass().getResource(fxml)));

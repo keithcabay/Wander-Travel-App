@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.travel.virtualtravelassistant.NavBarController">
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.travel.virtualtravelassistant.NavBar.NavBarController">
    <center>
       <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="200.0"
             stylesheets="@CSS/NavBar.css">

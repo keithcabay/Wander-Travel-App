@@ -8,7 +8,7 @@ public class CurrentUser {
     private CurrentUser(){
 
     }
-
+// gets user if user is not already defined
     public static CurrentUser getInstance(){
         if(instance == null){
             instance = new CurrentUser();

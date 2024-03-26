@@ -38,12 +38,16 @@ public class ProfileSettingsController {
     public void onUploadProfilePictureClick(){
         FileChooser fileChooser = new FileChooser();
 
+
+        // allows user to input pfp from following file formats
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg")
         );
 
         File fileSelected = fileChooser.showOpenDialog(new Stage());
 
+
+        // checks to see if file is uploaded, then proceeds to save image
         if(fileSelected != null){
             FirebaseStorageAction.uploadProfilePicture(fileSelected);
             Image image = new Image(fileSelected.toURI().toString());

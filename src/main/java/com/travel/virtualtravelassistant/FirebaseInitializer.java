@@ -20,14 +20,14 @@ public class FirebaseInitializer {
                     .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                     .setStorageBucket("travel-app-f268d.appspot.com")
                     .build();
-
+            // notifies if Firebase was initialized
             if (FirebaseApp.getApps().isEmpty()) {
                 FirebaseApp.initializeApp(options);
                 System.out.println("Firebase initialized successfully.");
             } else {
                 System.out.println("Firebase already initialized.");
             }
-
+            // catches in case Firebase cannot initialize
         } catch (IOException ex) {
             System.err.println("Failed to initialize Firebase");
             ex.printStackTrace();

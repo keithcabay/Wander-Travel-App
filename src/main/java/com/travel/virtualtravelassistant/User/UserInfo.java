@@ -1,5 +1,10 @@
 package com.travel.virtualtravelassistant.User;
-
+/*
+* Class UserInfo containts UID, first name, last name, and email address
+* Class constructor creates a new user with the passed in values
+* Class contain getters and setters to access and modify Classes
+*
+ */
 
 public class UserInfo {
     private String UID;
