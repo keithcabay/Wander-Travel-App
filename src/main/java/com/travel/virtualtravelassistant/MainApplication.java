@@ -51,13 +51,6 @@ public class MainApplication extends Application {
         primaryStage.setTitle("Profile Page");
     }
 
-    public static void showPlanNextTripView() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("PlanNextTrip.fxml"));
-        Parent root = fxmlLoader.load();
-        primaryStage.setScene(new Scene(root));
-        primaryStage.setTitle("Plan Next Trip");
-    }
-
     private void initializeFirebase() {
         // Initialize Firebase only once.
         if (fstore == null || fauth == null || firebaseStorage == null) {
