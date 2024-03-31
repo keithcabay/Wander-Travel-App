@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Data Display</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>API Data Display</h1>
+    <form id="location-form">
+        <label for="location">Enter a location:</label>
+        <input type="text" id="location" name="location" required>
+        <button type="submit">Search</button>
+    </form>
+    <ul id="api-data"></ul>
+</div>
+
+<script>
+    document.getElementById('location-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const location = document.getElementById('location').value;
+        fetchData(location);
+    });
+
+    function fetchData(location) {
+        // Fetch data from the API using the specified location
+        fetch('https://api.example.com/reviews?location=' + encodeURIComponent(location))
+            .then(response => response.json())
+            .then(data => {
+                const apiData = document.getElementById('api-data');
+                apiData.innerHTML = ''; // Clear previous results
+                data.forEach(item => {
+                    const li = document.createElement('li');
+                    li.textContent = item.review;
+                    apiData.appendChild(li);
+                });
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    }
+</script>
+</body>
+</html>
