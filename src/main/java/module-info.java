@@ -12,6 +12,7 @@ module com.travel.virtualtravelassistant {
     requires com.dlsc.formsfx;
     requires org.kordamp.bootstrapfx.core;
     requires google.cloud.storage;
+    requires javafx.web;
 
 
 
