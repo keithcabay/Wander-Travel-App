@@ -32,9 +32,6 @@ public class PlanNextTripController implements Initializable {
         webEngine.load(apiUrl);
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-    }
 
 
 

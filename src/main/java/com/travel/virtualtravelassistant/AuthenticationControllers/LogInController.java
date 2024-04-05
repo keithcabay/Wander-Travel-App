@@ -41,6 +41,25 @@ public class LogInController {
         }
 
     }
+
+    @FXML
+    protected void adminLoginClick(ActionEvent event){
+
+        String userEmail = "admin@gmail.com";
+        String userPassword = "Adminpass";
+
+        boolean authenticated = validateUser(userEmail, userPassword);
+
+        if (authenticated) {
+            goToPage(event, "/com/travel/virtualtravelassistant/homeView.fxml");
+        }
+
+    }
+
+
+
+
+
     // redirects to registration page
     @FXML
     protected void onCreateAccountButtonClicked(ActionEvent event){

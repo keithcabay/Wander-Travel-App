@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.web.WebView?>
 
-<BorderPane prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.travel.virtualtravelassistant.ProfilePageController">
+<BorderPane prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.travel.virtualtravelassistant.PlanNextTrip.PlanNextTripController">
    <left>
       <fx:include maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" source="NavBar.fxml" />
    </left>
@@ -38,7 +38,7 @@
                         <HBox prefHeight="100.0" prefWidth="200.0" spacing="15.0">
                            <children>
                               <TextField fx:id="AI_UserInputTextField" prefHeight="25.0" prefWidth="408.0" />
-                              <Button fx:id="AI_EnterButton" mnemonicParsing="false" onAction="#Handle_AI_EnterButton" text="Enter" />
+                              <Button fx:id="AI_EnterButton" mnemonicParsing="false"  text="Enter" />
                            </children>
                         </HBox>
                      </children>
@@ -51,7 +51,7 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding></Pane>
          </HBox>
-         <TextArea fx:id="locationTextField" prefHeight="66.0" prefWidth="910.0" promptText="Where do you want to go?">
+         <TextArea  prefHeight="66.0" prefWidth="910.0" promptText="Where do you want to go?">
             <font>
                <Font size="20.0" />
             </font>
