@@ -48,39 +48,32 @@ public class LogInController {
     }
 
     private boolean validateUser(String email, String password){
-        try {
-            String UID = MainApplication.fauth.getUserByEmail(email).getUid();
+        String UID = email.toLowerCase();
 
-            ApiFuture<DocumentSnapshot> future = MainApplication.fstore.collection("Users").document(UID).get();
+        ApiFuture<DocumentSnapshot> future = MainApplication.fstore.collection("Users").document(UID).get();
 
-            String validPassword = null;
-            String userFirstName = null;
-            String userLastName = null;
+        String validPassword = null;
+        String userFirstName = null;
+        String userLastName = null;
 
-            try{
-                DocumentSnapshot snap = future.get();
-                validPassword = snap.getString("password");
-                userFirstName = snap.getString("first_name");
-                userLastName = snap.getString("last_name");
-            }catch(Exception e){
-                System.out.println("Error getting document.");
-            }
-
-            if(password.equals(validPassword)){
-                UserInfo user = new UserInfo(UID, userFirstName, userLastName, email);
-                CurrentUser.getInstance().setUserInfo(user);
-                return true;
-            }else{
-                errorText.setVisible(true);
-                return false;
-            }
-
-        } catch (FirebaseAuthException e) {
-            System.out.println("Failed to find user.");
-            errorText.setVisible(true);
+        try{
+            DocumentSnapshot snap = future.get();
+            validPassword = snap.getString("password");
+            userFirstName = snap.getString("first_name");
+            userLastName = snap.getString("last_name");
+        }catch(Exception e){
+            System.out.println("Error getting document.");
         }
 
-        return false;
+        if(password.equals(validPassword)){
+            UserInfo user = new UserInfo(UID, userFirstName, userLastName, email);
+            CurrentUser.getInstance().setUserInfo(user);
+            return true;
+        }else{
+            errorText.setVisible(true);
+            return false;
+        }
+
     }
 
     private void goToPage(ActionEvent event, String fxml){
