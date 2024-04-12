@@ -53,13 +53,6 @@ public class ProfilePageController {
                 }
 
                 upcomingTripsGrid.add(pane, column++, row);
-                upcomingTripsGrid.setMinWidth(Region.USE_COMPUTED_SIZE);
-                upcomingTripsGrid.setPrefWidth(Region.USE_COMPUTED_SIZE);
-                upcomingTripsGrid.setMaxHeight(Region.USE_PREF_SIZE);
-
-                upcomingTripsGrid.setMinHeight(Region.USE_COMPUTED_SIZE);
-                upcomingTripsGrid.setPrefHeight(Region.USE_COMPUTED_SIZE);
-                upcomingTripsGrid.setMaxHeight(Region.USE_PREF_SIZE);
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -71,7 +71,7 @@ public class NavBarController {
 
     @FXML
     protected void onViewPhotosClick(ActionEvent event) {
-        switchScene(event, "/path/to/viewPhotosView.fxml");
+        switchScene(event, "/com/travel/virtualtravelassistant/myPhotos.fxml");
     }
 
     @FXML
