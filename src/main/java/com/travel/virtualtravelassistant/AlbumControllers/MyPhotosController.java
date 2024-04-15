@@ -1,4 +1,4 @@
-package com.travel.virtualtravelassistant;
+package com.travel.virtualtravelassistant.AlbumControllers;
 
 import com.travel.virtualtravelassistant.Utility.FirebaseStorageAction;
 import com.travel.virtualtravelassistant.Utility.FirestoreAction;
@@ -15,7 +15,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class MyPhotosController {
 
@@ -32,31 +31,32 @@ public class MyPhotosController {
     private List<Album> newAlbums = new ArrayList<>();
 
     public void initialize(){
-        Map<String, String> albumIdToTitle = FirestoreAction.getAlbums();
+        List<Album> albums = FirestoreAction.getAlbums();
 
-        for(String key : albumIdToTitle.keySet()){
-            String title = albumIdToTitle.get(key);
-            Image image = FirebaseStorageAction.getAlbumImages(key, title);
-            if(image != null){
-                loadAlbumPreview(new Album(image, title));
-            }
-
+        for(Album album : albums){
+            Image image = new Image(album.getAlbumCover().getImageURL());
+            album.setCurrImage(image);
+            loadAlbumPreviewWithDB(album);
         }
     }
 
     public void handleSaveChangesButton(){
         saveChanges.setVisible(false);
+
         for(Album album : newAlbums) {
-            String albumId = FirestoreAction.storeAlbum(album);
-            FirebaseStorageAction.createImageFolder(albumId);
-            String httpURL = FirebaseStorageAction.uploadAlbumImage(albumId, album.getTitle(), album.getAlbumCover());
-            album.setAlbumCoverURL(httpURL);
+            String albumId = FirebaseStorageAction.createImageFolder();
+            String httpURL = FirebaseStorageAction.uploadAlbumImage(albumId, album.getPathToLocalCover());
+            album.setFirestoreId(albumId);
+            UserImage userImage = new UserImage();
+            userImage.setImageURL(httpURL);
+            album.setAlbumCover(userImage);
+            FirestoreAction.storeAlbumInfo(album);
         }
         newAlbums = new ArrayList<>();
     }
 
     public void handleAddAlbumButton(){
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("createAlbumForm.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/travel/virtualtravelassistant/createAlbumForm.fxml"));
         CreateAlbumFormController createAlbumFormController;
         try {
             BorderPane borderPane = loader.load();
@@ -68,9 +68,13 @@ public class MyPhotosController {
 
             popupStage.showAndWait();
 
-            String image = createAlbumFormController.getImage();
+            String pathToImage = createAlbumFormController.getImage();
             String title = createAlbumFormController.getTitle();
-            Album newAlbum = new Album(image, title);
+
+            Album newAlbum = new Album();
+            newAlbum.setPathToLocalCover(pathToImage);
+            newAlbum.setTitle(title);
+
             newAlbums.add(newAlbum);
 
             loadAlbumPreview(newAlbum);
@@ -84,7 +88,7 @@ public class MyPhotosController {
     //load album preview card with given album information
     private void loadAlbumPreview(Album album){
         FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("albumCard.fxml"));
+        fxmlLoader.setLocation(getClass().getResource("/com/travel/virtualtravelassistant/albumCard.fxml"));
 
         try {
             BorderPane borderPane = fxmlLoader.load();
@@ -97,12 +101,14 @@ public class MyPhotosController {
     }
 
     //load empty album preview card
-    private void loadAlbumPreview(){
+    private void loadAlbumPreviewWithDB(Album album){
         FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("albumCard.fxml"));
+        fxmlLoader.setLocation(getClass().getResource("/com/travel/virtualtravelassistant/albumCard.fxml"));
 
         try {
             BorderPane borderPane = fxmlLoader.load();
+            AlbumCardController albumCardController = fxmlLoader.getController();
+            albumCardController.setAlbumInfoWithURL(album);
             albumsGrid.add(borderPane, currGridColumn++, currGridRow);
         } catch (IOException e) {
             throw new RuntimeException(e);
