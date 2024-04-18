@@ -48,7 +48,7 @@ public class MyPhotosController {
         saveChanges.setVisible(false);
 
         for(Album album : newAlbums) {
-            String httpURL = FirebaseStorageAction.uploadAlbumImage(album);
+            String httpURL = FirebaseStorageAction.uploadImageToAlbum(album, album.getAlbumCover());
             album.getAlbumCover().setImageURL(httpURL);
 
             FirestoreAction.storeAlbumInfo(album);
