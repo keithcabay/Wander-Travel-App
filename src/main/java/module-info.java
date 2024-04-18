@@ -22,4 +22,6 @@ module com.travel.virtualtravelassistant {
     opens com.travel.virtualtravelassistant.TripInfo to javafx.fxml;
     exports com.travel.virtualtravelassistant.AuthenticationControllers;
     opens com.travel.virtualtravelassistant.AuthenticationControllers to javafx.fxml;
+    exports com.travel.virtualtravelassistant.AlbumControllers;
+    opens com.travel.virtualtravelassistant.AlbumControllers to javafx.fxml;
 }
