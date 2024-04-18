@@ -55,18 +55,22 @@ public class LogInController {
         String validPassword = null;
         String userFirstName = null;
         String userLastName = null;
+        String bio = null;
+        String location = null;
 
         try{
             DocumentSnapshot snap = future.get();
             validPassword = snap.getString("password");
             userFirstName = snap.getString("first_name");
             userLastName = snap.getString("last_name");
+            bio = snap.getString("bio");
+            location = snap.getString("location");
         }catch(Exception e){
             System.out.println("Error getting document.");
         }
 
         if(password.equals(validPassword)){
-            UserInfo user = new UserInfo(UID, userFirstName, userLastName, email);
+            UserInfo user = new UserInfo(UID, userFirstName, userLastName, email, location, bio);
             CurrentUser.getInstance().setUserInfo(user);
             return true;
         }else{
