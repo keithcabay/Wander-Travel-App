@@ -61,7 +61,7 @@ public class NavBarController {
     }
     @FXML
     protected void onPlanTripClick(ActionEvent event) {
-        switchScene(event, "/path/to/planTripView.fxml");
+        switchScene(event, "/com/travel/virtualtravelassistant/PlanNextTrip.fxml");
     }
 
     @FXML
@@ -81,7 +81,7 @@ public class NavBarController {
 
     @FXML
     protected void onSettingsClick(ActionEvent event) {
-        switchScene(event, "/path/to/settingsView.fxml");
+        switchScene(event, "/com/travel/virtualtravelassistant/profileSettings.fxml");
     }
 
     @FXML
