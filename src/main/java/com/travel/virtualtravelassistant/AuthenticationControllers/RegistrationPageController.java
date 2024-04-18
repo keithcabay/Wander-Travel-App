@@ -1,13 +1,13 @@
 package com.travel.virtualtravelassistant.AuthenticationControllers;
 
-import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.DocumentReference;
-import com.google.cloud.firestore.WriteResult;
+import com.google.cloud.firestore.WriteBatch;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.UserRecord;
 import com.travel.virtualtravelassistant.MainApplication;
 import com.travel.virtualtravelassistant.User.CurrentUser;
 import com.travel.virtualtravelassistant.User.UserInfo;
+import com.travel.virtualtravelassistant.Utility.FirebaseStorageAction;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,7 +21,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 public class RegistrationPageController {
     @FXML
@@ -44,10 +43,11 @@ public class RegistrationPageController {
         String userLastName = lastName.getText();
 
         try {
-            String UID = Objects.requireNonNull(createUser(userEmail, userPassword)).getUid();
-            addUserToDB(UID, userPassword, userFirstName, userLastName);
-            UserInfo user = new UserInfo(UID, userFirstName, userLastName, userEmail);
+            createUserInAuthentication(userEmail, userPassword);
+            addUserToDB(userEmail.toLowerCase(), userPassword, userFirstName, userLastName);
+            UserInfo user = new UserInfo(userEmail.toLowerCase(), userFirstName, userLastName, userEmail);
             CurrentUser.getInstance().setUserInfo(user);
+            FirebaseStorageAction.createUserFolder();
             goToPage(event, "/com/travel/virtualtravelassistant/homeView.fxml");
         }catch (Exception e){
             System.out.println("Could not register user.");
@@ -60,16 +60,16 @@ public class RegistrationPageController {
         goToPage(event, "/com/travel/virtualtravelassistant/LogIn.fxml");
     }
 
-    private UserRecord createUser(String email, String password){
+    private void createUserInAuthentication(String email, String password){
         UserRecord.CreateRequest createRequest = new UserRecord.CreateRequest();
+        createRequest.setUid(email.toLowerCase());
         createRequest.setEmail(email);
         createRequest.setPassword(password);
         try {
-            return MainApplication.fauth.createUser(createRequest);
+            MainApplication.fauth.createUser(createRequest);
         } catch (FirebaseAuthException e) {
             System.out.println("Error creating new user in firebase");
         }
-        return null;
     }
 
     private void goToPage(ActionEvent event, String fxml){
@@ -89,15 +89,15 @@ public class RegistrationPageController {
     }
 
     private void addUserToDB(String UID, String password, String first_name, String last_name){
-        DocumentReference docRef = MainApplication.fstore.collection("Users").document(UID);
+        DocumentReference usersRef = MainApplication.fstore.collection("Users").document(UID);
 
-        Map<String, Object> data = new HashMap<>();
-        data.put("first_name", first_name);
-        data.put("last_name", last_name);
-        data.put("password", password);
+        Map<String, Object> userData = new HashMap<>();
+        userData.put("first_name", first_name);
+        userData.put("last_name", last_name);
+        userData.put("password", password);
 
         try {
-            ApiFuture<WriteResult> result = docRef.set(data);
+            usersRef.set(userData);
         }catch (Exception e){
             System.out.println("Could not add new register to DB");
         }

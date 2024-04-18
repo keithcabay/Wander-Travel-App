@@ -26,3 +26,15 @@
     -fx-text-fill: white;
     -fx-font-weight: 700;
 }
+
+.save-changes-button{
+    -fx-background-color: #97c297;
+    -fx-text-fill: white;
+    -fx-font-weight: 700;
+}
+
+.save-changes-button:hover{
+    -fx-background-color: #e8e8e8;
+    -fx-text-fill: #97c297;
+    -fx-font-weight: 700;
+}

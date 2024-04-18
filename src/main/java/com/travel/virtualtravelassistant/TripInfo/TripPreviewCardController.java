@@ -20,7 +20,7 @@ public class TripPreviewCardController {
     @FXML
     private Label tripLength;
 
-    public void setTrip(Trip trip){
+    public void setUpcomingTrip(Trip trip){
         Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream(trip.getImageSource())));
         imageOfDestination.setImage(image);
         imageOfDestination.setPreserveRatio(false);
@@ -29,5 +29,14 @@ public class TripPreviewCardController {
         destinationName.setText(trip.getCityName() + ", " + trip.getCountryName());
         tripBudget.setText("$" + trip.getBudget());
         tripLength.setText(trip.getLength() + " Days");
+    }
+
+    public void setPreviousTrip(Trip trip){
+        Image image = trip.getImage();
+        imageOfDestination.setImage(image);
+        imageOfDestination.setPreserveRatio(false);
+        imageOfDestination.setOpacity(0.65);
+        imageOfDestination.setFitWidth(550);
+        destinationName.setText(trip.getCountryName());
     }
 }

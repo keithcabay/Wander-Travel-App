@@ -2,15 +2,19 @@ package com.travel.virtualtravelassistant;
 
 import com.travel.virtualtravelassistant.User.CurrentUser;
 import com.travel.virtualtravelassistant.Utility.FirebaseStorageAction;
+import com.travel.virtualtravelassistant.Utility.FirestoreAction;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.util.Objects;
 
 public class ProfileSettingsController {
     
@@ -18,21 +22,66 @@ public class ProfileSettingsController {
     ImageView imageView;
 
     @FXML
-    Label userName;
+    Label firstName;
+
+    @FXML
+    Label lastName;
 
     @FXML
     Label Bio;
 
     @FXML
-    TextArea TextArea;
+    Label locationLabel;
+
+    @FXML
+    TextArea bioField;
+
+    @FXML
+    TextField firstNameField;
+
+    @FXML
+    TextField lastNameField;
+
+    @FXML
+    TextField locationField;
+
+    @FXML
+    Button saveChangesButton;
+
+    @FXML
+    Button discardChangesButton;
 
     public void initialize(){
         System.out.println("Initializing Profile Settings page.");
-        userName.setText(CurrentUser.getInstance().getUserInfo().getFullName());
         Image image = FirebaseStorageAction.getProfilePicture();
+
+        String firsNameText = CurrentUser.getInstance().getUserInfo().getFirst_name();
+        String lastNameText = CurrentUser.getInstance().getUserInfo().getLast_name();
+        String locationText = CurrentUser.getInstance().getUserInfo().getLocation();
+        String bioText = CurrentUser.getInstance().getUserInfo().getBio();
+
+        firstName.setText(firsNameText);
+        lastName.setText(lastNameText);
+        firstNameField.setText(firsNameText);
+        lastNameField.setText(lastNameText);
+
+        if(CurrentUser.getInstance().getUserInfo().getBio() != null){
+            Bio.setText(bioText);
+            bioField.setText(bioText);
+        }
+
+        if(CurrentUser.getInstance().getUserInfo().getLocation() != null){
+            locationLabel.setText(locationText);
+            locationField.setText(locationText);
+        }
+
+        Bio.textProperty().bindBidirectional(bioField.textProperty());
+        firstName.textProperty().bindBidirectional(firstNameField.textProperty());
+        lastName.textProperty().bindBidirectional(lastNameField.textProperty());
+        locationLabel.textProperty().bindBidirectional(locationField.textProperty());
+
         System.out.println(image);
         imageView.setImage(image);
-        Bio.textProperty().bind(TextArea.textProperty());
     }
 
     public void onUploadProfilePictureClick(){
@@ -51,6 +100,33 @@ public class ProfileSettingsController {
         }else{
             System.out.println("No file selected.");
         }
+    }
 
+    public void onSaveChangesClick(){
+        String firsNameText = firstName.getText();
+        String lastNameText = lastName.getText();
+        String locationText = locationLabel.getText();
+        String bioText = Bio.getText();
+
+        CurrentUser.getInstance().getUserInfo().setFirst_name(firsNameText);
+        CurrentUser.getInstance().getUserInfo().setLast_name(lastNameText);
+        CurrentUser.getInstance().getUserInfo().setLocation(locationText);
+        CurrentUser.getInstance().getUserInfo().setBio(bioText);
+
+        FirestoreAction.saveProfileChanges(firsNameText, lastNameText, locationText, bioText);
+    }
+
+    public void onDiscardChangesClick(){
+        String firsNameText = CurrentUser.getInstance().getUserInfo().getFirst_name();
+        String lastNameText = CurrentUser.getInstance().getUserInfo().getLast_name();
+        String locationText = CurrentUser.getInstance().getUserInfo().getLocation();
+        String bioText = CurrentUser.getInstance().getUserInfo().getBio();
+
+        firstName.setText(firsNameText);
+        lastName.setText(lastNameText);
+
+        locationLabel.setText(Objects.requireNonNullElse(locationText, ""));
+
+        Bio.setText(Objects.requireNonNullElse(bioText, ""));
     }
 }

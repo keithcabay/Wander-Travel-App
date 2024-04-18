@@ -61,7 +61,7 @@ public class NavBarController {
     }
     @FXML
     protected void onPlanTripClick(ActionEvent event) {
-        switchScene(event, "/path/to/planTripView.fxml");
+        switchScene(event, "/com/travel/virtualtravelassistant/PlanNextTrip.fxml");
     }
 
     @FXML
@@ -71,7 +71,7 @@ public class NavBarController {
 
     @FXML
     protected void onViewPhotosClick(ActionEvent event) {
-        switchScene(event, "/path/to/viewPhotosView.fxml");
+        switchScene(event, "/com/travel/virtualtravelassistant/myPhotos.fxml");
     }
 
     @FXML
@@ -81,7 +81,7 @@ public class NavBarController {
 
     @FXML
     protected void onSettingsClick(ActionEvent event) {
-        switchScene(event, "/path/to/settingsView.fxml");
+        switchScene(event, "/com/travel/virtualtravelassistant/profileSettings.fxml");
     }
 
     @FXML
@@ -91,8 +91,7 @@ public class NavBarController {
 
     @FXML
     protected void onLogOutClick(ActionEvent event) {
-        switchScene(event, "LogIn.fxml");
+        switchScene(event, "/com/travel/virtualtravelassistant/LogIn.fxml");
         CurrentUser.getInstance().setUserInfo(null);
-        FirebaseStorageAction.removeTempDirectory();
     }
 }
