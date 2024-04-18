@@ -71,12 +71,12 @@
          </VBox>
          <HBox alignment="BOTTOM_CENTER" prefHeight="54.0" prefWidth="1166.0">
             <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-            <Button mnemonicParsing="false" prefHeight="54.0" prefWidth="450.0" styleClass="tripsButton" text="Upcoming Trips" textFill="WHITE">
+            <Button mnemonicParsing="false" onAction="#onUpcomingTripsClick" prefHeight="54.0" prefWidth="450.0" styleClass="tripsButton" text="Upcoming Trips" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="54.0" prefWidth="450.0" styleClass="tripsButton" text="Previous Trips" textFill="WHITE">
+            <Button mnemonicParsing="false" onAction="#onPreviousTripsClick" prefHeight="54.0" prefWidth="450.0" styleClass="tripsButton" text="Previous Trips" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
