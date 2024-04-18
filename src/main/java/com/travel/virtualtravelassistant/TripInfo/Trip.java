@@ -1,6 +1,10 @@
 package com.travel.virtualtravelassistant.TripInfo;
 
+import javafx.scene.image.Image;
+
 public class Trip {
+    private Image image;
+
     private String imageSource;
 
     private String countryName;
@@ -10,6 +14,14 @@ public class Trip {
     private double budget;
 
     private int length;
+
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
+    }
 
     public String getImageSource() {
         return imageSource;
