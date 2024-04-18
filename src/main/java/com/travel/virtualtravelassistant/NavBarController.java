@@ -91,8 +91,7 @@ public class NavBarController {
 
     @FXML
     protected void onLogOutClick(ActionEvent event) {
-        switchScene(event, "LogIn.fxml");
+        switchScene(event, "/com/travel/virtualtravelassistant/LogIn.fxml");
         CurrentUser.getInstance().setUserInfo(null);
-        FirebaseStorageAction.removeTempDirectory();
     }
 }
