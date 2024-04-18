@@ -30,11 +30,23 @@ public class ProfilePageController {
     GridPane upcomingTripsGrid;
 
     @FXML
+    Label locationLabel;
+
+    @FXML
+    Label bio;
+
+    @FXML
     Label userName;
 
     public void initialize(){
-        userName.setText(CurrentUser.getInstance().getUserInfo().getFirst_name() + " " +  CurrentUser.getInstance().getUserInfo().getLast_name());
         imageView.setImage(FirebaseStorageAction.getProfilePicture());
+        userName.setText(CurrentUser.getInstance().getUserInfo().getFirst_name() + " " +  CurrentUser.getInstance().getUserInfo().getLast_name());
+        if(CurrentUser.getInstance().getUserInfo().getBio() != null){
+            bio.setText(CurrentUser.getInstance().getUserInfo().getBio());
+        }
+        if(CurrentUser.getInstance().getUserInfo().getLocation() != null){
+            locationLabel.setText(CurrentUser.getInstance().getUserInfo().getLocation());
+        }
 
         List<Trip> trips = getTrips();
         int column = 0;
