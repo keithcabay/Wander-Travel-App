@@ -17,45 +17,63 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MyPhotosController {
-
     @FXML
     GridPane albumsGrid;
-
     @FXML
     Button saveChanges;
-
     private int currGridColumn = 0;
-
     private final int currGridRow = 0;
-
     private List<Album> newAlbums = new ArrayList<>();
 
+
+    /***
+     * On page load albums information will be fetched from Firestore and loaded from Firebase storage
+     */
     public void initialize(){
         List<Album> albums = FirestoreAction.getAlbums();
 
         for(Album album : albums){
             Image image = new Image(album.getAlbumCover().getImageURL());
-            album.setCurrImage(image);
+            album.setCurrentAlbumCoverImage(image);
             loadAlbumPreviewWithDB(album);
         }
     }
 
+
+    /***
+     * Method for when save change button is clicked.
+     * Saves all the albums in newAlbums to Firebase Storage and Firestore.
+     */
     public void handleSaveChangesButton(){
         saveChanges.setVisible(false);
 
         for(Album album : newAlbums) {
-            String albumId = FirebaseStorageAction.createImageFolder();
-            String httpURL = FirebaseStorageAction.uploadAlbumImage(albumId, album.getPathToLocalCover());
-            album.setFirestoreId(albumId);
-            UserImage userImage = new UserImage();
-            userImage.setImageURL(httpURL);
-            album.setAlbumCover(userImage);
+            String httpURL = FirebaseStorageAction.uploadAlbumImage(album);
+            album.getAlbumCover().setImageURL(httpURL);
+
             FirestoreAction.storeAlbumInfo(album);
         }
         newAlbums = new ArrayList<>();
     }
 
+
+    /***
+     * Method for when add album button is clicked.
+     * Gets album created locally and adds it to the newAlbums list for remote processing.
+     */
     public void handleAddAlbumButton(){
+        Album newAlbum = createAlbumForm();
+        newAlbums.add(newAlbum);
+
+        saveChanges.setVisible(true);
+    }
+
+
+    /***
+     * Loads create album form with title and file chooser.
+     * @return album with info given in the form
+     */
+    private Album createAlbumForm(){
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/travel/virtualtravelassistant/createAlbumForm.fxml"));
         CreateAlbumFormController createAlbumFormController;
         try {
@@ -71,18 +89,20 @@ public class MyPhotosController {
             String pathToImage = createAlbumFormController.getImage();
             String title = createAlbumFormController.getTitle();
 
-            Album newAlbum = new Album();
-            newAlbum.setPathToLocalCover(pathToImage);
-            newAlbum.setTitle(title);
+            UserImage userImage = new UserImage();
+            userImage.setLocalPathToImage(pathToImage);
 
-            newAlbums.add(newAlbum);
+            Album newAlbum = new Album();
+            newAlbum.setLocalPathToCover(userImage.getLocalPathToImage());
+            newAlbum.setTitle(title);
+            newAlbum.setAlbumCover(userImage);
 
             loadAlbumPreview(newAlbum);
+
+            return  newAlbum;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-        saveChanges.setVisible(true);
     }
 
     //load album preview card with given album information
