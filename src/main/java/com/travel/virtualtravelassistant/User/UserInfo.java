@@ -1,6 +1,8 @@
 package com.travel.virtualtravelassistant.User;
 
 
+import javafx.scene.image.Image;
+
 public class UserInfo {
     private String UID;
 
@@ -9,6 +11,8 @@ public class UserInfo {
    private String last_name;
 
    private String email;
+
+   private Image profile_picture;
 
    public UserInfo(String UID, String first_name, String last_name, String email){
         this.UID = UID;
@@ -51,5 +55,13 @@ public class UserInfo {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Image getProfile_picture() {
+        return profile_picture;
+    }
+
+    public void setProfile_picture(Image profile_picture) {
+        this.profile_picture = profile_picture;
     }
 }
