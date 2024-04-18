@@ -5,6 +5,7 @@ public class UserImage {
 
     private String firestoreId;
 
+    private String localPathToImage;
 
     public String getImageURL() {
         return imageURL;
@@ -20,5 +21,13 @@ public class UserImage {
 
     public void setFirestoreId(String firestoreId) {
         this.firestoreId = firestoreId;
+    }
+
+    public String getLocalPathToImage() {
+        return localPathToImage;
+    }
+
+    public void setLocalPathToImage(String localPathToImage) {
+        this.localPathToImage = localPathToImage;
     }
 }
