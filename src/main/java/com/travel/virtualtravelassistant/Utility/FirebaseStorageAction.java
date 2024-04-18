@@ -8,8 +8,6 @@ import com.travel.virtualtravelassistant.User.CurrentUser;
 import javafx.scene.image.Image;
 
 import java.io.*;
-import java.net.URL;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.UUID;
@@ -22,18 +20,30 @@ public class FirebaseStorageAction {
 
     private static GoogleCredentials googleCredentials;
 
-    private static Path USER_IMAGE_DIRECTORY = null;
-
     private static final Path DEFAULT_PROFILE_PIC = Path.of("src/main/resources/com/travel/virtualtravelassistant/Images/profile-pic.png");
 
     private FirebaseStorageAction(){}
 
+
+    /***
+     * Caches the profile picture and calls to save it in Firebase Storage
+     * @param imageSelected which is the image file the user chose to set as there profile picture
+     */
     public static void uploadProfilePicture(File imageSelected){
+        CurrentUser.getInstance().getUserInfo().setProfile_picture(new Image(imageSelected.toURI().toString()));
         uploadImage("profile-pic.png", imageSelected.getAbsolutePath());
     }
 
 
+    /***
+     * Gets the users profile picture either from cache or Firebase Storage
+     * @return profile picture as an Image
+     */
     public static Image getProfilePicture(){
+        if(CurrentUser.getInstance().getUserInfo().getProfile_picture() != null){
+            return CurrentUser.getInstance().getUserInfo().getProfile_picture();
+        }
+
         String imagePath = "profile-pic.png";
 
         Image profilePic = getImage(imagePath);
@@ -45,6 +55,12 @@ public class FirebaseStorageAction {
         return profilePic;
     }
 
+
+    /***
+     * Gets image from Firebase Storage
+     * @param imagePath which is the remote path to the image within the user's Firebase Storage folder
+     * @return the image received as an Image
+     */
     private static Image getImage(String imagePath){
         GoogleCredentials credentials = getCredentials();
 
@@ -63,6 +79,12 @@ public class FirebaseStorageAction {
     }
 
 
+    /***
+     * Uploads image to Firebase Storage
+     * @param folderPath the remote folder path where the image should be saved within the user's Firebase Storage folder
+     * @param filePath the local path to the image being uploaded
+     * @return a URL to be used to make HTTP requests to the image
+     */
     private static String uploadImage(String folderPath, String filePath){
         GoogleCredentials credentials = getCredentials();
 
@@ -85,6 +107,11 @@ public class FirebaseStorageAction {
         return null;
     }
 
+
+    /***
+     * Creates the user's personal folder within Firebase Storage
+     * @return the name of the personal folder
+     */
     public static String createUserFolder(){
         GoogleCredentials credentials = getCredentials();
 
@@ -104,6 +131,8 @@ public class FirebaseStorageAction {
         return folderName;
     }
 
+
+
     private static String createImageFolder(Album album){
         GoogleCredentials credentials = getCredentials();
 
@@ -120,18 +149,31 @@ public class FirebaseStorageAction {
            }
             album.setFirestoreId(id);
         }
+
         return album.getFirestoreId();
     }
 
-    public static String uploadAlbumImage(Album album){
+
+    /***
+     * Upload a user image to an album within Firebase Storage
+     * @param album which is the album the image is being added to
+     * @param userImage which is the userImage being added
+     * @return a URL to be used to make HTTP requests to the image
+     */
+    public static String uploadImageToAlbum(Album album, UserImage userImage){
         String albumId = createImageFolder(album);
-        String imageId = UUID.randomUUID().toString();
+        String imageId = userImage.getFirestoreId();
+
+        if(imageId == null){
+            imageId = UUID.randomUUID().toString();
+            userImage.setFirestoreId(imageId);
+        }
 
         System.out.println(albumId);
         System.out.println(imageId);
         String folder = albumId + "/" + imageId;
 
-        return uploadImage(folder, album.getLocalPathToCover());
+        return uploadImage(folder, userImage.getLocalPathToImage());
     }
 
 
@@ -141,11 +183,20 @@ public class FirebaseStorageAction {
         return getImage(imagePath);
     }
 
+    /***
+     * Load an image from Firebase Storage through HTTP request with the URL
+     * @param userImage which is the object containing the image's URL
+     * @return the loaded image
+     */
     public static Image getImageWithURL(UserImage userImage){
         return new Image(userImage.getImageURL());
     }
 
 
+    /***
+     * Sets Google credentials if it hasn't been set
+     * @return the instance of Google credentials
+     */
     private static GoogleCredentials getCredentials(){
         if(googleCredentials == null) {
             try {
@@ -158,6 +209,12 @@ public class FirebaseStorageAction {
         return googleCredentials;
     }
 
+
+    /***
+     * Created the URL to the image within Firebase Storage to use for HTTP requests
+     * @param imagePath which is the path to the image within Firebase Storage in the user's folder
+     * @return the URL
+     */
     private static String createHttpURL(String imagePath){
         GoogleCredentials credentials = getCredentials();
 
@@ -175,24 +232,4 @@ public class FirebaseStorageAction {
 
         return null;
     }
-
-    private static void createTempDirectory(){
-        if(USER_IMAGE_DIRECTORY == null){
-            try {
-                System.out.println("Creating temp directory");
-                USER_IMAGE_DIRECTORY = Files.createTempDirectory("");
-                System.out.println("Temp directory created");
-            } catch (IOException e) {
-                System.out.println("Could not create new directory");
-                throw new RuntimeException(e);
-            }
-        }else{
-            System.out.println("Directory already exists.");
-        }
-    }
-
-    public static void removeTempDirectory(){
-        USER_IMAGE_DIRECTORY = null;
-    }
-
 }
