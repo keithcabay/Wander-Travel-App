@@ -96,14 +96,8 @@ public class RegistrationPageController {
         userData.put("last_name", last_name);
         userData.put("password", password);
 
-        WriteBatch batch = MainApplication.fstore.batch();
-        batch.set(usersRef, userData);
-
-        DocumentReference albumsRef = usersRef.collection("albums").document();
-        batch.set(albumsRef, new HashMap<>());
-
         try {
-            batch.commit();
+            usersRef.set(userData);
         }catch (Exception e){
             System.out.println("Could not add new register to DB");
         }
