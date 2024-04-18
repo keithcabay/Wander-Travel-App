@@ -94,4 +94,25 @@ public class FirestoreAction {
 
         return imageDocId;
     }
+
+
+    /***
+     * Save profile changes in Firestore
+     */
+    public static void saveProfileChanges(String firstName, String lastName, String location, String bio) {
+        DocumentReference usersRef = MainApplication.fstore.collection("Users").document(CurrentUser.getInstance().getUserInfo().getUID());
+
+        Map<String, Object> userData = new HashMap<>();
+        userData.put("first_name", firstName);
+        userData.put("last_name", lastName);
+        userData.put("location", location);
+        userData.put("bio", bio);
+
+
+        try {
+            usersRef.update(userData);
+        }catch (Exception e){
+            System.out.println("Could not add new register to DB");
+        }
+    }
 }
