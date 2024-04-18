@@ -2,15 +2,18 @@ package com.travel.virtualtravelassistant.Utility;
 
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.storage.*;
+import com.travel.virtualtravelassistant.AlbumControllers.Album;
+import com.travel.virtualtravelassistant.AlbumControllers.UserImage;
 import com.travel.virtualtravelassistant.User.CurrentUser;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 
 import java.io.*;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 public class FirebaseStorageAction {
     private static final String PROJECT_ID = "travel-app-f268d";
@@ -26,20 +29,12 @@ public class FirebaseStorageAction {
     private FirebaseStorageAction(){}
 
     public static void uploadProfilePicture(File imageSelected){
-        if(USER_IMAGE_DIRECTORY != null) {
-            try {
-                Files.copy(Path.of(imageSelected.toURI()), USER_IMAGE_DIRECTORY.resolve("profile-pic.png"), StandardCopyOption.REPLACE_EXISTING);
-            } catch (IOException e) {
-                System.out.println("Could not replace existing profile locally.");
-                throw new RuntimeException(e);
-            }
-        }
-
         uploadImage("profile-pic.png", imageSelected.getAbsolutePath());
     }
 
+
     public static Image getProfilePicture(){
-        String imagePath = CurrentUser.getInstance().getUserInfo().getUID() + "/" + "profile-pic.png";
+        String imagePath = "profile-pic.png";
 
         Image profilePic = getImage(imagePath);
 
@@ -55,15 +50,15 @@ public class FirebaseStorageAction {
 
         Storage storage = StorageOptions.newBuilder().setCredentials(credentials).setProjectId(PROJECT_ID).build().getService();
 
-        Blob blob = storage.get(BUCKET_ID, imagePath);
-        System.out.println("HERE -1");
+        String fullPath = CurrentUser.getInstance().getUserInfo().getUID() + "/" + imagePath;
+
+        Blob blob = storage.get(BUCKET_ID, fullPath);
 
         if(blob != null) {
-            System.out.println("HERE 0");
             InputStream inputStream = new ByteArrayInputStream(blob.getContent());
-            System.out.println("HERE 1");
             return new Image(inputStream);
         }
+
         return null;
     }
 
@@ -99,33 +94,44 @@ public class FirebaseStorageAction {
 
         Bucket bucket = storage.get(BUCKET_ID);
 
+        if(CurrentUser.getInstance().getUserInfo() != null){
+            return folderName;
+        }
+
         if(bucket.get(folderName) == null){
             bucket.create(folderName, new byte[0]);
         }
         return folderName;
     }
 
-    public static String createImageFolder(String imageFolderName){
+    private static String createImageFolder(Album album){
         GoogleCredentials credentials = getCredentials();
 
         Storage storage = StorageOptions.newBuilder().setCredentials(credentials).setProjectId(PROJECT_ID).build().getService();
 
-        String folderName = CurrentUser.getInstance().getUserInfo().getUID() + "/" + imageFolderName + "/";
+        if(album.getFirestoreId() == null){
+            String id = UUID.randomUUID().toString();
+            String folderName = CurrentUser.getInstance().getUserInfo().getUID() + "/" + id + "/";
 
-        Bucket bucket = storage.get(BUCKET_ID);
+            Bucket bucket = storage.get(BUCKET_ID);
 
-        if(bucket.get(folderName) == null){
-            bucket.create(folderName, new byte[0]);
+            if(bucket.get(folderName) == null){
+                bucket.create(folderName, new byte[0]);
+           }
+            album.setFirestoreId(id);
         }
-        return folderName;
+        return album.getFirestoreId();
     }
 
-    public static String uploadAlbumImage(String folderName, String imageName, String filePath){
-        System.out.println(folderName);
-        System.out.println(imageName);
-        String folder = folderName + "/" + imageName;
+    public static String uploadAlbumImage(Album album){
+        String albumId = createImageFolder(album);
+        String imageId = UUID.randomUUID().toString();
 
-        return uploadImage(folder, filePath);
+        System.out.println(albumId);
+        System.out.println(imageId);
+        String folder = albumId + "/" + imageId;
+
+        return uploadImage(folder, album.getLocalPathToCover());
     }
 
 
@@ -135,19 +141,21 @@ public class FirebaseStorageAction {
         return getImage(imagePath);
     }
 
+    public static Image getImageWithURL(UserImage userImage){
+        return new Image(userImage.getImageURL());
+    }
+
 
     private static GoogleCredentials getCredentials(){
         if(googleCredentials == null) {
             try {
-                GoogleCredentials credentials = GoogleCredentials.fromStream(new FileInputStream("src/main/resources/adminSDK.json"));
-                return credentials;
+                googleCredentials = GoogleCredentials.fromStream(new FileInputStream("src/main/resources/adminSDK.json"));
             } catch (IOException e) {
                 System.out.println("Could not set google credentials.");
                 throw new RuntimeException(e);
             }
-        }else{
-            return googleCredentials;
         }
+        return googleCredentials;
     }
 
     private static String createHttpURL(String imagePath){
@@ -155,10 +163,14 @@ public class FirebaseStorageAction {
 
         Storage storage = StorageOptions.newBuilder().setCredentials(credentials).setProjectId(PROJECT_ID).build().getService();
 
-        Blob blob = storage.get(BUCKET_ID, imagePath);
+        BlobId blobId = BlobId.of(BUCKET_ID, imagePath);
 
-        if(blob != null){
-            return blob.getMediaLink();
+        if(blobId != null){
+            return storage.signUrl(
+                    BlobInfo.newBuilder(blobId).build(),
+                    365000,
+                    TimeUnit.DAYS
+            ).toString();
         }
 
         return null;
