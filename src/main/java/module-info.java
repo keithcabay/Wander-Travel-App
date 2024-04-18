@@ -13,6 +13,10 @@ module com.travel.virtualtravelassistant {
     requires org.kordamp.bootstrapfx.core;
     requires google.cloud.storage;
     requires javafx.web;
+    requires com.google.gson;
+    requires okhttp3;
+    requires okhttp3.logging;
+    requires org.json;
 
 
     opens com.travel.virtualtravelassistant to javafx.fxml;
