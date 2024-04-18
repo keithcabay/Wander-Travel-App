@@ -65,7 +65,7 @@ public class ProfilePageController {
             try {
                 Pane pane = fxmlLoader.load();
                 TripPreviewCardController tripPreviewCardController = fxmlLoader.getController();
-                tripPreviewCardController.setTrip(trip);
+                tripPreviewCardController.setUpcomingTrip(trip);
                 if(column == 2){
                     column = 0;
                     row++;
