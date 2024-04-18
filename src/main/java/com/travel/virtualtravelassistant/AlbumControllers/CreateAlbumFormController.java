@@ -1,4 +1,4 @@
-package com.travel.virtualtravelassistant;
+package com.travel.virtualtravelassistant.AlbumControllers;
 
 import com.travel.virtualtravelassistant.Utility.FirebaseStorageAction;
 import javafx.fxml.FXML;
