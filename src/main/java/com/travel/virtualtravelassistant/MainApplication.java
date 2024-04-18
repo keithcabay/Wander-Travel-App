@@ -22,9 +22,6 @@ public class MainApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         primaryStage = stage;
-        primaryStage.setOnCloseRequest(e -> {
-            FirebaseStorageAction.removeTempDirectory();
-        });
         initializeFirebase(); //initialize firebase once application runs
         showLoginView(); // Show the login view on application start.
     }
