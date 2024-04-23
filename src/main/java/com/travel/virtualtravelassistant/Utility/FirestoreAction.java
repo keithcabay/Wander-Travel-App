@@ -86,13 +86,46 @@ public class FirestoreAction {
 
         Map<String, Object> imageData = new HashMap<>();
         imageData.put("url", userImage.getImageURL());
-        imageData.put("caption", null);
+        imageData.put("caption", userImage.getCaption());
         batch.set(imageDoc, imageData);
 
         userImage.setFirestoreId(imageDocId);
         batch.commit();
 
         return imageDocId;
+    }
+
+    /***
+     * Retrieves images of given album from firebase storage and adds to list in album object
+     * @param album which is the album you are getting the images from
+     */
+    public static void getImages(Album album){
+        CollectionReference imagesRef = MainApplication.fstore.collection("Users")
+                .document(CurrentUser.getInstance().getUserInfo().getUID())
+                .collection("albums")
+                .document(album.getFirestoreId())
+                .collection("images");
+
+        ApiFuture<QuerySnapshot> future = imagesRef.get();
+
+        try {
+            QuerySnapshot querySnapshot = future.get();
+            for (QueryDocumentSnapshot document : querySnapshot) {
+                String imageId = document.getId();
+
+                UserImage userImage = new UserImage();
+                userImage.setFirestoreId(imageId);
+                userImage.setImageURL((String)document.get("url"));
+                userImage.setCaption((String)document.get("caption"));
+
+
+                album.addImage(userImage);
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            System.out.println("Failed to retrieve images from firebase.");
+            e.printStackTrace();
+        }
+
     }
 
 
