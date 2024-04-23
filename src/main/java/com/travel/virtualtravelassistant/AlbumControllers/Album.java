@@ -40,7 +40,6 @@ public class Album {
 
     public void setAlbumCover(UserImage albumCover){
         this.albumCover = albumCover;
-        images.add(albumCover);
     };
 
     public Image getCurrentAlbumCoverImage(){
@@ -66,4 +65,11 @@ public class Album {
         this.title = title;
     }
 
+    public void addImage(UserImage userImage){
+        images.add(userImage);
+    }
+
+    public List<UserImage> getImages(){
+        return images;
+    }
 }
