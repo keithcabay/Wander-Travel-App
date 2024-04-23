@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
@@ -113,6 +114,7 @@ public class MyPhotosController {
         try {
             BorderPane borderPane = fxmlLoader.load();
             AlbumCardController albumCardController = fxmlLoader.getController();
+            albumCardController.setCurrAlbum(album);
             albumCardController.setAlbumInfoWithImage(album);
             albumsGrid.add(borderPane, currGridColumn++, currGridRow);
         } catch (IOException e) {
@@ -128,6 +130,7 @@ public class MyPhotosController {
         try {
             BorderPane borderPane = fxmlLoader.load();
             AlbumCardController albumCardController = fxmlLoader.getController();
+            albumCardController.setCurrAlbum(album);
             albumCardController.setAlbumInfoWithURL(album);
             albumsGrid.add(borderPane, currGridColumn++, currGridRow);
         } catch (IOException e) {
