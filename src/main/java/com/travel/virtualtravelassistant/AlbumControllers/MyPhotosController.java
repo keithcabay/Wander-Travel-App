@@ -34,8 +34,6 @@ public class MyPhotosController {
         List<Album> albums = FirestoreAction.getAlbums();
 
         for(Album album : albums){
-            Image image = new Image(album.getAlbumCover().getImageURL());
-            album.setCurrentAlbumCoverImage(image);
             loadAlbumPreviewWithDB(album);
         }
     }
