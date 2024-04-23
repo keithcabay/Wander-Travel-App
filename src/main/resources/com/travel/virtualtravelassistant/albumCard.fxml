@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -40,4 +41,11 @@
                </children></HBox>
          </children></VBox>
    </center>
+   <bottom>
+      <Button fx:id="viewAlbum" mnemonicParsing="false" onAction="#handleViewAlbumButton" prefHeight="46.0" prefWidth="125.0" styleClass="save-changes-button" stylesheets="@CSS/Button.css" text="View Album" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets bottom="10.0" />
+         </BorderPane.margin>
+      </Button>
+   </bottom>
 </BorderPane>
