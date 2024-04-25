@@ -65,18 +65,18 @@ public class NavBarController {
     }
 
     @FXML
-    protected void onViewTripClick(ActionEvent event) {
-        switchScene(event, "/path/to/viewTripView.fxml");
-    }
+    protected void onViewFriendsClick(ActionEvent event) {
+        switchScene(event, "/com/travel/virtualtravelassistant/friendsList.fxml");
+}
 
-    @FXML
+@FXML
     protected void onViewPhotosClick(ActionEvent event) {
         switchScene(event, "/com/travel/virtualtravelassistant/myPhotos.fxml");
     }
 
     @FXML
     protected void onViewInboxClick(ActionEvent event) {
-        switchScene(event, "/path/to/viewInboxView.fxml");
+        switchScene(event, "/com/travel/virtualtravelassistant/inbox.fxml");
     }
 
     @FXML
