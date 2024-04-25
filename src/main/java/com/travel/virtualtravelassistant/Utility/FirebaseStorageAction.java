@@ -55,6 +55,35 @@ public class FirebaseStorageAction {
         return profilePic;
     }
 
+    public static Image getFriendProfilePicture(String UID){
+        String imagePath = "profile-pic.png";
+
+        Image profilePic = getFriendImage(imagePath, UID);
+
+        if(profilePic == null){
+            return new Image("file:" + DEFAULT_PROFILE_PIC);
+        }
+
+        return profilePic;
+    }
+
+    private static Image getFriendImage(String imagePath, String UID){
+        GoogleCredentials credentials = getCredentials();
+
+        Storage storage = StorageOptions.newBuilder().setCredentials(credentials).setProjectId(PROJECT_ID).build().getService();
+
+        String fullPath = UID + "/" + imagePath;
+
+        Blob blob = storage.get(BUCKET_ID, fullPath);
+
+        if(blob != null) {
+            InputStream inputStream = new ByteArrayInputStream(blob.getContent());
+            return new Image(inputStream);
+        }
+
+        return null;
+    }
+
 
     /***
      * Gets image from Firebase Storage
