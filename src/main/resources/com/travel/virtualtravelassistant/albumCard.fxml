@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="500.0" style="-fx-background-color: #fff;" styleClass="root" stylesheets="@CSS/BoxShadow.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.travel.virtualtravelassistant.AlbumControllers.AlbumCardController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="500.0" style="-fx-background-color: #fff;" styleClass="shadow" stylesheets="@CSS/BoxShadow.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.travel.virtualtravelassistant.AlbumControllers.AlbumCardController">
    <center>
       <VBox prefHeight="600.0" prefWidth="500.0" BorderPane.alignment="CENTER">
          <children>
