@@ -27,7 +27,7 @@
                     <Insets bottom="25.0" />
                 </VBox.margin>
                 <HBox alignment="CENTER" fillHeight="false" prefHeight="105.0" prefWidth="555.0">
-                    <ImageView fx:id="imageView" fitHeight="155.0" fitWidth="155.0" pickOnBounds="true" preserveRatio="true">
+                    <ImageView fx:id="imageView" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                         <image>
                             <Image url="@Images/profile-pic.png" />
                         </image>
