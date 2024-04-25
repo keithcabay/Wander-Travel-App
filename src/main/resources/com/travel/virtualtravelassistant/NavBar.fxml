@@ -13,23 +13,21 @@
 
 <BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.travel.virtualtravelassistant.NavBarController">
    <center>
-      <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="200.0"
-            stylesheets="@CSS/NavBar.css">
+      <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="200.0" stylesheets="@CSS/NavBar.css">
          <VBox prefHeight="125.0" prefWidth="200.0" styleClass="vbox-top" stylesheets="@CSS/NavBar.css">
-            <HBox prefHeight="54.0" prefWidth="200.0"/>
+            <HBox prefHeight="54.0" prefWidth="200.0" />
             <HBox prefHeight="100.0" prefWidth="200.0">
                <ImageView fitHeight="44.0" fitWidth="72.0" pickOnBounds="true" preserveRatio="true">
                   <image>
-                     <Image url="@Images/wander-logo.png"/>
+                     <Image url="@Images/wander-logo.png" />
                   </image>
                   <HBox.margin>
-                     <Insets bottom="5.0" left="15.0"/>
+                     <Insets bottom="5.0" left="15.0" />
                   </HBox.margin>
                </ImageView>
-               <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="200.0" text="WANDER"
-                      textAlignment="CENTER">
+               <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="200.0" text="WANDER" textAlignment="CENTER">
                   <font>
-                     <Font name="Avenir Next Bold" size="26.0"/>
+                     <Font name="Avenir Next Bold" size="26.0" />
                   </font>
                </Label>
             </HBox>
@@ -37,65 +35,57 @@
          <VBox prefHeight="400.0" prefWidth="200.0" styleClass="vbox-middle" VBox.vgrow="ALWAYS">
             <Label fx:id="helloGuest" prefHeight="38.0" prefWidth="200.0" text="Hello " textFill="WHITE">
                <font>
-                  <Font name="Lao MN" size="24.0"/>
+                  <Font name="Lao MN" size="24.0" />
                </font>
                <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </Label>
-            <Separator prefHeight="61.0" prefWidth="200.0"/>
-            <Button fx:id="myProfile" mnemonicParsing="false" onAction="#onMyProfileClick" prefHeight="29.0"
-                    prefWidth="200.0" text="My Profile" VBox.vgrow="ALWAYS">
+            <Separator prefHeight="61.0" prefWidth="200.0" />
+            <Button fx:id="myProfile" mnemonicParsing="false" onAction="#onMyProfileClick" prefHeight="29.0" prefWidth="200.0" text="My Profile" VBox.vgrow="ALWAYS">
                <VBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
             </Button>
-            <Button fx:id="planTrip" mnemonicParsing="false" onAction="#onPlanTripClick" prefHeight="29.0"
-                    prefWidth="200.0" text="Plan A Trip" VBox.vgrow="ALWAYS">
+            <Button fx:id="planTrip" mnemonicParsing="false" onAction="#onPlanTripClick" prefHeight="29.0" prefWidth="200.0" text="Plan A Trip" VBox.vgrow="ALWAYS">
                <VBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
             </Button>
-            <Button fx:id="viewTrip" mnemonicParsing="false" onAction="#onViewTripClick" prefHeight="29.0"
-                    prefWidth="200.0" text="My Trips" VBox.vgrow="ALWAYS">
+            <Button fx:id="viewTrip" mnemonicParsing="false" onAction="#onViewFriendsClick" prefHeight="29.0" prefWidth="200.0" text="My Friends" VBox.vgrow="ALWAYS">
                <VBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
             </Button>
-            <Button fx:id="viewPhotos" mnemonicParsing="false" onAction="#onViewPhotosClick" prefWidth="200.0"
-                    text="My Photos" VBox.vgrow="ALWAYS">
+            <Button fx:id="viewPhotos" mnemonicParsing="false" onAction="#onViewPhotosClick" prefWidth="200.0" text="My Photos" VBox.vgrow="ALWAYS">
                <VBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
             </Button>
-            <Button fx:id="viewInbox" mnemonicParsing="false" onAction="#onViewInboxClick" prefWidth="200.0"
-                    text="Inbox" VBox.vgrow="ALWAYS">
+            <Button fx:id="viewInbox" mnemonicParsing="false" onAction="#onViewInboxClick" prefWidth="200.0" text="Inbox" VBox.vgrow="ALWAYS">
                <VBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
             </Button>
-            <Button fx:id="settings" mnemonicParsing="false" onAction="#onSettingsClick" prefWidth="200.0"
-                    text="Settings" VBox.vgrow="ALWAYS">
+            <Button fx:id="settings" mnemonicParsing="false" onAction="#onSettingsClick" prefWidth="200.0" text="Settings" VBox.vgrow="ALWAYS">
                <VBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
             </Button>
          </VBox>
          <VBox prefHeight="243.0" prefWidth="200.0" styleClass="vbox-bottom" VBox.vgrow="ALWAYS">
-            <Button fx:id="help" mnemonicParsing="false" onAction="#onHelpClick" prefHeight="29.0" prefWidth="65.0"
-                    text="Help" VBox.vgrow="ALWAYS">
+            <Button fx:id="help" mnemonicParsing="false" onAction="#onHelpClick" prefHeight="29.0" prefWidth="65.0" text="Help" VBox.vgrow="ALWAYS">
                <VBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
             </Button>
-            <Button fx:id="logOut" mnemonicParsing="false" onAction="#onLogOutClick" text="Log Out"
-                    VBox.vgrow="ALWAYS">
+            <Button fx:id="logOut" mnemonicParsing="false" onAction="#onLogOutClick" text="Log Out" VBox.vgrow="ALWAYS">
                <VBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
             </Button>
          </VBox>
-         <VBox prefHeight="164.0" prefWidth="200.0" styleClass="vbox-bottom" VBox.vgrow="ALWAYS"/>
+         <VBox prefHeight="164.0" prefWidth="200.0" styleClass="vbox-bottom" VBox.vgrow="ALWAYS" />
       </VBox>
    </center>
 </BorderPane>

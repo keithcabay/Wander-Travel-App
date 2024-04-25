@@ -18,6 +18,8 @@ public class UserInfo {
 
    private Image profile_picture;
 
+   public UserInfo(){}
+
    //registration
     public UserInfo(String UID, String first_name, String last_name, String email){
         this.UID = UID;
