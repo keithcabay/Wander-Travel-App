@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="100.0" prefWidth="800.0" style="-fx-background-color: #fff;" styleClass="shadow" stylesheets="@CSS/BoxShadow.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.travel.virtualtravelassistant.FriendsList.FriendCardController">
+   <center>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fx:id="imageView" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" />
+            <Pane HBox.hgrow="ALWAYS" />
+            <Label fx:id="fullName" text="User Name">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font></Label>
+            <Pane HBox.hgrow="ALWAYS" />
+            <Label fx:id="email" text="username@gmail.com">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Pane HBox.hgrow="ALWAYS" />
+         </children>
+      </HBox>
+   </center>
+</BorderPane>
