@@ -5,7 +5,6 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -23,11 +22,12 @@
    <center>
       <VBox prefHeight="768.0" prefWidth="1151.0" spacing="20.0" BorderPane.alignment="CENTER">
          <HBox prefHeight="54.0" prefWidth="1166.0">
-            <ImageView fx:id="imageView" fitHeight="155.0" fitWidth="155.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@Images/profile-pic.png" />
-               </image>
-            </ImageView>
+            <children>
+               <ImageView fx:id="imageView" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                  <HBox.margin>
+                     <Insets left="10.0" />
+                  </HBox.margin></ImageView>
+            </children>
             
          </HBox>
          <VBox alignment="TOP_CENTER" maxWidth="-Infinity" prefHeight="131.0" prefWidth="283.0" spacing="25.0" style="-fx-background-color: #385170; -fx-border-color: #385170;" translateX="10.0">
