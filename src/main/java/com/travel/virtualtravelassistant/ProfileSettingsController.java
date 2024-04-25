@@ -1,6 +1,7 @@
 package com.travel.virtualtravelassistant;
 
 import com.travel.virtualtravelassistant.User.CurrentUser;
+import com.travel.virtualtravelassistant.Utility.ApplicationUtil;
 import com.travel.virtualtravelassistant.Utility.FirebaseStorageAction;
 import com.travel.virtualtravelassistant.Utility.FirestoreAction;
 import javafx.fxml.FXML;
@@ -52,8 +53,8 @@ public class ProfileSettingsController {
     Button discardChangesButton;
 
     public void initialize(){
-        System.out.println("Initializing Profile Settings page.");
-        Image image = FirebaseStorageAction.getProfilePicture();
+        Image profile_pic = FirebaseStorageAction.getProfilePicture();
+        ApplicationUtil.setImageViewRoundCroppedProfilePic(imageView, profile_pic);
 
         String firsNameText = CurrentUser.getInstance().getUserInfo().getFirst_name();
         String lastNameText = CurrentUser.getInstance().getUserInfo().getLast_name();
@@ -79,9 +80,6 @@ public class ProfileSettingsController {
         firstName.textProperty().bindBidirectional(firstNameField.textProperty());
         lastName.textProperty().bindBidirectional(lastNameField.textProperty());
         locationLabel.textProperty().bindBidirectional(locationField.textProperty());
-
-        System.out.println(image);
-        imageView.setImage(image);
     }
 
     public void onUploadProfilePictureClick(){

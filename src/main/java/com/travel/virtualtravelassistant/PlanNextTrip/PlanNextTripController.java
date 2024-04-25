@@ -4,6 +4,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.travel.virtualtravelassistant.Utility.ApplicationUtil;
+import com.travel.virtualtravelassistant.Utility.FirebaseStorageAction;
 import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -14,11 +16,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.internal.platform.AndroidPlatform;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,6 +45,8 @@ public class PlanNextTripController implements Initializable {
     private TextArea locationReviewsTextArea;
     @FXML
     private VBox photosContainer;
+    @FXML
+    private ImageView imageView;
 
     private String API_KEY;
 
@@ -161,6 +167,9 @@ public class PlanNextTripController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Image profile_pic = FirebaseStorageAction.getProfilePicture();
+        ApplicationUtil.setImageViewRoundCroppedProfilePic(imageView, profile_pic);
+
         try {
             API_KEY = readApiKeyFromJsonFile("src/main/resources/adminSDK.json");
         } catch (IOException e) {

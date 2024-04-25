@@ -4,6 +4,7 @@ import com.travel.virtualtravelassistant.AlbumControllers.Album;
 import com.travel.virtualtravelassistant.TripInfo.Trip;
 import com.travel.virtualtravelassistant.TripInfo.TripPreviewCardController;
 import com.travel.virtualtravelassistant.User.CurrentUser;
+import com.travel.virtualtravelassistant.Utility.ApplicationUtil;
 import com.travel.virtualtravelassistant.Utility.FirebaseStorageAction;
 import com.travel.virtualtravelassistant.Utility.FirestoreAction;
 import javafx.event.ActionEvent;
@@ -42,7 +43,9 @@ public class ProfilePageController {
     Label userName;
 
     public void initialize(){
-        imageView.setImage(FirebaseStorageAction.getProfilePicture());
+        Image profile_pic = FirebaseStorageAction.getProfilePicture();
+        ApplicationUtil.setImageViewRoundCroppedProfilePic(imageView, profile_pic);
+
         userName.setText(CurrentUser.getInstance().getUserInfo().getFirst_name() + " " +  CurrentUser.getInstance().getUserInfo().getLast_name());
         if(CurrentUser.getInstance().getUserInfo().getBio() != null){
             bio.setText(CurrentUser.getInstance().getUserInfo().getBio());
