@@ -38,3 +38,19 @@
     -fx-text-fill: #97c297;
     -fx-font-weight: 700;
 }
+
+.acceptRequest{
+    -fx-background-color: #30803c;
+}
+
+.acceptRequest:hover{
+    -fx-background-color: #3fa64e;
+}
+
+.denyRequest{
+    -fx-background-color: #992222;
+}
+
+.denyRequest:hover{
+    -fx-background-color: #bf2828;
+}
