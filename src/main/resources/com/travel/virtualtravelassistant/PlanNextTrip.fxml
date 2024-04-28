@@ -221,11 +221,7 @@
                               <content>
                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                     <children>
-                                       <TextArea fx:id="ReviewsTextArea" editable="false" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                          <font>
-                                             <Font size="20.0" />
-                                          </font>
-                                       </TextArea>
+                                       <TextArea fx:id="reviewsTextArea" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                     </children>
                                  </AnchorPane>
                               </content>
