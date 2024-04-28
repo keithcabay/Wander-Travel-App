@@ -90,7 +90,7 @@ public class PlanNextTripController implements Initializable {
         OkHttpClient client = new OkHttpClient();
 
         String apiUrl = SEARCH_API_URL + API_KEY + "&searchQuery=" + searchQuery +
-                "&category=geos" +  // Add category parameter for geos search
+                //"&category=geos" +  // Add category parameter for geos search
                 "&language=en"; // Add language parameter for English results
 
         String responseBody;
@@ -214,7 +214,7 @@ public class PlanNextTripController implements Initializable {
                     attractionsDetails.append(name).append(" - ").append(addressString).append("\n");
                 }
 
-                // Assuming there is a TextArea to display these details
+                
                 attractionsTextArea.setText(attractionsDetails.toString());
 
             } else {

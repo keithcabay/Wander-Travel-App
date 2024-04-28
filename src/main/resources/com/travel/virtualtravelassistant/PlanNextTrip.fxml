@@ -5,6 +5,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -172,38 +174,79 @@
          </HBox>
          <Pane prefHeight="485.0" prefWidth="1157.0">
             <children>
-               <VBox prefHeight="436.0" prefWidth="963.0" spacing="20">
-                  <HBox prefHeight="459.0" prefWidth="942.0">
-                     <children>
-                        <VBox prefHeight="416.0" prefWidth="650.0">
-                           <children>
-                              <TextArea fx:id="locationDetailsTextArea" editable="false" prefHeight="256.0" prefWidth="647.0" wrapText="true">
-                                 <font>
-                                    <Font size="20.0" />
-                                 </font>
-                              </TextArea>
-                              <TextArea fx:id="attractionsTextArea" prefHeight="200.0" prefWidth="200.0">
-                                 <font>
-                                    <Font size="20.0" />
-                                 </font></TextArea>
-                           </children>
-                        </VBox>
-                        <ScrollPane fx:id="imagesScrollPane" prefHeight="436.0" prefWidth="299.0">
-                           <AnchorPane prefHeight="434.0" prefWidth="298.0">
-                              <VBox fx:id="photosContainer" alignment="CENTER" layoutX="-12.0" prefHeight="434.0" prefWidth="300.0" spacing="10">
-                                 <padding>
-                                    <Insets bottom="10.0" />
-                                 </padding>
-                              </VBox>
-                           </AnchorPane>
-                        </ScrollPane>
-                     </children>
-                  </HBox>
-                  <padding>
-                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                  </padding>
-               </VBox>
+               <HBox alignment="TOP_CENTER" prefHeight="440.0" prefWidth="942.0">
+                  <children>
+                     <TabPane prefHeight="416.0" prefWidth="704.0" tabClosingPolicy="UNAVAILABLE">
+                       <tabs>
+                         <Tab text="Details">
+                           <content>
+                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                    <children>
+                                       <TextArea fx:id="locationDetailsTextArea" editable="false" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                          <font>
+                                             <Font size="20.0" />
+                                          </font>
+                                       </TextArea>
+                                    </children>
+                                 </AnchorPane>
+                           </content>
+                         </Tab>
+                         <Tab text="Attractions">
+                           <content>
+                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                    <children>
+                                       <TextArea fx:id="attractionsTextArea" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                          <font>
+                                             <Font size="20.0" />
+                                          </font>
+                                       </TextArea>
+                                    </children>
+                                 </AnchorPane>
+                           </content>
+                         </Tab>
+                           <Tab text="Hotels">
+                              <content>
+                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                    <children>
+                                       <TextArea fx:id="hotelsTextArea" editable="false" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                          <font>
+                                             <Font size="20.0" />
+                                          </font>
+                                       </TextArea>
+                                    </children>
+                                 </AnchorPane>
+                              </content>
+                           </Tab>
+                           <Tab text="Reviews">
+                              <content>
+                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                    <children>
+                                       <TextArea fx:id="ReviewsTextArea" editable="false" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                          <font>
+                                             <Font size="20.0" />
+                                          </font>
+                                       </TextArea>
+                                    </children>
+                                 </AnchorPane>
+                              </content>
+                           </Tab>
+                       </tabs>
+                     </TabPane>
+                     <ScrollPane fx:id="imagesScrollPane" prefHeight="436.0" prefWidth="299.0">
+                        <AnchorPane prefHeight="434.0" prefWidth="298.0">
+                           <VBox fx:id="photosContainer" alignment="CENTER" layoutX="-12.0" prefHeight="434.0" prefWidth="300.0" spacing="10">
+                              <padding>
+                                 <Insets bottom="10.0" />
+                              </padding>
+                           </VBox>
+                        </AnchorPane>
+                     </ScrollPane>
+                  </children>
+               </HBox>
             </children>
+            <VBox.margin>
+               <Insets bottom="10.0" left="10.0" right="10.0" />
+            </VBox.margin>
          </Pane>
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
