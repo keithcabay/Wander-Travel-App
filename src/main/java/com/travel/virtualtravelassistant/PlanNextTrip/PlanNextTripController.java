@@ -1,23 +1,21 @@
 package com.travel.virtualtravelassistant.PlanNextTrip;
 
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import javafx.concurrent.Worker;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Slider;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.geometry.Insets;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import okhttp3.*;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,8 +34,6 @@ public class PlanNextTripController implements Initializable {
     private TextField locationTextField;
     @FXML
     private TextArea locationDetailsTextArea;
-    @FXML
-    private TextArea locationReviewsTextArea;
     @FXML
     private VBox photosContainer;
     @FXML
@@ -58,6 +54,8 @@ public class PlanNextTripController implements Initializable {
     private TextField vacationLengthTextField;
     @FXML
     private TextArea attractionsTextArea;
+    @FXML
+    private TextArea reviewsTextArea;
 
 
 
@@ -68,9 +66,10 @@ public class PlanNextTripController implements Initializable {
     private String API_KEY;
 
     private static final String SEARCH_API_URL = "https://api.content.tripadvisor.com/api/v1/location/search?key=";
-    //    private static final String REVIEWS_API_URL = "https://api.tripadvisor.com/data/1.0/location/";
+    private static final String REVIEWS_API_URL = "https://api.content.tripadvisor.com/api/v1/location/";
     private static final String DETAILS_API_URL = "https://api.content.tripadvisor.com/api/v1/location/";
     private static final String PHOTOS_API_URL = "https://api.content.tripadvisor.com/api/v1/location/";
+    private static final String REVIEWS_API_PHOTOS_URL = "https://api.content.tripadvisor.com/api/v1/location/";
     private static final String ATTRACTIONS_API_URL = "https://api.content.tripadvisor.com/api/v1/location/search?key=";
 
 
@@ -110,8 +109,8 @@ public class PlanNextTripController implements Initializable {
                     String locationId = firstLocation.get("location_id").getAsString();
                     System.out.println("Location ID: " + locationId);
                     loadLocationDetails(locationId, API_KEY);
-//                    loadLocationReviews(locationId, API_KEY);
-                    loadLocationPhotos(locationId, API_KEY);
+                    loadLocationReviews(locationId, API_KEY);
+                    loadLocationAndReviewPhotos(locationId, API_KEY);
                     loadLocationAttractions(locationId, API_KEY);
                 } else {
                     System.out.println("Error: " + response.code() + " " + response.message());
@@ -150,40 +149,156 @@ public class PlanNextTripController implements Initializable {
 
     }
 
-    private void loadLocationPhotos(String locationId, String apiKey) {
+    private void loadLocationAndReviewPhotos(String locationId, String apiKey) {
         String photosUrl = PHOTOS_API_URL + locationId + "/photos?key=" + apiKey + "&language=en";
+        String reviewsUrl = REVIEWS_API_PHOTOS_URL + locationId + "/reviews?key=" + apiKey + "&language=en";
+
         OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder()
+        photosContainer.getChildren().clear();  // Clear previous photos
+
+        // Load location photos
+        Request photosRequest = new Request.Builder()
                 .url(photosUrl)
+                .get()
+                .addHeader("accept", "application/json")
                 .build();
 
-        try (Response response = client.newCall(request).execute()) {
-            if (response.isSuccessful()) {
-                String responseBody = response.body().string();
-                JsonObject jsonResponse = JsonParser.parseString(responseBody).getAsJsonObject();
+        client.newCall(photosRequest).enqueue(new Callback() {
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    String responseBody = response.body().string();
+                    JSONObject jsonResponse = new JSONObject(responseBody);
+                    JSONArray photosArray = jsonResponse.getJSONArray("data");
 
-                JsonArray dataArray = jsonResponse.getAsJsonArray("data");
+                    Platform.runLater(() -> {
+                        try {
+                            for (int i = 0; i < photosArray.length(); i++) {
+                                JSONObject photoObject = photosArray.getJSONObject(i);
+                                JSONObject imagesObject = photoObject.getJSONObject("images");
+                                JSONObject largeImageObject = imagesObject.getJSONObject("large");
+                                String photoUrl = largeImageObject.getString("url");
 
-                photosContainer.getChildren().clear();
-
-                for (JsonElement photoElement : dataArray) {
-                    JsonObject photoObject = photoElement.getAsJsonObject();
-                    JsonObject imagesObject = photoObject.getAsJsonObject("images");
-
-                    JsonObject largeImageObject = imagesObject.getAsJsonObject("large");
-                    String photoUrl = largeImageObject.get("url").getAsString();
-
-                    ImageView imageView = new ImageView(new Image(photoUrl));
-                    imageView.setFitWidth(300);
-                    imageView.setFitHeight(225);
-
-                    photosContainer.getChildren().add(imageView);
+                                ImageView imageView = new ImageView(new Image(photoUrl));
+                                imageView.setFitWidth(300);
+                                imageView.setFitHeight(225);
+                                photosContainer.getChildren().add(imageView);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    });
+                } else {
+                    System.out.println("Failed to fetch location photos: " + response.code());
                 }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+        // Load review photos
+        Request reviewsRequest = new Request.Builder()
+                .url(reviewsUrl)
+                .get()
+                .addHeader("accept", "application/json")
+                .build();
+
+        client.newCall(reviewsRequest).enqueue(new Callback() {
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    String responseBody = response.body().string();
+                    JSONObject jsonResponse = new JSONObject(responseBody);
+                    JSONArray reviewsArray = jsonResponse.getJSONArray("data");
+
+                    Platform.runLater(() -> {
+                        try {
+                            for (int i = 0; i < reviewsArray.length(); i++) {
+                                JSONObject review = reviewsArray.getJSONObject(i);
+                                if (review.has("user") && review.getJSONObject("user").has("avatar")) {
+                                    JSONObject avatar = review.getJSONObject("user").getJSONObject("avatar");
+                                    String photoUrl = avatar.optString("large", "");
+
+                                    if (!photoUrl.isEmpty()) {
+                                        ImageView imageView = new ImageView(new Image(photoUrl));
+                                        imageView.setFitWidth(300);
+                                        imageView.setFitHeight(225);
+                                        photosContainer.getChildren().add(imageView);
+                                    }
+                                }
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    });
+                } else {
+                    System.out.println("Failed to fetch review photos: " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
+
+    private void loadLocationReviews(String locationId, String API_KEY) {
+        String reviewsUrl = REVIEWS_API_URL + locationId + "/reviews?key=" + API_KEY + "&language=en";
+
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url(reviewsUrl)
+                .get()
+                .addHeader("accept", "application/json")
+                .build();
+
+        new Thread(() -> {
+            try {
+                Response response = client.newCall(request).execute();
+                if (response.isSuccessful()) {
+                    String responseBody = response.body().string();
+                    System.out.println("Raw response: " + responseBody);  // Print the raw response to the console
+                    JSONObject jsonResponse = new JSONObject(responseBody);
+                    JSONArray reviewsArray = jsonResponse.getJSONArray("data");
+
+                    StringBuilder reviewsContent = new StringBuilder();
+
+                    System.out.println("Reviews for location ID: " + locationId); // Print location ID to console
+                    for (int i = 0; i < reviewsArray.length(); i++) {
+                        JSONObject review = reviewsArray.getJSONObject(i);
+                        String title = review.optString("title", "No Title");
+                        String text = review.optString("text", "No review text available.");
+
+                        // Build the string for TextArea
+                        reviewsContent.append("Review #").append(i + 1).append(": ").append(title).append("\n");
+                        reviewsContent.append("Text: ").append(text).append("\n");
+                        reviewsContent.append("-------------------------------\n");
+
+                        // Print each review to the console
+                        System.out.println("Review #" + (i + 1) + ": " + title);
+                        System.out.println("Text: " + text);
+                        System.out.println("-------------------------------");
+                    }
+
+                    String finalText = reviewsContent.toString();
+                    Platform.runLater(() -> {
+                        reviewsTextArea.setText(finalText); // Update the TextArea on the JavaFX thread
+                    });
+                } else {
+                    System.err.println("Failed to fetch reviews: " + response.code());
+                }
+            } catch (IOException | JSONException e) {
+                e.printStackTrace();
+            }
+        }).start();
+    }
+
+
+
 
     //Location Attractions
     private void loadLocationAttractions(String locationId, String apiKey) {
