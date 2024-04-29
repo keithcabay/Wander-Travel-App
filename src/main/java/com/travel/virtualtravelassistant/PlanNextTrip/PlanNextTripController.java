@@ -3,14 +3,19 @@ package com.travel.virtualtravelassistant.PlanNextTrip;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.travel.virtualtravelassistant.Activity;
+import com.travel.virtualtravelassistant.ActivityCardController;
+import com.travel.virtualtravelassistant.Utility.FirebaseStorageAction;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -25,11 +30,14 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class PlanNextTripController implements Initializable {
 
-
+    @FXML
+    private ImageView profilePicImage;
     @FXML
     private TextField locationTextField;
     @FXML
@@ -56,8 +64,19 @@ public class PlanNextTripController implements Initializable {
     private TextArea attractionsTextArea;
     @FXML
     private TextArea reviewsTextArea;
+    @FXML
+    private Button continueButton;
+    @FXML
+    private GridPane attractionsGrid;
+    @FXML
+    private GridPane hotelsGrid;
+    @FXML
+    private GridPane reviewsGrid;
+    @FXML
+    private GridPane addedGrid;
 
-
+    private int currGridColumn = 0;
+    private  int currGridRow = 0;
 
 
 
@@ -368,6 +387,8 @@ public class PlanNextTripController implements Initializable {
             e.printStackTrace();
         }
 
+        profilePicImage.setImage(FirebaseStorageAction.getProfilePicture());
+
         locationTextField.setOnKeyPressed(event -> {
             if (event.getCode().equals(KeyCode.ENTER)) {
                 try {
@@ -400,5 +421,75 @@ public class PlanNextTripController implements Initializable {
 
         // Initialize text fields based on sliders
         updateTextFields();
+
+        //sample code for loading attractions/hotels/reviews
+        List<Activity> attractions = getAttractions();
+        List<Activity> hotels = getAttractions();
+        List<Activity> reviews = getAttractions();
+
+        loadGrid(attractions, attractionsGrid);
+        loadGrid(hotels, hotelsGrid);
+        loadGrid(reviews, reviewsGrid);
+    }
+
+    private void loadGrid(List<Activity> activities, GridPane gridPane){
+        int currGridColumn = 0;
+        int currGridRow = 0;
+
+        for(Activity activity : activities) {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("/com/travel/virtualtravelassistant/activityCard.fxml"));
+
+            try {
+                HBox hbox = fxmlLoader.load();
+                ActivityCardController activityCardController = fxmlLoader.getController();
+                activityCardController.setActivity(activity);
+                activityCardController.setNode(hbox);
+                activityCardController.setParentController(this);
+                gridPane.add(hbox, currGridColumn, currGridRow++);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    private void loadToAddedGrid(Activity activity){
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("/com/travel/virtualtravelassistant/smallActivityCard.fxml"));
+
+        try {
+            HBox hbox = fxmlLoader.load();
+            ActivityCardController activityCardController = fxmlLoader.getController();
+            activityCardController.setActivity(activity);
+            activityCardController.setNode(hbox);
+            activityCardController.setParentController(this);
+            addedGrid.add(hbox, currGridColumn, currGridRow++);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void addToSelectedActivities(Activity activity){
+        loadToAddedGrid(activity);
+        continueButton.setVisible(true);
+    }
+
+    public void handleContinueButton(){
+
+    }
+
+    private List<Activity> getAttractions(){
+        Activity activity = new Activity();
+        activity.setName("The Italian Restaurant");
+        activity.setDescription("Rome, Italy");
+
+        List<Activity> attractions = new ArrayList<>();
+        attractions.add(activity);
+        attractions.add(activity);
+        attractions.add(activity);
+        attractions.add(activity);
+        attractions.add(activity);
+
+        return attractions;
     }
 }

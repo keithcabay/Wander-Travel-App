@@ -1,6 +1,10 @@
 package com.travel.virtualtravelassistant.TripInfo;
 
+import com.travel.virtualtravelassistant.Activity;
 import javafx.scene.image.Image;
+
+import java.util.List;
+import java.util.Map;
 
 public class Trip {
     private Image image;
@@ -14,6 +18,12 @@ public class Trip {
     private double budget;
 
     private int length;
+
+    //help filter activities at each location/city
+    Map<String, List<Activity>> locationToActivities;
+
+    //Each index in list is another day of activities
+    List<List<Activity>> activities;
 
     public Image getImage() {
         return image;

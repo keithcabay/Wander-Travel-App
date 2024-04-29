@@ -39,6 +39,20 @@
     -fx-font-weight: 700;
 }
 
+.continue-button{
+    -fx-background-color: #97c297;
+    -fx-text-fill: white;
+    -fx-font-weight: 700;
+    -fx-font-size: 17px;
+}
+
+.continue-button:hover{
+    -fx-background-color: #e8e8e8;
+    -fx-text-fill: #97c297;
+    -fx-font-weight: 700;
+    -fx-font-size: 20px;
+}
+
 .acceptRequest{
     -fx-background-color: #30803c;
 }
