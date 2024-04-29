@@ -67,12 +67,12 @@ public class FirebaseStorageAction {
         return profilePic;
     }
 
-    private static Image getFriendImage(String imagePath, String UID){
+    private static Image getFriendImage(String imagePath, String friendUID){
         GoogleCredentials credentials = getCredentials();
 
         Storage storage = StorageOptions.newBuilder().setCredentials(credentials).setProjectId(PROJECT_ID).build().getService();
 
-        String fullPath = UID + "/" + imagePath;
+        String fullPath = friendUID + "/" + imagePath;
 
         Blob blob = storage.get(BUCKET_ID, fullPath);
 
