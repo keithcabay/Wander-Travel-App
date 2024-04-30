@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Text?>
+
+<?import javafx.scene.control.Button?>
+<VBox fx:id="mainContainer" alignment="CENTER" spacing="0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.travel.virtualtravelassistant.ChatGPT.ChatbotUIController"
+      stylesheets="@CSS/chatbot-style.css">
+    <!-- Control Bar -->
+    <HBox styleClass="control-bar">
+        <MenuButton text="Options" styleClass="tab-close-button">
+            <MenuItem text="Close" onAction="#handleClose"/>
+            <!-- You can add more menu items here -->
+        </MenuButton>
+    </HBox>
+
+    <!-- Header -->
+    <HBox id="header" alignment="CENTER_LEFT" spacing="10" styleClass="header">
+        <Circle fx:id="statusIndicator" radius="5" styleClass="status-indicator" />
+        <Text text="Chatbot" styleClass="header-text"/>
+    </HBox>
+
+    <!-- Messages Scroll Pane -->
+    <ScrollPane fx:id="scrollPane" fitToWidth="true" VBox.vgrow="ALWAYS">
+        <VBox fx:id="chatBox" spacing="10" fillWidth="true">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+        </VBox>
+    </ScrollPane>
+
+    <!-- Message Input Area -->
+    <HBox styleClass="input-area" spacing="5.0" alignment="CENTER">
+        <TextField fx:id="inputField" HBox.hgrow="ALWAYS" promptText="Type here...">
+            <padding>
+                <Insets top="5.0" right="5.0" bottom="5.0" left="5.0"/>
+            </padding>
+            <font>
+                <Font size="14"/>
+            </font>
+        </TextField>
+        <Button fx:id="sendButton" text="Send" onAction="#onSend" prefWidth="100.0">
+            <font>
+                <Font size="14"/>
+            </font>
+        </Button>
+        <Button fx:id="chatbotButton" text="Chatbot" onAction="#onChatbotClick" prefWidth="100.0" visible="false"/> <!-- Hidden as per the initial structure -->
+    </HBox>
+</VBox>
