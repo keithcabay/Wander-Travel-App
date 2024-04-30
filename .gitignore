@@ -38,3 +38,5 @@ replay_pid*
 .idea/
 
 adminSDK.json
+
+src/main/resources/application.properties
