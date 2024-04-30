@@ -17,6 +17,9 @@ module com.travel.virtualtravelassistant {
     requires okhttp3;
     requires okhttp3.logging;
     requires org.json;
+    requires com.fasterxml.jackson.annotation;
+    requires com.fasterxml.jackson.databind;
+    requires java.net.http;
 
 
     opens com.travel.virtualtravelassistant to javafx.fxml;
@@ -35,5 +38,7 @@ module com.travel.virtualtravelassistant {
     opens com.travel.virtualtravelassistant.FriendsList to javafx.fxml;
     exports com.travel.virtualtravelassistant.Inbox;
     opens com.travel.virtualtravelassistant.Inbox to javafx.fxml;
+    opens com.travel.virtualtravelassistant.ChatGPT to javafx.fxml;
+    exports com.travel.virtualtravelassistant.ChatGPT;
 
 }
