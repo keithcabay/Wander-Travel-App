@@ -31,6 +31,8 @@ public class NavBarController {
     protected Button help;
     @FXML
     protected Button logOut;
+    @FXML
+    protected Button chatbotButton;
 
     // Method to set the username on the Hello label
     public void setUsername(String username) {
@@ -38,6 +40,12 @@ public class NavBarController {
     }
     public void initialize(){
         helloGuest.setText("Hello, " + CurrentUser.getInstance().getUserInfo().getFirst_name() + "!");
+
+        if (MainApplication.getIsChatbotOpen()) {
+            chatbotButton.setText("Hide Chatbox");
+        } else {
+            chatbotButton.setText("Open ChatBox");
+        }
     }
 
     // Method to switch scenes
@@ -93,5 +101,17 @@ public class NavBarController {
     protected void onLogOutClick(ActionEvent event) {
         switchScene(event, "/com/travel/virtualtravelassistant/LogIn.fxml");
         CurrentUser.getInstance().setUserInfo(null);
+    }
+
+    @FXML
+    protected void onChatbotClick(ActionEvent event) {
+        MainApplication.showOrHideChatbot();
+
+        if (MainApplication.getIsChatbotOpen()) {
+            chatbotButton.setText("Hide Chatbox");
+        } else {
+            chatbotButton.setText("Open ChatBox");
+        }
+
     }
 }

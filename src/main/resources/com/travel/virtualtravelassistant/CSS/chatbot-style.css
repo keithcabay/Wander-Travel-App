@@ -1,0 +1,120 @@
+/* Base styles for the chat interface */
+.root {
+    -fx-font-family: 'Segoe UI', 'Arial', sans-serif; /* A more modern font choice */
+}
+
+.text-field, .button {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 20px;
+    -fx-border-color: #D0D3D4;
+    -fx-border-radius: 20px;
+    -fx-padding: 10px 15px; /* More padding for better text field and button interaction */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 2); /* Subtle shadow for depth */
+}
+
+.button {
+    -fx-background-color: linear-gradient(#4a77d4, #395998); /* Gradient effect for button */
+    -fx-text-fill: #FFFFFF;
+    -fx-font-weight: bold; /* Bold text for better readability */
+}
+
+.button:hover {
+    -fx-background-color: linear-gradient(#6ea1f1, #5679c0); /* Lighter gradient on hover */
+}
+
+/* Styles for chat bubbles */
+.chat-bubble {
+    -fx-background-color: #f0f0f0;
+    -fx-background-radius: 15;
+    -fx-padding: 12;
+    -fx-background-insets: 0;
+    -fx-border-radius: 15;
+    -fx-border-width: 0;
+    -fx-border-color: transparent;
+    -fx-wrap-text: true;
+    -fx-max-width: 280px; /* Slightly wider for better text fit */
+    -fx-min-height: 40px; /* Taller bubbles */
+    -fx-alignment: top-left;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 5); /* Adding shadow to bubbles */
+}
+
+.user-bubble {
+    -fx-background-color: linear-gradient(to right, #4a77d4, #395998); /* Gradient for user bubble */
+    -fx-text-fill: #FFFFFF;
+    -fx-background-radius: 15;
+    -fx-padding: 12;
+    -fx-background-insets: 0;
+    -fx-border-radius: 15;
+    -fx-border-width: 0;
+    -fx-border-color: transparent;
+    -fx-wrap-text: true;
+    -fx-max-width: 280px;
+    -fx-min-height: 40px;
+    -fx-alignment: top-right; /* Align to the right for the user */
+}
+
+.bot-bubble {
+    -fx-background-color: linear-gradient(to right, #27ae60, #145a32); /* More vivid green gradient */
+    -fx-text-fill: #FFFFFF;
+    -fx-background-radius: 15;
+    -fx-padding: 12;
+    -fx-background-insets: 0;
+    -fx-border-radius: 15;
+    -fx-border-width: 0;
+    -fx-border-color: transparent;
+    -fx-wrap-text: true;
+    -fx-max-width: 280px;
+    -fx-min-height: 40px;
+    -fx-alignment: top-left; /* Align to the left for the bot */
+}
+
+/* Scroll Pane and Scroll Bars Styles */
+.scroll-pane, .scroll-bar {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #AAB4BE;
+    -fx-background-insets: 2, 0, 2;
+    -fx-background-radius: 5px;
+}
+
+.scroll-bar .track {
+    -fx-background-color: #E8E8E8;
+    -fx-background-radius: 5px;
+}
+
+/* List View and List Cells Styles */
+.list-view {
+    -fx-background-color: #F9F9F9;
+    -fx-border-radius: 10px;
+    -fx-background-insets: 0;
+    -fx-padding: 10px;
+}
+
+.list-view .list-cell {
+    -fx-background-color: transparent;
+    -fx-padding: 10px;
+}
+
+.list-cell:filled:selected, .list-cell:filled:selected:hover {
+    -fx-background-color: #E0E0E0;
+    -fx-background-radius: 10px;
+}
+
+/* Dropdown Menu Styles */
+.menu-button {
+    -fx-background-color: #f8f8f8; /* Light gray background */
+    -fx-text-fill: black; /* Black text for visibility */
+    -fx-font-weight: normal; /* Normal weight for menu items */
+    -fx-padding: 5px 10px;
+}
+
+.menu-item {
+    -fx-padding: 5px 20px; /* Slightly larger padding for menu items */
+}
+
+.menu-button:hover, .menu-item:hover {
+    -fx-background-color: #e2e2e2; /* Slightly darker on hover */
+}
