@@ -40,5 +40,7 @@ module com.travel.virtualtravelassistant {
     opens com.travel.virtualtravelassistant.Inbox to javafx.fxml;
     opens com.travel.virtualtravelassistant.ChatGPT to javafx.fxml;
     exports com.travel.virtualtravelassistant.ChatGPT;
+    opens com.travel.virtualtravelassistant.helpFAQ to javafx.fxml;
+    exports com.travel.virtualtravelassistant.helpFAQ;
 
 }

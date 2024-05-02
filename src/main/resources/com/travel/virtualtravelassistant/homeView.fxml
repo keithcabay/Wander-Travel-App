@@ -1,77 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
 
-<BorderPane prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.travel.virtualtravelassistant.HomeController">
-    <top>
-        <MenuBar>
-            <Menu text="File">
-                <MenuItem text="Close" />
-            </Menu>
-        </MenuBar>
-    </top>
+<BorderPane prefHeight="768.0" prefWidth="1366.0" stylesheets="@CSS/Application.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.travel.virtualtravelassistant.HomeController">
+    <!-- Navigation Bar -->
     <left>
         <fx:include source="NavBar.fxml" />
     </left>
     <center>
-        <VBox spacing="20" style="-fx-padding: 10;">
+        <!-- Main Content Area -->
+        <VBox spacing="20">
+            <!-- About Us Section -->
+            <VBox spacing="10">
+                <Label style="-fx-font-weight: bold; " text="About Us" />
+                <TextFlow prefHeight="200.0" prefWidth="400.0">
+                    <Text>We are a team passionate about travel and exploration. Our mission is to make your travel experience seamless and enjoyable.</Text>
+                    <Text>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin euismod libero in neque consequat consequat.</Text>
+                    <Text>Nullam posuere vel ipsum vitae sodales. Vestibulum rhoncus, tortor id luctus viverra, elit nisi sodales purus,</Text>
+                    <Text>vel lacinia quam enim nec nisi.</Text>
+                </TextFlow>
+            <VBox.margin>
+               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </VBox.margin>
+            </VBox>
             <!-- Ready to book your next trip? Section -->
             <VBox spacing="10">
-                <Label style="-fx-font-weight: bold;" text="Ready to book your next trip?">
-               <VBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </VBox.margin></Label>
-                <HBox spacing="15">
-                    <ImageView fitHeight="150" fitWidth="200" pickOnBounds="true" preserveRatio="true">
-                  <HBox.margin>
-                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                  </HBox.margin></ImageView>
-               <ImageView fitHeight="150" fitWidth="200" pickOnBounds="true" preserveRatio="true">
-                  <HBox.margin>
-                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                  </HBox.margin>
-               </ImageView>
-                    <VBox spacing="5">
-                        <Label text="Find your next destination" />
-                        <Text text="A wonderful place to visit." />
-                    </VBox>
-               <ImageView fitHeight="150" fitWidth="200" pickOnBounds="true" preserveRatio="true">
-                  <HBox.margin>
-                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                  </HBox.margin>
-               </ImageView>
-               <ImageView fitHeight="150" fitWidth="200" pickOnBounds="true" preserveRatio="true">
-                  <HBox.margin>
-                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                  </HBox.margin>
-               </ImageView>
-                </HBox>
-                <Button text="Plan Trip">
-               <VBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </VBox.margin></Button>
+                <VBox prefHeight="100.0" prefWidth="200.0">
+               <HBox prefHeight="100.0" prefWidth="200.0">
+                  <children>
+                          <!-- Add your images and descriptions here -->
+                          <ImageView fx:id="destinationImageView1" fitHeight="250.0" fitWidth="350.0">
+                        <HBox.margin>
+                           <Insets left="15.0" />
+                        </HBox.margin>
+                     </ImageView>
+                          <ImageView fx:id="destinationImageView2" fitHeight="250.0" fitWidth="350.0">
+                        <HBox.margin>
+                           <Insets left="15.0" />
+                        </HBox.margin>
+                     </ImageView>
+                  </children>
+               </HBox>
+                </VBox>
+                <VBox prefHeight="100.0" prefWidth="200.0">
+               <HBox prefHeight="100.0" prefWidth="200.0">
+                  <children>
+                          <ImageView fx:id="destinationImageView3" fitHeight="250.0" fitWidth="350.0">
+                        <HBox.margin>
+                           <Insets left="15.0" />
+                        </HBox.margin>
+                     </ImageView>
+                          <ImageView fx:id="destinationImageView4" fitHeight="250.0" fitWidth="350.0">
+                        <HBox.margin>
+                           <Insets left="15.0" />
+                        </HBox.margin>
+                     </ImageView>
+                  </children>
+               </HBox>
+                </VBox>
             </VBox>
-            <!-- Not Sure Where you want to go? Section -->
+            <!-- AI Section -->
             <VBox spacing="10">
-                <Label style="-fx-font-weight: bold;" text="Not Sure Where you want to go?" />
-                <HBox spacing="15">
-                    <ImageView fitHeight="150" fitWidth="200" pickOnBounds="true" preserveRatio="true" />
-                    <VBox spacing="5">
-                        <Label text="AI Suggestions" />
-                        <Text text="Discover new destinations with our AI. It learns from your preferences to suggest the perfect places." />
-                    </VBox>
-                </HBox>
-                <Button text="Explore Suggestions" />
+                <Label style="-fx-font-weight: bold;" text="AI for Travel" />
+                <TextFlow prefHeight="200.0" prefWidth="400.0">
+                    <Text>Our AI technology analyzes your preferences and past travel history to provide personalized recommendations.</Text>
+                    <Text>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin euismod libero in neque consequat consequat.</Text>
+                    <Text>Nullam posuere vel ipsum vitae sodales. Vestibulum rhoncus, tortor id luctus viverra, elit nisi sodales purus,</Text>
+                    <Text>vel lacinia quam enim nec nisi.</Text>
+                </TextFlow>
             </VBox>
         </VBox>
     </center>

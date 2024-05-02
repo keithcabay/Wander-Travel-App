@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
+
+<BorderPane prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.travel.virtualtravelassistant.helpFAQ.helpController">
+    <left>
+        <fx:include source="NavBar.fxml" />
+    </left>
+    <center>
+        <VBox alignment="TOP_CENTER" spacing="10">
+         <VBox prefHeight="130.0" prefWidth="1166.0">
+            <children>
+               <Label text="Label" />
+               <TextFlow prefHeight="75.0" prefWidth="1166.0">
+                  <children>
+                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                  </children>
+               </TextFlow>
+            </children>
+            <VBox.margin>
+               <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+            </VBox.margin>
+         </VBox>
+            <Accordion fx:id="faqAccordion" VBox.vgrow="ALWAYS">
+                <panes>
+                    <TitledPane fx:id="question1Pane" text="What is Wander?">
+                        <VBox alignment="CENTER_LEFT" spacing="5">
+                            <Label text="Answer to Question 1" />
+                        </VBox>
+                    </TitledPane>
+                    <TitledPane fx:id="question2Pane" text="How to use Chatbot?">
+                        <VBox alignment="CENTER_LEFT" spacing="5">
+                            <Label text="Answer to Question 2" />
+                        </VBox>
+                    </TitledPane>
+                    <TitledPane fx:id="question3Pane" text="How to Plan a Trip?">
+                        <VBox alignment="CENTER_LEFT" spacing="5">
+                            <Label text="Answer to Question 2" />
+                        </VBox>
+                    </TitledPane>
+                    <TitledPane fx:id="question4Pane" text="How to change Profile Picture?">
+                        <VBox alignment="CENTER_LEFT" spacing="5">
+                            <Label text="Answer to Question 2" />
+                        </VBox>
+                    </TitledPane>
+                    <TitledPane fx:id="question5Pane" text="How to view Trips?">
+                        <VBox alignment="CENTER_LEFT" spacing="5">
+                            <Label text="Answer to Question 2" />
+                        </VBox>
+                    </TitledPane>
+                    <TitledPane fx:id="question6Pane" text="How to View Albums?">
+                        <VBox alignment="CENTER_LEFT" spacing="5">
+                            <Label text="Answer to Question 2" />
+                        </VBox>
+                    </TitledPane>
+                    <TitledPane fx:id="question7Pane" text="How to View Notifications?">
+                        <VBox alignment="CENTER_LEFT" spacing="5">
+                            <Label text="Answer to Question 2" />
+                        </VBox>
+                    </TitledPane>
+                    <TitledPane fx:id="question8Pane" text="How to use Budget Calcultator?">
+                        <VBox alignment="CENTER_LEFT" spacing="5">
+                            <Label text="Answer to Question 2" />
+                        </VBox>
+                    </TitledPane>
+                    <TitledPane fx:id="question9Pane" text="How to add Friends?">
+                        <VBox alignment="CENTER_LEFT" spacing="5">
+                            <Label text="Answer to Question 2" />
+                        </VBox>
+                    </TitledPane>
+                    <TitledPane fx:id="question10Pane" text="How to change Mode?">
+                        <VBox alignment="CENTER_LEFT" spacing="5">
+                            <Label text="Answer to Question 2" />
+                        </VBox>
+                    </TitledPane>
+                </panes>
+            <VBox.margin>
+               <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+            </VBox.margin>
+            </Accordion>
+        </VBox>
+    </center>
+</BorderPane>
