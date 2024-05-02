@@ -94,7 +94,7 @@ public class NavBarController {
 
     @FXML
     protected void onHelpClick(ActionEvent event) {
-        switchScene(event, "/path/to/helpView.fxml");
+        switchScene(event, "/com/travel/virtualtravelassistant/helpView.fxml");
     }
 
     @FXML

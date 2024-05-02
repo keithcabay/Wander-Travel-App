@@ -94,4 +94,22 @@ public class LogInController {
             System.out.println("Failed to load " + fxml +  " page.");
         }
     }
+
+
+    @FXML
+    protected void  onADMINLOGIN(ActionEvent event){
+
+        String userEmail = "joyaba@farmingdale.edu";
+        String userPassword = "password";
+
+        boolean authenticated = validateUser(userEmail, userPassword);
+
+        if (authenticated) {
+            goToPage(event, "/com/travel/virtualtravelassistant/homeView.fxml");
+        }
+
+    }
+
+
+
 }

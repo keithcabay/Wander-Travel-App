@@ -91,6 +91,7 @@
                      <Font name="System Bold" size="15.0"/>
                   </font>
                </Label>
+               <Button mnemonicParsing="false" onAction="#onADMINLOGIN" text="ADMIN LOGIN" />
             </HBox>
             <Pane prefHeight="234.0" prefWidth="298.0" VBox.vgrow="ALWAYS"/>
          </VBox>
