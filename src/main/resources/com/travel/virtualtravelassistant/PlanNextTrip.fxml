@@ -7,6 +7,7 @@
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -15,22 +16,20 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.travel.virtualtravelassistant.PlanNextTrip.PlanNextTripController">
+<BorderPane prefHeight="754.0" prefWidth="1361.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.travel.virtualtravelassistant.PlanNextTrip.PlanNextTripController">
    <stylesheets>
    </stylesheets>
    <left>
       <fx:include maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" source="NavBar.fxml" />
    </left>
    <center>
-      <VBox prefHeight="768.0" prefWidth="1151.0" spacing="20.0" BorderPane.alignment="CENTER">
-         <HBox prefHeight="54.0" prefWidth="894.0">
-            <Pane prefHeight="282.0" prefWidth="56.0" HBox.hgrow="ALWAYS" />
-            <VBox prefHeight="291.0" prefWidth="320.0">
+      <VBox prefHeight="691.0" prefWidth="891.0" spacing="10.0">
+         <HBox spacing="100.0">
+            <VBox prefHeight="245.0" prefWidth="221.0">
                <children>
                   <ImageView fx:id="profilePicImage" fitHeight="125.0" fitWidth="125.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -40,19 +39,12 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </VBox.margin>
                   </ImageView>
-                  <VBox alignment="TOP_CENTER" maxWidth="-Infinity" prefHeight="136.0" prefWidth="310.0" spacing="25.0" style="-fx-background-color: #385170; -fx-border-color: #385170;">
+                  <VBox alignment="TOP_CENTER" maxWidth="-Infinity" prefHeight="75.0" prefWidth="206.0" spacing="10.0" style="-fx-background-color: #385170; -fx-border-color: #385170;">
                      <children>
-                        <TextField fx:id="locationTextField" promptText="Where would you like to go?" style="-fx-border-color: #385170;">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </TextField>
+                        <TextField fx:id="locationTextField" promptText="Where would you like to go?" style="-fx-border-color: #385170;" />
                         <Button fx:id="letsGoButton" mnemonicParsing="false" onAction="#searchLocation" text="Let's Go!!!" textAlignment="CENTER">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
                            <VBox.margin>
-                              <Insets bottom="20.0" />
+                              <Insets bottom="10.0" />
                            </VBox.margin>
                         </Button>
                      </children>
@@ -62,20 +54,21 @@
                   </VBox>
                </children>
             </VBox>
-            <VBox prefHeight="283.0" prefWidth="508.0" style="-fx-background-color: #385170;" translateX="110.0">
+            <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="234.0" prefWidth="434.0" style="-fx-background-color: #385170;" translateX="110.0">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
                <HBox.margin>
-                  <Insets top="10.0" />
+                  <Insets />
                </HBox.margin>
                <children>
-                  <GridPane prefHeight="251.0" prefWidth="558.0">
+                  <GridPane prefHeight="235.0" prefWidth="482.0">
                      <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="340.6" minWidth="10.0" prefWidth="326.9999633789063" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="230.20001220703125" minWidth="10.0" prefWidth="181.40003662109376" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="340.6" minWidth="10.0" prefWidth="175.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="230.20001220703125" minWidth="10.0" prefWidth="100.0" />
                      </columnConstraints>
                      <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -84,58 +77,58 @@
                      </rowConstraints>
                      <children>
                         <Label layoutX="20.0" layoutY="68.0" prefHeight="35.0" prefWidth="202.0" text="Total Budget" textFill="WHITE">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
                            <GridPane.margin>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </GridPane.margin>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
                         </Label>
                         <Label prefHeight="35.0" prefWidth="202.0" text="Vacation Length" textFill="WHITE" GridPane.rowIndex="1">
                            <GridPane.margin>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </GridPane.margin>
                            <font>
-                              <Font size="24.0" />
+                              <Font size="14.0" />
                            </font>
                         </Label>
-                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
-                           <children>
-                              <Label prefHeight="35.0" prefWidth="202.0" text="Room and Board" textFill="WHITE">
-                                 <font>
-                                    <Font size="24.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                 </HBox.margin>
-                              </Label>
-                              <TextField fx:id="roomAndBoardTextField" />
-                           </children>
-                        </HBox>
                         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="3">
                            <children>
-                              <Label prefHeight="35.0" prefWidth="202.0" text="Food" textFill="WHITE">
+                              <Label prefHeight="27.0" prefWidth="160.0" text="Room and Board" textFill="WHITE">
                                  <font>
-                                    <Font size="24.0" />
+                                    <Font size="14.0" />
                                  </font>
                                  <HBox.margin>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                  </HBox.margin>
                               </Label>
-                              <TextField fx:id="foodTextField" />
+                              <TextField fx:id="roomAndBoardTextField" prefWidth="160.0" />
                            </children>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="4">
                            <children>
-                              <Label prefHeight="35.0" prefWidth="202.0" text="Spending" textFill="WHITE">
+                              <Label prefHeight="27.0" prefWidth="160.0" text="Food" textFill="WHITE">
                                  <font>
-                                    <Font size="24.0" />
+                                    <Font size="14.0" />
                                  </font>
                                  <HBox.margin>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                  </HBox.margin>
                               </Label>
-                              <TextField fx:id="spendingTextField" />
+                              <TextField fx:id="foodTextField" prefWidth="160.0" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="5">
+                           <children>
+                              <Label prefHeight="27.0" prefWidth="160.0" text="Spending" textFill="WHITE">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <TextField fx:id="spendingTextField" prefWidth="160.0" />
                            </children>
                            <GridPane.margin>
                               <Insets />
@@ -151,134 +144,123 @@
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </GridPane.margin>
                         </TextField>
-                        <Slider fx:id="roomAndBoardSlider" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                        <Slider fx:id="roomAndBoardSlider" GridPane.columnIndex="1" GridPane.rowIndex="3">
                            <GridPane.margin>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </GridPane.margin>
                         </Slider>
-                        <Slider fx:id="foodSlider" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                        <Slider fx:id="foodSlider" GridPane.columnIndex="1" GridPane.rowIndex="4">
                            <GridPane.margin>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </GridPane.margin>
                         </Slider>
-                        <Slider fx:id="spendingSlider" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                        <Slider fx:id="spendingSlider" GridPane.columnIndex="1" GridPane.rowIndex="5">
                            <GridPane.margin>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </GridPane.margin>
                         </Slider>
+                        <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="242.0" text="Budget per Day" textFill="WHITE" GridPane.rowIndex="2">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </GridPane.margin>
+                        </Label>
                      </children>
                   </GridPane>
                </children>
             </VBox>
-            <Pane prefHeight="282.0" prefWidth="174.0" HBox.hgrow="ALWAYS" />
             <padding>
                <Insets left="10.0" />
             </padding>
 
          </HBox>
-         <HBox>
-            <children>
-               <Pane prefHeight="436.0" prefWidth="96.0" HBox.hgrow="ALWAYS" />
-               <TabPane prefHeight="416.0" prefWidth="704.0" tabClosingPolicy="UNAVAILABLE">
-                  <tabs>
-                     <Tab text="Details">
+         <TabPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="500.0" prefWidth="877.0" tabClosingPolicy="UNAVAILABLE">
+            <tabs>
+               <Tab text="Details">
+                  <content>
+                     <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="434.0" prefWidth="877.0">
+                        <children>
+                           <TextArea fx:id="locationDetailsTextArea" prefHeight="380.0" prefWidth="877.0" wrapText="true">
+                              <font>
+                                 <Font size="20.0" />
+                              </font>
+                           </TextArea>
+                           <ScrollPane fx:id="imagesScrollPane" fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="436.0" prefWidth="299.0">
+                              <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="225.0" prefWidth="880.0">
+                                 <children>
+                                    <HBox fx:id="photosContainer" alignment="CENTER_LEFT" layoutY="-37.6" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="10.0" style="-fx-background-color: #385170;" AnchorPane.bottomAnchor="-11.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <padding>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </padding></HBox>
+                                 </children>
+                              </AnchorPane>
+                           </ScrollPane>
+                        </children>
+                     </VBox>
+                  </content>
+               </Tab>
+               <Tab text="Attractions">
+                  <content>
+                     <ScrollPane>
                         <content>
-                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                              <children>
-                                 <!--                                 <TextArea fx:id="locationDetailsTextArea" editable="false" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">-->
-                                 <!--                                    <font>-->
-                                 <!--                                       <Font size="20.0" />-->
-                                 <!--                                    </font>-->
-                                 <!--                                 </TextArea>-->
-                              </children>
-                           </AnchorPane>
-                        </content>
-                        <content>
-                           <GridPane>
+                           <GridPane fx:id="attractionsGrid" vgap="10.0">
                               <columnConstraints>
-                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 <ColumnConstraints hgrow="SOMETIMES" />
+                                 <ColumnConstraints hgrow="SOMETIMES" />
                               </columnConstraints>
                               <rowConstraints>
-                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 <RowConstraints vgrow="SOMETIMES" />
                               </rowConstraints>
+                              <padding>
+                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                              </padding>
                            </GridPane>
                         </content>
-                     </Tab>
-                     <Tab text="Attractions">
+                     </ScrollPane>
+                  </content>
+               </Tab>
+               <Tab text="Hotels">
+                  <content>
+                     <ScrollPane>
                         <content>
-                           <ScrollPane>
-                              <content>
-                                 <GridPane fx:id="attractionsGrid" vgap="10.0">
-                                    <columnConstraints>
-                                       <ColumnConstraints hgrow="SOMETIMES" />
-                                       <ColumnConstraints hgrow="SOMETIMES" />
-                                    </columnConstraints>
-                                    <rowConstraints>
-                                       <RowConstraints vgrow="SOMETIMES" />
-                                    </rowConstraints>
-                                    <padding>
-                                       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                    </padding>
-                                 </GridPane>
-                              </content>
-                           </ScrollPane>
+                           <GridPane fx:id="hotelsGrid" vgap="10.0">
+                              <columnConstraints>
+                                 <ColumnConstraints hgrow="SOMETIMES" />
+                              </columnConstraints>
+                              <rowConstraints>
+                                 <RowConstraints vgrow="SOMETIMES" />
+                              </rowConstraints>
+                              <padding>
+                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                              </padding>
+                           </GridPane>
                         </content>
-                     </Tab>
-                     <Tab text="Hotels">
+                     </ScrollPane>
+                  </content>
+               </Tab>
+               <Tab text="Reviews">
+                  <content>
+                     <ScrollPane>
                         <content>
-                           <ScrollPane>
-                              <content>
-                                 <GridPane fx:id="hotelsGrid" vgap="10.0">
-                                    <columnConstraints>
-                                       <ColumnConstraints hgrow="SOMETIMES" />
-                                    </columnConstraints>
-                                    <rowConstraints>
-                                       <RowConstraints vgrow="SOMETIMES" />
-                                    </rowConstraints>
-                                    <padding>
-                                       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                    </padding>
-                                 </GridPane>
-                              </content>
-                           </ScrollPane>
+                           <GridPane fx:id="reviewsGrid" vgap="10.0">
+                              <columnConstraints>
+                                 <ColumnConstraints hgrow="SOMETIMES" />
+                              </columnConstraints>
+                              <rowConstraints>
+                                 <RowConstraints vgrow="SOMETIMES" />
+                              </rowConstraints>
+                              <padding>
+                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                              </padding>
+                           </GridPane>
                         </content>
-                     </Tab>
-                     <Tab text="Reviews">
-                        <content>
-                           <ScrollPane>
-                              <content>
-                                 <GridPane fx:id="reviewsGrid" vgap="10.0">
-                                    <columnConstraints>
-                                       <ColumnConstraints hgrow="SOMETIMES" />
-                                    </columnConstraints>
-                                    <rowConstraints>
-                                       <RowConstraints vgrow="SOMETIMES" />
-                                    </rowConstraints>
-                                    <padding>
-                                       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                    </padding>
-                                 </GridPane>
-                              </content>
-                           </ScrollPane>
-                        </content>
-                     </Tab>
-                  </tabs>
-               </TabPane>
-               <ScrollPane fx:id="imagesScrollPane" prefHeight="436.0" prefWidth="299.0">
-                  <AnchorPane prefHeight="434.0" prefWidth="298.0">
-                     <VBox fx:id="photosContainer" alignment="CENTER" layoutX="-12.0" prefHeight="434.0" prefWidth="300.0" spacing="10">
-                        <padding>
-                           <Insets bottom="10.0" />
-                        </padding>
-                     </VBox>
-                  </AnchorPane>
-               </ScrollPane>
-               <Pane prefHeight="436.0" prefWidth="90.0" HBox.hgrow="ALWAYS" />
-            </children>
-         </HBox>
+                     </ScrollPane>
+                  </content>
+               </Tab>
+            </tabs>
+         </TabPane>
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
@@ -288,11 +270,11 @@
       </VBox>
    </center>
    <right>
-      <VBox>
+      <VBox prefHeight="705.0" prefWidth="275.0">
          <children>
-            <ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="656.0" prefWidth="275.0" style="-fx-background-color: #385170;" vbarPolicy="ALWAYS">
+            <ScrollPane hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="707.0" prefWidth="275.0" style="-fx-background-color: #385170;" vbarPolicy="ALWAYS">
                <content>
-                  <GridPane fx:id="addedGrid" vgap="10.0">
+                  <GridPane fx:id="addedGrid" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" vgap="10.0">
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" />
                      </columnConstraints>
