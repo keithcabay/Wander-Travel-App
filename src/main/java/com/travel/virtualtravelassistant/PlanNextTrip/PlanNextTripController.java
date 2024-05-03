@@ -43,7 +43,7 @@ public class PlanNextTripController implements Initializable {
     @FXML
     private TextArea locationDetailsTextArea;
     @FXML
-    private VBox photosContainer;
+    private HBox photosContainer;
     @FXML
     private Slider foodSlider;
     @FXML
@@ -242,9 +242,9 @@ public class PlanNextTripController implements Initializable {
                                     String photoUrl = avatar.optString("large", "");
 
                                     if (!photoUrl.isEmpty()) {
-                                        ImageView imageView = new ImageView(new Image(photoUrl));
-                                        imageView.setFitWidth(300);
-                                        imageView.setFitHeight(225);
+                                        ImageView imageView = new ImageView(new Image(photoUrl, true));
+                                        imageView.setPreserveRatio(true);
+                                        imageView.setFitHeight(220); // Set max height
                                         photosContainer.getChildren().add(imageView);
                                     }
                                 }
@@ -360,25 +360,6 @@ public class PlanNextTripController implements Initializable {
     }
 
 
-    // Update sliders based on total budget and vacation length
-    private void updateSliders() {
-        double dailyBudget = totalBudget / vacationLength;
-        double roomAndBoardDailyBudget = (dailyBudget * 0.5);
-        double foodDailyBudget = (dailyBudget * 0.3);
-        double spendingDailyBudget = (dailyBudget * 0.2);
-
-        roomAndBoardSlider.setValue(roomAndBoardDailyBudget);
-        foodSlider.setValue(foodDailyBudget);
-        spendingSlider.setValue(spendingDailyBudget);
-
-        updateTextFields();
-    }
-    private void updateTextFields() {
-        roomAndBoardTextField.setText(String.format("%.2f", roomAndBoardSlider.getValue()));
-        foodTextField.setText(String.format("%.2f", foodSlider.getValue()));
-        spendingTextField.setText(String.format("%.2f", spendingSlider.getValue()));
-    }
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
@@ -386,6 +367,9 @@ public class PlanNextTripController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        setupFieldListeners();
+        setupSliderListeners();
 
         profilePicImage.setImage(FirebaseStorageAction.getProfilePicture());
 
@@ -491,5 +475,139 @@ public class PlanNextTripController implements Initializable {
         attractions.add(activity);
 
         return attractions;
+    }
+
+    private void setupFieldListeners() {
+        totalBudgetTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            try {
+                totalBudget = Double.parseDouble(newValue);
+                updateSlidersFromFields();
+            } catch (NumberFormatException e) {
+                // Handle invalid input
+            }
+        });
+
+        vacationLengthTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            try {
+                vacationLength = Integer.parseInt(newValue);
+                if (vacationLength > 0) {
+                    updateSlidersFromFields();
+                }
+            } catch (NumberFormatException e) {
+            }
+        });
+    }
+
+
+
+    private void setupSliderListeners() {
+        roomAndBoardSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            adjustOtherSliders(newValue.doubleValue(), foodSlider, spendingSlider);
+        });
+
+        foodSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            adjustOtherSliders(newValue.doubleValue(), roomAndBoardSlider, spendingSlider);
+        });
+
+        spendingSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            adjustOtherSliders(newValue.doubleValue(), roomAndBoardSlider, foodSlider);
+        });
+    }
+
+    private void adjustOtherSliders(double newValue, Slider slider1, Slider slider2) {
+        double remaining = 100 - newValue;
+        double slider1Value = Math.min(slider1.getValue(), remaining);
+        slider1.setValue(slider1Value);
+        slider2.setValue(remaining - slider1Value);
+    }
+
+    private void updateSlidersFromFields() {
+        if (totalBudget > 0 && vacationLength > 0) {
+            double dailyBudget = totalBudget / vacationLength;
+
+            roomAndBoardSlider.setValue(0);
+            foodSlider.setValue(0);
+            spendingSlider.setValue(0);
+
+        }
+    }
+
+
+    private void updateSliders() {
+        // Check for valid input before updating sliders
+        if (totalBudget > 0 && vacationLength > 0) {
+            double dailyBudget = totalBudget / vacationLength;
+
+
+            double roomAndBoardPercent = 50; // 50% of daily budget
+            double foodPercent = 30;         // 30% of daily budget
+            double spendingPercent = 20;     // 20% of daily budget
+
+            double roomAndBoardBudget = (dailyBudget * roomAndBoardPercent) / 100;
+            double foodBudget = (dailyBudget * foodPercent) / 100;
+            double spendingBudget = (dailyBudget * spendingPercent) / 100;
+
+            // Update sliders
+            roomAndBoardSlider.setValue(roomAndBoardBudget);
+            foodSlider.setValue(foodBudget);
+            spendingSlider.setValue(spendingBudget);
+
+            updateTextFields();
+        } else {
+            System.out.println("Invalid input for budget or vacation length");
+        }
+    }
+
+    // Update text fields based on slider values changing
+    private void updateTextFields() {
+        roomAndBoardTextField.setText(String.format("$%.2f", roomAndBoardSlider.getValue()));
+        foodTextField.setText(String.format("$%.2f", foodSlider.getValue()));
+        spendingTextField.setText(String.format("$%.2f", spendingSlider.getValue()));
+    }
+
+    //Strip the $
+    private double parseCurrency(String currencyStr) {
+        try {
+            String numericStr = currencyStr.replaceAll("[^\\d.-]", ""); // Remove $ and any other non-numeric characters
+            return Double.parseDouble(numericStr);
+        } catch (NumberFormatException e) {
+            System.err.println("Error parsing currency: " + e.getMessage());
+            return 0; // Default to 0
+        }
+    }
+
+    //TextField Listeners for room and board and food
+    private void setupTextFieldListeners() {
+        roomAndBoardTextField.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
+            if (!isNowFocused) {
+                double value = parseCurrency(roomAndBoardTextField.getText());
+                roomAndBoardSlider.setValue(value);
+                adjustOtherBudgets();
+            }
+        });
+
+        foodTextField.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
+            if (!isNowFocused) {
+                double value = parseCurrency(foodTextField.getText());
+                foodSlider.setValue(value);
+                adjustOtherBudgets();
+            }
+        });
+    }
+
+    //Adjust sliders for room and board and food
+    private void adjustOtherBudgets() {
+        double totalBudget = 100; // Total budget percentage
+        double roomBoard = roomAndBoardSlider.getValue();
+        double food = foodSlider.getValue();
+        double spending = spendingSlider.getValue();
+
+        if (roomBoard + food + spending > totalBudget) {
+            double scale = totalBudget / (roomBoard + food + spending);
+            roomAndBoardSlider.setValue(roomBoard * scale);
+            foodSlider.setValue(food * scale);
+            spendingSlider.setValue(spending * scale);
+        }
+        updateTextFields();
     }
 }
