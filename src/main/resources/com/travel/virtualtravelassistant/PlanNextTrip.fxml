@@ -144,17 +144,17 @@
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </GridPane.margin>
                         </TextField>
-                        <Slider fx:id="roomAndBoardSlider" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                        <Slider fx:id="roomAndBoardSlider" minorTickCount="4" GridPane.columnIndex="1" GridPane.rowIndex="3">
                            <GridPane.margin>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </GridPane.margin>
                         </Slider>
-                        <Slider fx:id="foodSlider" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                        <Slider fx:id="foodSlider" minorTickCount="4" GridPane.columnIndex="1" GridPane.rowIndex="4">
                            <GridPane.margin>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </GridPane.margin>
                         </Slider>
-                        <Slider fx:id="spendingSlider" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                        <Slider fx:id="spendingSlider" minorTickCount="4" GridPane.columnIndex="1" GridPane.rowIndex="5">
                            <GridPane.margin>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </GridPane.margin>
