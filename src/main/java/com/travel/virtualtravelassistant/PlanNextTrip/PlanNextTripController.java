@@ -80,8 +80,9 @@ public class PlanNextTripController implements Initializable {
 
 
 
-    private double totalBudget;
-    private int vacationLength;
+    private double totalBudget = 0;
+    private int vacationLength = 0;
+    private double dailyBudget = 0;
     private String API_KEY;
 
     private static final String SEARCH_API_URL = "https://api.content.tripadvisor.com/api/v1/location/search?key=";
@@ -370,6 +371,7 @@ public class PlanNextTripController implements Initializable {
 
         setupFieldListeners();
         setupSliderListeners();
+        setupTextFieldListeners();
 
         profilePicImage.setImage(FirebaseStorageAction.getProfilePicture());
 
@@ -387,14 +389,14 @@ public class PlanNextTripController implements Initializable {
         totalBudgetTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.isEmpty()) {
                 totalBudget = Double.parseDouble(newValue);
-                updateSliders();
+
             }
         });
 
         vacationLengthTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.isEmpty()) {
                 vacationLength = Integer.parseInt(newValue);
-                updateSliders();
+
             }
         });
 
@@ -414,6 +416,62 @@ public class PlanNextTripController implements Initializable {
         loadGrid(attractions, attractionsGrid);
         loadGrid(hotels, hotelsGrid);
         loadGrid(reviews, reviewsGrid);
+    }
+
+    private void setupTextFieldListeners() {
+        // Listener for Room and Board Text Field
+        roomAndBoardTextField.focusedProperty().addListener((observable, oldValue, isFocused) -> {
+            if (!isFocused) {
+                updateSliderFromTextField(roomAndBoardTextField, roomAndBoardSlider);
+            }
+        });
+
+        // Listener for Food Text Field
+        foodTextField.focusedProperty().addListener((observable, oldValue, isFocused) -> {
+            if (!isFocused) {
+                updateSliderFromTextField(foodTextField, foodSlider);
+            }
+        });
+
+        // Listener for Spending Text Field
+        spendingTextField.focusedProperty().addListener((observable, oldValue, isFocused) -> {
+            if (!isFocused) {
+                updateSliderFromTextField(spendingTextField, spendingSlider);
+            }
+        });
+    }
+
+    private void updateSliderFromTextField(TextField textField, Slider slider) {
+        try {
+            String text = textField.getText();
+            if (text.startsWith("$")) {
+                text = text.substring(1);  // Remove the dollar sign
+            }
+            double value = Double.parseDouble(text);
+            if (value <= slider.getMax() && value >= slider.getMin()) {
+                slider.setValue(value);
+                adjustSlidersPostUpdate(slider);
+            }
+        } catch (NumberFormatException e) {
+            // Handle invalid number format
+            textField.setText(String.format("$%.2f", slider.getValue())); // Reset to slider's value
+        }
+    }
+
+    private void adjustSlidersPostUpdate(Slider adjustedSlider) {
+        // Recalculate the distribution of the remaining budget among the other sliders
+        double totalUsed = roomAndBoardSlider.getValue() + foodSlider.getValue() + spendingSlider.getValue();
+        if (totalUsed > dailyBudget) {
+            double excess = totalUsed - dailyBudget;
+            // Adjust other sliders proportionally to remove the excess
+            for (Slider slider : new Slider[]{roomAndBoardSlider, foodSlider, spendingSlider}) {
+                if (slider != adjustedSlider) {
+                    double oldValue = slider.getValue();
+                    slider.setValue(oldValue - excess / 2);  // Simple distribution of excess
+                }
+            }
+        }
+        updateTextFields();  // Update text fields to reflect the new slider values
     }
 
     private void loadGrid(List<Activity> activities, GridPane gridPane){
@@ -481,133 +539,78 @@ public class PlanNextTripController implements Initializable {
         totalBudgetTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             try {
                 totalBudget = Double.parseDouble(newValue);
-                updateSlidersFromFields();
+                updateDailyBudget();
             } catch (NumberFormatException e) {
-                // Handle invalid input
+                totalBudget = 0;
+                updateDailyBudget();
             }
         });
 
         vacationLengthTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             try {
                 vacationLength = Integer.parseInt(newValue);
-                if (vacationLength > 0) {
-                    updateSlidersFromFields();
-                }
+                updateDailyBudget();
             } catch (NumberFormatException e) {
+                vacationLength = 0;
+                updateDailyBudget();
             }
         });
     }
 
-
+    private void updateDailyBudget() {
+        if (totalBudget > 0 && vacationLength > 0) {
+            dailyBudget = totalBudget / vacationLength;
+            updateSliders();
+        } else {
+            dailyBudget = 0;
+            updateSliders();
+        }
+    }
 
     private void setupSliderListeners() {
         roomAndBoardSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
-            adjustOtherSliders(newValue.doubleValue(), foodSlider, spendingSlider);
+            adjustOtherSliders(roomAndBoardSlider, newValue.doubleValue(), foodSlider, spendingSlider);
         });
 
         foodSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
-            adjustOtherSliders(newValue.doubleValue(), roomAndBoardSlider, spendingSlider);
+            adjustOtherSliders(foodSlider, newValue.doubleValue(), roomAndBoardSlider, spendingSlider);
         });
 
         spendingSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
-            adjustOtherSliders(newValue.doubleValue(), roomAndBoardSlider, foodSlider);
+            adjustOtherSliders(spendingSlider, newValue.doubleValue(), roomAndBoardSlider, foodSlider);
         });
     }
 
-    private void adjustOtherSliders(double newValue, Slider slider1, Slider slider2) {
-        double remaining = 100 - newValue;
-        double slider1Value = Math.min(slider1.getValue(), remaining);
-        slider1.setValue(slider1Value);
-        slider2.setValue(remaining - slider1Value);
-    }
+    private void adjustOtherSliders(Slider adjustedSlider, double newValue, Slider slider1, Slider slider2) {
+        double totalUsed = newValue + slider1.getValue() + slider2.getValue();
+        double remainingBudget = dailyBudget - newValue;
 
-    private void updateSlidersFromFields() {
-        if (totalBudget > 0 && vacationLength > 0) {
-            double dailyBudget = totalBudget / vacationLength;
-
-            roomAndBoardSlider.setValue(0);
-            foodSlider.setValue(0);
-            spendingSlider.setValue(0);
-
+        if (totalUsed > dailyBudget) {
+            double scale = remainingBudget / (slider1.getValue() + slider2.getValue());
+            slider1.setValue(slider1.getValue() * scale);
+            slider2.setValue(slider2.getValue() * scale);
         }
-    }
 
+        updateTextFields();
+    }
 
     private void updateSliders() {
-        // Check for valid input before updating sliders
-        if (totalBudget > 0 && vacationLength > 0) {
-            double dailyBudget = totalBudget / vacationLength;
 
+        // Set the max value of the sliders to the daily budget
+        roomAndBoardSlider.setMax(dailyBudget);
+        foodSlider.setMax(dailyBudget);
+        spendingSlider.setMax(dailyBudget);
 
-            double roomAndBoardPercent = 50; // 50% of daily budget
-            double foodPercent = 30;         // 30% of daily budget
-            double spendingPercent = 20;     // 20% of daily budget
-
-            double roomAndBoardBudget = (dailyBudget * roomAndBoardPercent) / 100;
-            double foodBudget = (dailyBudget * foodPercent) / 100;
-            double spendingBudget = (dailyBudget * spendingPercent) / 100;
-
-            // Update sliders
-            roomAndBoardSlider.setValue(roomAndBoardBudget);
-            foodSlider.setValue(foodBudget);
-            spendingSlider.setValue(spendingBudget);
-
-            updateTextFields();
-        } else {
-            System.out.println("Invalid input for budget or vacation length");
-        }
+        roomAndBoardSlider.setValue(dailyBudget * 0.50);
+        foodSlider.setValue(dailyBudget * 0.30);
+        spendingSlider.setValue(dailyBudget * 0.20);
+        updateTextFields();
+        System.out.println("Daily budget: " + dailyBudget + ", Room & Board: " + roomAndBoardSlider.getValue() + ", Food: " + foodSlider.getValue() + ", Spending: " + spendingSlider.getValue());
     }
 
-    // Update text fields based on slider values changing
     private void updateTextFields() {
         roomAndBoardTextField.setText(String.format("$%.2f", roomAndBoardSlider.getValue()));
         foodTextField.setText(String.format("$%.2f", foodSlider.getValue()));
         spendingTextField.setText(String.format("$%.2f", spendingSlider.getValue()));
-    }
-
-    //Strip the $
-    private double parseCurrency(String currencyStr) {
-        try {
-            String numericStr = currencyStr.replaceAll("[^\\d.-]", ""); // Remove $ and any other non-numeric characters
-            return Double.parseDouble(numericStr);
-        } catch (NumberFormatException e) {
-            System.err.println("Error parsing currency: " + e.getMessage());
-            return 0; // Default to 0
-        }
-    }
-
-    //TextField Listeners for room and board and food
-    private void setupTextFieldListeners() {
-        roomAndBoardTextField.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
-            if (!isNowFocused) {
-                double value = parseCurrency(roomAndBoardTextField.getText());
-                roomAndBoardSlider.setValue(value);
-                adjustOtherBudgets();
-            }
-        });
-
-        foodTextField.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
-            if (!isNowFocused) {
-                double value = parseCurrency(foodTextField.getText());
-                foodSlider.setValue(value);
-                adjustOtherBudgets();
-            }
-        });
-    }
-
-    //Adjust sliders for room and board and food
-    private void adjustOtherBudgets() {
-        double totalBudget = 100; // Total budget percentage
-        double roomBoard = roomAndBoardSlider.getValue();
-        double food = foodSlider.getValue();
-        double spending = spendingSlider.getValue();
-
-        if (roomBoard + food + spending > totalBudget) {
-            double scale = totalBudget / (roomBoard + food + spending);
-            roomAndBoardSlider.setValue(roomBoard * scale);
-            foodSlider.setValue(food * scale);
-            spendingSlider.setValue(spending * scale);
-        }
-        updateTextFields();
     }
 }
