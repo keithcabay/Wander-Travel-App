@@ -49,6 +49,7 @@ public class TripPreviewCardController {
     }
 
     public void setPreviousTrip(Trip trip){
+        viewTripButton.setManaged(false);
         this.trip = trip;
         Image image = trip.getImage();
         imageOfDestination.setImage(image);
