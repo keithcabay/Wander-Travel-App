@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.travel.virtualtravelassistant.NavBarController">
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.travel.virtualtravelassistant.NavBarController">
    <center>
       <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="200.0" stylesheets="@CSS/NavBar.css">
          <VBox prefHeight="125.0" prefWidth="200.0" styleClass="vbox-top" stylesheets="@CSS/NavBar.css">
@@ -42,17 +42,7 @@
                </padding>
             </Label>
             <Separator prefHeight="61.0" prefWidth="200.0" />
-            <Button fx:id="myProfile" mnemonicParsing="false" onAction="#onMyProfileClick" prefHeight="29.0" prefWidth="200.0" text="My Profile" VBox.vgrow="ALWAYS">
-               <VBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </VBox.margin>
-            </Button>
             <Button fx:id="planTrip" mnemonicParsing="false" onAction="#onPlanTripClick" prefHeight="29.0" prefWidth="200.0" text="Plan A Trip" VBox.vgrow="ALWAYS">
-               <VBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </VBox.margin>
-            </Button>
-            <Button fx:id="viewTrip" mnemonicParsing="false" onAction="#onViewFriendsClick" prefHeight="29.0" prefWidth="200.0" text="My Friends" VBox.vgrow="ALWAYS">
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
@@ -62,7 +52,12 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
             </Button>
-            <Button fx:id="chatbotButton" onAction="#onChatbotClick" prefHeight="29.0" prefWidth="200.0" text="Chatbot" VBox.vgrow="ALWAYS">
+            <Button fx:id="myProfile" mnemonicParsing="false" onAction="#onMyProfileClick" prefHeight="29.0" prefWidth="200.0" text="My Profile" VBox.vgrow="ALWAYS">
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="viewTrip" mnemonicParsing="false" onAction="#onViewFriendsClick" prefHeight="29.0" prefWidth="200.0" text="My Friends" VBox.vgrow="ALWAYS">
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
@@ -72,7 +67,7 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
             </Button>
-            <Button fx:id="settings" mnemonicParsing="false" onAction="#onSettingsClick" prefWidth="200.0" text="Settings" VBox.vgrow="ALWAYS">
+            <Button fx:id="chatbotButton" onAction="#onChatbotClick" prefHeight="29.0" prefWidth="200.0" text="Chatbot" VBox.vgrow="ALWAYS">
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
