@@ -13,11 +13,19 @@
    <center>
       <VBox alignment="CENTER">
          <children>
-            <Label fx:id="typeLabel" prefHeight="17.0" prefWidth="102.0" text="Friend Request">
-               <font>
-                  <Font name="System Bold" size="13.0" />
-               </font>
-            </Label>
+            <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
+               <children>
+                  <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                  <Label fx:id="typeLabel" prefHeight="17.0" prefWidth="102.0" text="Friend Request">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Pane prefHeight="35.0" prefWidth="110.0" HBox.hgrow="ALWAYS" />
+                  <Button fx:id="viewTripButton" mnemonicParsing="false" onAction="#handleViewTripButton" prefHeight="26.0" prefWidth="85.0" styleClass="editProfileButton" stylesheets="@CSS/Button.css" text="View Trip" />
+                  <Pane prefHeight="35.0" prefWidth="24.0" />
+               </children>
+            </HBox>
             <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="800.0">
                <children>
                   <Label fx:id="senderNameLabel" prefHeight="17.0" prefWidth="89.0" text="John Smith" HBox.hgrow="ALWAYS">
@@ -40,12 +48,12 @@
                   </Pane>
                   <HBox prefHeight="37.0" prefWidth="86.0" stylesheets="@CSS/Button.css">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#handleAcceptFriendRequest" prefHeight="30.0" prefWidth="30.0" styleClass="acceptRequest">
+                        <Button fx:id="acceptButton" mnemonicParsing="false" onAction="#handleAcceptFriendRequest" prefHeight="30.0" prefWidth="30.0" styleClass="acceptRequest">
                            <HBox.margin>
-                              <Insets right="25.0" />
+                              <Insets right="20.0" />
                            </HBox.margin>
                         </Button>
-                        <Button mnemonicParsing="false" onAction="#handleDenyFriendRequest" prefHeight="30.0" prefWidth="30.0" styleClass="denyRequest" />
+                        <Button fx:id="denyButton" mnemonicParsing="false" onAction="#handleDenyFriendRequest" prefHeight="30.0" prefWidth="30.0" styleClass="denyRequest" />
                      </children>
                      <HBox.margin>
                         <Insets />
