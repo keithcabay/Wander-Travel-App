@@ -21,6 +21,7 @@ module com.travel.virtualtravelassistant {
     requires com.fasterxml.jackson.databind;
     requires java.net.http;
     requires javafx.media;
+    requires java.desktop;
 
 
     opens com.travel.virtualtravelassistant to javafx.fxml,javafx.media;
