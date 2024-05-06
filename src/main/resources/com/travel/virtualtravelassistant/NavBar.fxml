@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.travel.virtualtravelassistant.NavBarController">
+<BorderPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.travel.virtualtravelassistant.NavBarController">
    <center>
       <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="200.0" stylesheets="@CSS/NavBar.css">
          <VBox prefHeight="125.0" prefWidth="200.0" styleClass="vbox-top" stylesheets="@CSS/NavBar.css">
@@ -62,9 +62,9 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
             </Button>
-            <Button fx:id="chatbotButton" text="Chatbot" onAction="#onChatbotClick" prefHeight="29.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+            <Button fx:id="chatbotButton" onAction="#onChatbotClick" prefHeight="29.0" prefWidth="200.0" text="Chatbot" VBox.vgrow="ALWAYS">
                <VBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
             </Button>
             <Button fx:id="viewInbox" mnemonicParsing="false" onAction="#onViewInboxClick" prefWidth="200.0" text="Inbox" VBox.vgrow="ALWAYS">

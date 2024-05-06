@@ -6,6 +6,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
@@ -19,12 +20,15 @@
         <VBox spacing="20">
             <!-- About Us Section -->
             <VBox spacing="10">
-                <Label style="-fx-font-weight: bold; " text="About Us" />
+                <Label style="-fx-font-weight: bold; " text="About Us">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
                 <TextFlow prefHeight="200.0" prefWidth="400.0">
                     <Text>We are a team passionate about travel and exploration. Our mission is to make your travel experience seamless and enjoyable.</Text>
-                    <Text>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin euismod libero in neque consequat consequat.</Text>
-                    <Text>Nullam posuere vel ipsum vitae sodales. Vestibulum rhoncus, tortor id luctus viverra, elit nisi sodales purus,</Text>
-                    <Text>vel lacinia quam enim nec nisi.</Text>
+                    <Text text=" Plan a Trip.  Add Friends.  Add your favorite memories.">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin euismod libero in neque consequat consequat.</Text>
+                    <Text text="Wander will take care of all your needs and provide a Chatbot to help you every step of the way.">Nullam posuere vel ipsum vitae sodales. Vestibulum rhoncus, tortor id luctus viverra, elit nisi sodales purus,</Text>
+                    <Text text=" Plan your dream destination today.">vel lacinia quam enim nec nisi.</Text>
                 </TextFlow>
             <VBox.margin>
                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -33,7 +37,7 @@
             <!-- Ready to book your next trip? Section -->
             <VBox spacing="10">
                 <VBox prefHeight="100.0" prefWidth="200.0">
-               <HBox prefHeight="100.0" prefWidth="200.0">
+               <HBox prefHeight="100.0" prefWidth="200.0" styleClass="shadow" stylesheets="@CSS/BoxShadow.css">
                   <children>
                           <!-- Add your images and descriptions here -->
                           <ImageView fx:id="destinationImageView1" fitHeight="250.0" fitWidth="350.0">
@@ -46,11 +50,34 @@
                            <Insets left="15.0" />
                         </HBox.margin>
                      </ImageView>
+                      <VBox prefHeight="250.0" prefWidth="380.0">
+                        <children>
+                           <TextFlow prefHeight="253.0" prefWidth="380.0">
+                              <children>
+                                 <Text text="Wheres your perfect Destination? ">
+                                    <font>
+                                       <Font size="20.0" />
+                                    </font>
+                                 </Text>
+                                 <Text text="Medellin? Monaco? Rome? Dubai?">
+                                    <font>
+                                       <Font size="20.0" />
+                                    </font>
+                                 </Text>
+                                 <Text text=" Tokyo? Barcelona? Madrid? Ibiza? Maldives? Athens?">
+                                    <font>
+                                       <Font size="20.0" />
+                                    </font>
+                                 </Text>
+                              </children>
+                           </TextFlow>
+                        </children>
+                      </VBox>
                   </children>
                </HBox>
                 </VBox>
                 <VBox prefHeight="100.0" prefWidth="200.0">
-               <HBox prefHeight="100.0" prefWidth="200.0">
+               <HBox prefHeight="100.0" prefWidth="200.0" styleClass="shadow" stylesheets="@CSS/BoxShadow.css">
                   <children>
                           <ImageView fx:id="destinationImageView3" fitHeight="250.0" fitWidth="350.0">
                         <HBox.margin>
@@ -62,19 +89,28 @@
                            <Insets left="15.0" />
                         </HBox.margin>
                      </ImageView>
+                     <VBox prefHeight="250.0" prefWidth="380.0" />
                   </children>
                </HBox>
                 </VBox>
             </VBox>
             <!-- AI Section -->
             <VBox spacing="10">
-                <Label style="-fx-font-weight: bold;" text="AI for Travel" />
+                <Label style="-fx-font-weight: bold;" text="AI for Travel">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
                 <TextFlow prefHeight="200.0" prefWidth="400.0">
-                    <Text>Our AI technology analyzes your preferences and past travel history to provide personalized recommendations.</Text>
-                    <Text>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin euismod libero in neque consequat consequat.</Text>
-                    <Text>Nullam posuere vel ipsum vitae sodales. Vestibulum rhoncus, tortor id luctus viverra, elit nisi sodales purus,</Text>
-                    <Text>vel lacinia quam enim nec nisi.</Text>
+                    <Text text="Our AI technology uses your preferences to provide personalized recommendations.">Our AI technology analyzes your preferences and past travel history to provide personalized recommendations.</Text>
+                    <Text text="Like Beaches? Like Surfing? Like Hiking?">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin euismod libero in neque consequat consequat.</Text>
+                    <Text text=" Our AI Tool will help you create your perfect vacation with suggestions and answering any questions.">Nullam posuere vel ipsum vitae sodales. Vestibulum rhoncus, tortor id luctus viverra, elit nisi sodales purus,</Text>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
                 </TextFlow>
+            <VBox.margin>
+               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </VBox.margin>
             </VBox>
         </VBox>
     </center>

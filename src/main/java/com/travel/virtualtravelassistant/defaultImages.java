@@ -6,6 +6,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import java.io.*;
+import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -29,10 +30,20 @@ public class defaultImages {
         }
     }
 
-    private String city = "Tokyo";
+    private String destination[] = {"Tokyo","Barcelona","Madrid","Ibiza","Maldives","Athens",
+    "Medellin","Monaco","Rome","Dubai"};
+    private String city;
+
+    public String randomDest(String[] destination){
+        int randNUm = (int) Math.floor(Math.random() * 11);
+        return destination[randNUm];
+    }
 
     public List<String> fetchImageUrls() {
         List<String> imageUrls = new ArrayList<>();
+
+        city = randomDest(destination);
+
         try {
             String apiUrl = "https://api.unsplash.com/search/photos?query=" + city + "&client_id=" + accessKey;
             URL url = new URL(apiUrl);
