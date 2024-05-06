@@ -2,9 +2,11 @@ package com.travel.virtualtravelassistant.Utility;
 
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
+import com.travel.virtualtravelassistant.Activity;
 import com.travel.virtualtravelassistant.AlbumControllers.Album;
 import com.travel.virtualtravelassistant.Inbox.Notification;
 import com.travel.virtualtravelassistant.MainApplication;
+import com.travel.virtualtravelassistant.TripInfo.Trip;
 import com.travel.virtualtravelassistant.User.CurrentUser;
 import com.travel.virtualtravelassistant.AlbumControllers.UserImage;
 import com.travel.virtualtravelassistant.User.UserInfo;
@@ -28,6 +30,7 @@ public class FirestoreAction {
         Map<String, Object> albumData = new HashMap<>();
         albumData.put("title", album.getTitle());
         albumData.put("album-cover", album.getAlbumCover().getImageURL());
+        albumData.put("album-cover-id", album.getAlbumCover().getFirestoreId());
 
         WriteBatch batch = MainApplication.fstore.batch();
         batch.set(albumDoc, albumData);
@@ -62,8 +65,10 @@ public class FirestoreAction {
 
                 UserImage userImage = new UserImage();
                 userImage.setImageURL((String)document.get("album-cover"));
+                userImage.setFirestoreId((String)document.get("album-cover-id"));
 
                 newAlbum.setAlbumCover(userImage);
+                newAlbum.addImage(userImage);
                 albums.add(newAlbum);
             }
         } catch (InterruptedException | ExecutionException e) {
@@ -72,6 +77,29 @@ public class FirestoreAction {
         }
 
         return albums;
+    }
+
+    public static void updateAlbum(Album album){
+        DocumentReference docRef = MainApplication.fstore.collection("Users")
+                .document(CurrentUser.getInstance().getUserInfo().getUID())
+                .collection("albums").document(album.getFirestoreId());
+
+        Map<String, Object> updated = new HashMap<>();
+        updated.put("title", album.getTitle());
+        updated.put("album-cover", album.getAlbumCover().getImageURL());
+        updated.put("album-cover-id", album.getAlbumCover().getFirestoreId());
+
+        docRef.update(updated);
+    }
+
+    public static void deleteAlbum(Album album){
+        DocumentReference albumDoc = MainApplication.fstore.collection("Users")
+                .document(CurrentUser.getInstance().getUserInfo().getUID())
+                .collection("albums")
+                .document(album.getFirestoreId());
+
+        albumDoc.delete();
+
     }
 
     public static String storeImage(Album album, UserImage userImage){
@@ -83,19 +111,16 @@ public class FirestoreAction {
 
         WriteBatch batch = MainApplication.fstore.batch();
 
-        String imageDocId = UUID.randomUUID().toString();
-
-        DocumentReference imageDoc = usersRef.document(imageDocId);
+        DocumentReference imageDoc = usersRef.document(userImage.getFirestoreId());
 
         Map<String, Object> imageData = new HashMap<>();
         imageData.put("url", userImage.getImageURL());
         imageData.put("caption", userImage.getCaption());
         batch.set(imageDoc, imageData);
 
-        userImage.setFirestoreId(imageDocId);
         batch.commit();
 
-        return imageDocId;
+        return userImage.getFirestoreId();
     }
 
     /***
@@ -103,6 +128,7 @@ public class FirestoreAction {
      * @param album which is the album you are getting the images from
      */
     public static void getImages(Album album){
+        album.getImages().clear();
         CollectionReference imagesRef = MainApplication.fstore.collection("Users")
                 .document(CurrentUser.getInstance().getUserInfo().getUID())
                 .collection("albums")
@@ -131,6 +157,26 @@ public class FirestoreAction {
 
     }
 
+    public static void updateImage(Album album, UserImage userImage){
+        DocumentReference imageDoc = MainApplication.fstore.collection("Users")
+                .document(CurrentUser.getInstance().getUserInfo().getUID())
+                .collection("albums")
+                .document(album.getFirestoreId())
+                .collection("images").document(userImage.getFirestoreId());
+
+        HashMap<String, Object> update = new HashMap<>();
+        update.put("caption", userImage.getCaption());
+        imageDoc.update(update);
+
+        updateAlbum(album);
+    }
+
+    public static void deleteImage(Album album, UserImage userImage){
+        ApiFuture<WriteResult> future = MainApplication.fstore.collection("Users")
+                .document(CurrentUser.getInstance().getUserInfo().getUID())
+                .collection("albums").document(album.getFirestoreId())
+                .collection("images").document(userImage.getFirestoreId()).delete();
+    }
 
     /***
      * Save profile changes in Firestore
@@ -178,6 +224,7 @@ public class FirestoreAction {
                 notiMap.put("sender-last-name", notification.getSenderLastName());
                 notiMap.put("notification-type", notification.getNotification_type());
                 notiMap.put("message", notification.getMessage());
+                notiMap.put("trip-id", notification.getTripInfo());
 
 
                 notiRef.set(notiMap);
@@ -210,6 +257,10 @@ public class FirestoreAction {
                 notification.setSenderLastName((String)document.get("sender-last-name"));
                 notification.setMessage((String)document.get("message"));
                 notification.setReceiverEmail(CurrentUser.getInstance().getUserInfo().getUID());
+                String tripInfo = (String)document.get("trip-id");
+                if(tripInfo != null){
+                    notification.setTripInfo(tripInfo);
+                }
 
                 notifications.add(notification);
             }
@@ -267,7 +318,7 @@ public class FirestoreAction {
         try {
             QuerySnapshot querySnapshot = future.get();
             for (QueryDocumentSnapshot document : querySnapshot) {
-                String userId = (String)document.get("email");
+                String userId = (String)document.get("email") ;
 
                 UserInfo userInfo = new UserInfo();
                 userInfo.setUID(userId);
@@ -286,6 +337,125 @@ public class FirestoreAction {
         return friends;
 
     }
+
+    public static void addTrip(Trip trip){
+        DocumentReference tripsRef = MainApplication.fstore.collection("Users")
+                .document(CurrentUser.getInstance().getUserInfo().getUID())
+                .collection("trips").document();
+
+        Map<String, Object> tripMap = new HashMap<>();
+        tripMap.put("cover-image-url", trip.getUrlToFirstImage());
+        tripMap.put("title", trip.getTitle());
+        tripMap.put("budget", trip.getBudget());
+        tripMap.put("length", trip.getLength());
+
+        tripsRef.set(tripMap);
+
+        CollectionReference activitiesCollection = tripsRef.collection("days");
+
+        List<Set<Activity>> activities = trip.getActivities();
+        WriteBatch batch = MainApplication.fstore.batch();
+
+
+        int count = 0;
+        for(Set<Activity> activitySet : activities){
+            DocumentReference daysDoc = activitiesCollection.document(String.valueOf(count));
+            daysDoc.set(Map.of("day", String.valueOf(count)));
+            Map<String, Object> activityMap = new HashMap<>();
+
+            DocumentReference activityRef = daysDoc.collection("activities").document();
+            for(Activity activity : activitySet){
+                activityMap.put("location-id", activity.getLocation_id());
+                activityMap.put("name", activity.getName());
+                activityMap.put("url-more-info", activity.getUrlMoreInfo());
+                activityMap.put("description", activity.getDescription());
+                activityMap.put("city", activity.getCity());
+                activityMap.put("country", activity.getCountry());
+                activityRef.set(activityMap);
+            }
+            count++;
+        }
+    }
+
+    public static List<Trip> getTrips(){
+        CollectionReference tripsRef = MainApplication.fstore.collection("Users")
+                .document(CurrentUser.getInstance().getUserInfo().getUID())
+                .collection("trips");
+
+        ApiFuture<QuerySnapshot> future = tripsRef.get();
+
+        List<Trip> trips = new ArrayList<>();
+
+        try {
+            QuerySnapshot querySnapshot = future.get();
+            for (QueryDocumentSnapshot document : querySnapshot) {
+                String tripId = document.getId();
+
+                Trip newTrip = new Trip();
+                newTrip.setTripId(tripId);
+                newTrip.setBudget((String)document.get("budget"));
+                newTrip.setLength((String)document.get("length"));
+                newTrip.setTitle((String)document.get("title"));
+
+                List<String> friendsOnTrip = (List<String>) document.get("friends");
+                if(friendsOnTrip != null) {
+                    Set<String> friends = new HashSet<>(friendsOnTrip);
+                    newTrip.setFriends(friends);
+                }
+
+                String url = (String)document.get("cover-image-url");
+                if(url != null) {
+                    newTrip.setUrlToFirstImage(url);
+                    newTrip.setImage(new Image(url));
+                }
+                trips.add(newTrip);
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            System.out.println("Failed to retrieve albums from firebase.");
+            e.printStackTrace();
+        }
+
+        return trips;
+    }
+
+    public static void getActivities(Trip trip){
+        CollectionReference tripCollection = MainApplication.fstore.collection("Users")
+                .document(CurrentUser.getInstance().getUserInfo().getUID())
+                .collection("trips").document(trip.getTripId()).collection("days");
+
+        tripCollection.document("0");
+
+
+        ApiFuture<QuerySnapshot> future = tripCollection.get();
+
+        List<Set<Activity>> activities = new ArrayList<>();
+        try {
+            QuerySnapshot querySnapshot = future.get();
+            for (QueryDocumentSnapshot document : querySnapshot) {
+                Set<Activity> day = new HashSet<>();
+                CollectionReference activityRef = document.getReference().collection("activities");
+                ApiFuture<QuerySnapshot> activityFuture = activityRef.get();
+                QuerySnapshot activityQuery = activityFuture.get();
+                for(QueryDocumentSnapshot activityDoc : activityQuery){
+                    Activity activity = new Activity();
+                    activity.setName((String)activityDoc.get("name"));
+                    System.out.println(activity.getName());
+                    activity.setCity((String) activityDoc.get("city"));
+                    activity.setCountry((String) activityDoc.get("country"));
+                    activity.setDescription((String)activityDoc.get("description"));
+                    activity.setLocation_id((String)activityDoc.get("location-id"));
+                    activity.setUrlMoreInfo((String)activityDoc.get("url-more-info"));
+                    day.add(activity);
+                }
+                activities.add(day);
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            System.out.println("Failed to retrieve activities from firebase.");
+            e.printStackTrace();
+        }
+        trip.setActivities(activities);
+    }
+
     public static boolean doesUserExist(String email){
         DocumentReference docRef = MainApplication.fstore.collection("Users")
                 .document(email);
@@ -302,5 +472,119 @@ public class FirestoreAction {
             System.out.println("Could not load document from firestore");
         }
         return true;
+    }
+
+    public static Trip getFriendTrip(Notification notification) {
+        Trip trip = getFriendTripInfo(notification);
+        getFriendTripActivities(trip, notification);
+        return trip;
+    }
+    private static Trip getFriendTripInfo(Notification notification){
+        DocumentReference tripsRef = MainApplication.fstore.collection("Users")
+                .document(notification.getSenderEmail())
+                .collection("trips").document(notification.getTripInfo());
+
+        ApiFuture<DocumentSnapshot> future = tripsRef.get();
+        Trip newTrip = new Trip();
+        try {
+            DocumentSnapshot document = future.get();
+            String tripId = document.getId();
+            newTrip.setTripId(tripId);
+            newTrip.setBudget((String)document.get("budget"));
+            newTrip.setLength((String)document.get("length"));
+            newTrip.setTitle((String)document.get("title"));
+
+            List<String> friendsOnTrip = (List<String>) document.get("friends");
+            if(friendsOnTrip != null) {
+                Set<String> friends = new HashSet<>(friendsOnTrip);
+                friends.add(notification.getSenderEmail());
+                newTrip.setFriends(friends);
+            }
+
+            String url = (String)document.get("cover-image-url");
+            if(url != null) {
+                newTrip.setUrlToFirstImage(url);
+                newTrip.setImage(new Image(url));
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            System.out.println("Failed to retrieve albums from firebase.");
+            e.printStackTrace();
+        }
+
+        return newTrip;}
+
+    private static void getFriendTripActivities(Trip trip, Notification notification){
+        CollectionReference tripCollection = MainApplication.fstore.collection("Users")
+                .document(notification.getSenderEmail())
+                .collection("trips").document(notification.getTripInfo()).collection("days");
+
+        ApiFuture<QuerySnapshot> future = tripCollection.get();
+
+        List<Set<Activity>> activities = new ArrayList<>();
+        try {
+            QuerySnapshot querySnapshot = future.get();
+            for (QueryDocumentSnapshot document : querySnapshot) {
+                Set<Activity> day = new HashSet<>();
+                CollectionReference activityRef = document.getReference().collection("activities");
+                ApiFuture<QuerySnapshot> activityFuture = activityRef.get();
+                QuerySnapshot activityQuery = activityFuture.get();
+                for(QueryDocumentSnapshot activityDoc : activityQuery){
+                    Activity activity = new Activity();
+                    activity.setName((String)activityDoc.get("name"));
+                    System.out.println(activity.getName());
+                    activity.setCity((String) activityDoc.get("city"));
+                    activity.setCountry((String) activityDoc.get("country"));
+                    activity.setDescription((String)activityDoc.get("description"));
+                    activity.setLocation_id((String)activityDoc.get("location-id"));
+                    activity.setUrlMoreInfo((String)activityDoc.get("url-more-info"));
+                    day.add(activity);
+                }
+                activities.add(day);
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            System.out.println("Failed to retrieve activities from firebase.");
+            e.printStackTrace();
+        }
+        trip.setActivities(activities);
+    }
+
+    public static UserInfo getUserInfo(String email) {
+        DocumentReference userRef = MainApplication.fstore.collection("Users")
+                .document(CurrentUser.getInstance().getUserInfo().getUID());
+
+        ApiFuture<DocumentSnapshot> doc = userRef.get();
+        UserInfo userInfo = new UserInfo();
+
+        try {
+            DocumentSnapshot document = doc.get();
+            userInfo.setUID(email);
+            userInfo.setFirst_name((String) document.get("first_name"));
+            userInfo.setLast_name((String) document.get("last_name"));
+
+            Image image = FirebaseStorageAction.getFriendProfilePicture(email);
+            userInfo.setProfile_picture(image);
+        } catch (Exception e) {
+        }
+        return userInfo;
+    }
+
+    public static void addFriendToTrip(String tripId, String senderUID, String receiverUID){
+        DocumentReference tripsRef = MainApplication.fstore.collection("Users")
+                .document(senderUID)
+                .collection("trips").document(tripId);
+
+        ApiFuture<DocumentSnapshot> doc = tripsRef.get();
+
+        try {
+            DocumentSnapshot docRef = doc.get();
+            List<String> friends = (List<String>) docRef.get("friends");
+            if(friends == null) {
+                friends = new ArrayList<>();
+                friends.add(receiverUID);
+            }
+            docRef.getReference().update("friends", friends);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }
