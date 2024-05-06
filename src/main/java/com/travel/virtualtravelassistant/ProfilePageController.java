@@ -126,25 +126,7 @@ public class ProfilePageController {
     }
 
     private List<Trip> getTrips(){
-        List<Trip> list = new ArrayList<>();
-
-        Trip trip1 = new Trip();
-        trip1.setCityName("Clear Water Beaches");
-        trip1.setCountryName("United States");
-        trip1.setBudget(2000);
-        trip1.setLength(7);
-        trip1.setImageSource("/com/travel/virtualtravelassistant/Images/clear-water-beaches-florida-scaled.jpg");
-        list.add(trip1);
-        list.add(trip1);
-        list.add(trip1);
-        list.add(trip1);
-        list.add(trip1);
-        list.add(trip1);
-        list.add(trip1);
-        list.add(trip1);
-        list.add(trip1);
-        list.add(trip1);
-
+        List<Trip> list = FirestoreAction.getTrips();
 
         return list;
     }
@@ -157,7 +139,7 @@ public class ProfilePageController {
             Image image = new Image(album.getAlbumCover().getImageURL());
             Trip trip = new Trip();
             trip.setImage(image);
-            trip.setCountryName(album.getTitle());
+            trip.setTitle(album.getTitle());
             trips.add(trip);
         }
         return trips;
