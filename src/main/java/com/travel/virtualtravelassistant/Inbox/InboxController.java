@@ -40,6 +40,9 @@ public class InboxController {
             NotificationCardController notificationCardController = fxmlLoader.getController();
             notificationCardController.setNotification(notification);
             notificationCardController.setNode(borderPane);
+            if(notification.tripInfo != null){
+                notificationCardController.isTripNotification(true);
+            }
             notificationsGrid.add(borderPane, currGridColumn, currGridRow++);
         } catch (IOException e) {
             throw new RuntimeException(e);

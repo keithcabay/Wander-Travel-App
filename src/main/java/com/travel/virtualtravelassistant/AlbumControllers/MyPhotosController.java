@@ -6,16 +6,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MyPhotosController {
     @FXML
@@ -24,13 +23,14 @@ public class MyPhotosController {
     Button saveChanges;
     private int currGridColumn = 0;
     private final int currGridRow = 0;
-    private List<Album> newAlbums = new ArrayList<>();
+    private Map<Album, AlbumCardController> newAlbums;
 
 
     /***
      * On page load albums information will be fetched from Firestore and loaded from Firebase storage
      */
     public void initialize(){
+        newAlbums = new HashMap<>();
         List<Album> albums = FirestoreAction.getAlbums();
 
         for(Album album : albums){
@@ -46,13 +46,15 @@ public class MyPhotosController {
     public void handleSaveChangesButton(){
         saveChanges.setVisible(false);
 
-        for(Album album : newAlbums) {
+        for(Map.Entry<Album, AlbumCardController> entry : newAlbums.entrySet()) {
+            Album album = entry.getKey();
             String httpURL = FirebaseStorageAction.uploadImageToAlbum(album, album.getAlbumCover());
             album.getAlbumCover().setImageURL(httpURL);
 
             FirestoreAction.storeAlbumInfo(album);
+            entry.getValue().setSavedFirebase(true);
         }
-        newAlbums = new ArrayList<>();
+        newAlbums = new HashMap<>();
     }
 
 
@@ -62,9 +64,12 @@ public class MyPhotosController {
      */
     public void handleAddAlbumButton(){
         Album newAlbum = createAlbumForm();
-        newAlbums.add(newAlbum);
+        if(newAlbum != null) {
+            AlbumCardController controller = loadAlbumPreview(newAlbum);
+            newAlbums.put(newAlbum, controller);
+            saveChanges.setVisible(true);
+        }
 
-        saveChanges.setVisible(true);
     }
 
 
@@ -82,21 +87,32 @@ public class MyPhotosController {
             popupStage.initModality(Modality.APPLICATION_MODAL);
             popupStage.setTitle("Album Information Form");
             popupStage.setScene(new Scene(borderPane));
+            createAlbumFormController.setStage(popupStage);
 
             popupStage.showAndWait();
 
+            boolean canceled = createAlbumFormController.getCancelled();
+            if(canceled){
+                return null;
+            }
+
             String pathToImage = createAlbumFormController.getImage();
             String title = createAlbumFormController.getTitle();
+            String caption = createAlbumFormController.getCaption();
+
+            if(title == null){
+                return null;
+            }
 
             UserImage userImage = new UserImage();
             userImage.setLocalPathToImage(pathToImage);
+            userImage.setCaption(caption);
 
             Album newAlbum = new Album();
             newAlbum.setLocalPathToCover(userImage.getLocalPathToImage());
             newAlbum.setTitle(title);
             newAlbum.setAlbumCover(userImage);
-
-            loadAlbumPreview(newAlbum);
+            newAlbum.addImage(userImage);
 
             return  newAlbum;
         } catch (IOException e) {
@@ -104,8 +120,13 @@ public class MyPhotosController {
         }
     }
 
+    public void deleteAlbumFromNew(Album album){
+        newAlbums.remove(album);
+        currGridColumn--;
+    }
+
     //load album preview card with given album information
-    private void loadAlbumPreview(Album album){
+    private AlbumCardController loadAlbumPreview(Album album){
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("/com/travel/virtualtravelassistant/albumCard.fxml"));
 
@@ -114,7 +135,10 @@ public class MyPhotosController {
             AlbumCardController albumCardController = fxmlLoader.getController();
             albumCardController.setCurrAlbum(album);
             albumCardController.setAlbumInfoWithImage(album);
+            albumCardController.setNode(borderPane);
+            albumCardController.setParent(this);
             albumsGrid.add(borderPane, currGridColumn++, currGridRow);
+            return albumCardController;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -130,9 +154,13 @@ public class MyPhotosController {
             AlbumCardController albumCardController = fxmlLoader.getController();
             albumCardController.setCurrAlbum(album);
             albumCardController.setAlbumInfoWithURL(album);
+            albumCardController.setNode(borderPane);
+            albumCardController.setSavedFirebase(true);
+            albumCardController.setParent(this);
             albumsGrid.add(borderPane, currGridColumn++, currGridRow);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 }
+
