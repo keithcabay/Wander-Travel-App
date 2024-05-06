@@ -348,8 +348,15 @@ public class FirestoreAction {
         tripMap.put("title", trip.getTitle());
         tripMap.put("budget", trip.getBudget());
         tripMap.put("length", trip.getLength());
+        Set<String> friends = trip.getFriends();
+        List<String> friendsList = null;
+        if(!friends.isEmpty()) {
+            friendsList = new ArrayList<>(friends);
+            tripMap.put("friends", friendsList);
+        }
 
         tripsRef.set(tripMap);
+
 
         CollectionReference activitiesCollection = tripsRef.collection("days");
 
@@ -550,7 +557,7 @@ public class FirestoreAction {
 
     public static UserInfo getUserInfo(String email) {
         DocumentReference userRef = MainApplication.fstore.collection("Users")
-                .document(CurrentUser.getInstance().getUserInfo().getUID());
+                .document(email);
 
         ApiFuture<DocumentSnapshot> doc = userRef.get();
         UserInfo userInfo = new UserInfo();
