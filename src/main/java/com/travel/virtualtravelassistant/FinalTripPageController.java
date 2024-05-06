@@ -40,7 +40,7 @@ public class FinalTripPageController {
     private Set<UserInfo> friends;
 
     public void initialize(){
-        Label label = new Label("Invite Friends to Your Trip");
+        Label label = new Label("Friends");
         label.setStyle("-fx-font-size: 25;" +
                 "-fx-font-weight: bold;" +
                 "-fx-padding: 10px;");
@@ -188,7 +188,7 @@ public class FinalTripPageController {
         Set<String> friends = trip.getFriends();
         if(friends != null && !friends.isEmpty()){
             for(String string : friends){
-                loadInviteFriend(FirestoreAction.getUserInfo(string));
+                loadAddedFriend(FirestoreAction.getUserInfo(string));
             }
         }
 

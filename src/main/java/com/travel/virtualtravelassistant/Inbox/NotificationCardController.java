@@ -1,7 +1,6 @@
 package com.travel.virtualtravelassistant.Inbox;
 
 import com.travel.virtualtravelassistant.FinalTripPageController;
-import com.travel.virtualtravelassistant.Inbox.Notification;
 import com.travel.virtualtravelassistant.TripInfo.Trip;
 import com.travel.virtualtravelassistant.Utility.FirestoreAction;
 import javafx.event.ActionEvent;
@@ -18,7 +17,9 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 public class NotificationCardController {
     Notification notification;
@@ -112,6 +113,12 @@ public class NotificationCardController {
     public void handleAddTripButton(){
         Trip trip = FirestoreAction.getFriendTrip(notification);
         FirestoreAction.addFriendToTrip(notification.getTripInfo(), notification.getSenderEmail(), notification.getReceiverEmail());
+        Set<String> friends = trip.getFriends();
+        if(friends == null){
+            friends = new HashSet<>();
+            trip.setFriends(friends);
+        }
+        friends.add(notification.senderEmail);
         FirestoreAction.addTrip(trip);
         FirestoreAction.deleteNotification(notification);
         deleteMe();
