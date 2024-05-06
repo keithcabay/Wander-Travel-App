@@ -4,26 +4,43 @@ import com.travel.virtualtravelassistant.Activity;
 import javafx.scene.image.Image;
 
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 
 public class Trip {
+    private String tripId;
+    private String title;
+    private String urlToFirstImage;
     private Image image;
-
-    private String imageSource;
-
-    private String countryName;
-
-    private String cityName;
-
-    private double budget;
-
-    private int length;
-
-    //help filter activities at each location/city
-    Map<String, List<Activity>> locationToActivities;
+    private String budget;
+    private String  length;
+    private Set<String> friends;
 
     //Each index in list is another day of activities
-    List<List<Activity>> activities;
+    List<Set<Activity>> activities;
+
+    public String getTripId() {
+        return tripId;
+    }
+
+    public void setTripId(String tripId) {
+        this.tripId = tripId;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getUrlToFirstImage() {
+        return urlToFirstImage;
+    }
+
+    public void setUrlToFirstImage(String urlToFirstImage) {
+        this.urlToFirstImage = urlToFirstImage;
+    }
 
     public Image getImage() {
         return image;
@@ -33,43 +50,35 @@ public class Trip {
         this.image = image;
     }
 
-    public String getImageSource() {
-        return imageSource;
-    }
-
-    public void setImageSource(String imageSource) {
-        this.imageSource = imageSource;
-    }
-
-    public String getCountryName() {
-        return countryName;
-    }
-
-    public void setCountryName(String countryName) {
-        this.countryName = countryName;
-    }
-
-    public String getCityName() {
-        return cityName;
-    }
-
-    public void setCityName(String cityName) {
-        this.cityName = cityName;
-    }
-
-    public double getBudget() {
+    public String getBudget() {
         return budget;
     }
 
-    public void setBudget(double budget) {
+    public void setBudget(String budget) {
         this.budget = budget;
     }
 
-    public int getLength() {
+    public String getLength() {
         return length;
     }
 
-    public void setLength(int length) {
+    public void setLength(String length) {
         this.length = length;
+    }
+
+    public List<Set<Activity>> getActivities() {
+        return activities;
+    }
+
+    public void setActivities(List<Set<Activity>> activities) {
+        this.activities = activities;
+    }
+
+    public Set<String> getFriends() {
+        return friends;
+    }
+
+    public void setFriends(Set<String> friends) {
+        this.friends = friends;
     }
 }
