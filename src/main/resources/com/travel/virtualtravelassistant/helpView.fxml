@@ -6,89 +6,93 @@
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Text?>
-<?import javafx.scene.text.TextFlow?>
+<?import javafx.scene.text.Font?>
 
+<?import javafx.scene.control.ScrollPane?>
 <BorderPane prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.travel.virtualtravelassistant.helpFAQ.helpController">
     <left>
         <fx:include source="NavBar.fxml" />
     </left>
     <center>
+        <ScrollPane fitToWidth="true" fitToHeight="true"> <!-- ScrollPane added here -->
         <VBox alignment="TOP_CENTER" spacing="10">
-         <VBox prefHeight="130.0" prefWidth="1166.0">
-            <children>
-               <Label text="Label" />
-               <TextFlow prefHeight="75.0" prefWidth="1166.0">
-                  <children>
-                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-                  </children>
-               </TextFlow>
-            </children>
-            <VBox.margin>
-               <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
-            </VBox.margin>
-         </VBox>
-            <Accordion fx:id="faqAccordion" VBox.vgrow="ALWAYS">
+            <VBox fx:id="videoContainer" alignment="TOP_CENTER" prefHeight="326.0" prefWidth="1116.0">
+                <children>
+                    <Label text="HELP FAQ">
+                  <VBox.margin>
+                     <Insets bottom="5.0" top="5.0" />
+                  </VBox.margin>
+                  <font>
+                     <Font name="System Bold" size="25.0" />
+                  </font>
+                  <opaqueInsets>
+                     <Insets bottom="5.0" />
+                  </opaqueInsets></Label>
+                    <fx:include source="videoTest.fxml" />
+                </children>
+                <VBox.margin>
+                    <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+                </VBox.margin>
+            </VBox>
+
+            <Accordion fx:id="faqAccordion" stylesheets="@CSS/Application.css" VBox.vgrow="ALWAYS">
                 <panes>
                     <TitledPane fx:id="question1Pane" text="What is Wander?">
                         <VBox alignment="CENTER_LEFT" spacing="5">
-                            <Label text="Answer to Question 1" />
+                            <Label text="Wander is an Application to help plan your next vacation." />
                         </VBox>
                     </TitledPane>
                     <TitledPane fx:id="question2Pane" text="How to use Chatbot?">
                         <VBox alignment="CENTER_LEFT" spacing="5">
-                            <Label text="Answer to Question 2" />
+                            <Label text="Click the &quot;Chatbot&quot; button on the navigation bar to open Chatbot." />
                         </VBox>
                     </TitledPane>
                     <TitledPane fx:id="question3Pane" text="How to Plan a Trip?">
                         <VBox alignment="CENTER_LEFT" spacing="5">
-                            <Label text="Answer to Question 2" />
+                            <Label text="Click the &quot;Plan a Trip&quot; button to start building your trip." />
                         </VBox>
                     </TitledPane>
                     <TitledPane fx:id="question4Pane" text="How to change Profile Picture?">
                         <VBox alignment="CENTER_LEFT" spacing="5">
-                            <Label text="Answer to Question 2" />
+                            <Label text="Go to &quot;My Profile&quot; and click &quot;Edit Profile&quot;." />
                         </VBox>
                     </TitledPane>
-                    <TitledPane fx:id="question5Pane" text="How to view Trips?">
+                    <TitledPane fx:id="question5Pane" text="How to change name?">
                         <VBox alignment="CENTER_LEFT" spacing="5">
-                            <Label text="Answer to Question 2" />
+                            <Label text="Click on the &quot; My Profile&quot; button and click on &quot;Edit Profile&quot;. You should see a text field to change name." />
                         </VBox>
                     </TitledPane>
                     <TitledPane fx:id="question6Pane" text="How to View Albums?">
                         <VBox alignment="CENTER_LEFT" spacing="5">
-                            <Label text="Answer to Question 2" />
+                            <Label text="Click the &quot;My Photos&quot; button on the navigation bar to view albums." />
                         </VBox>
                     </TitledPane>
                     <TitledPane fx:id="question7Pane" text="How to View Notifications?">
                         <VBox alignment="CENTER_LEFT" spacing="5">
-                            <Label text="Answer to Question 2" />
+                            <Label text="Click the &quot;Inbox&quot; Button to see incoming notifications." />
                         </VBox>
                     </TitledPane>
                     <TitledPane fx:id="question8Pane" text="How to use Budget Calcultator?">
                         <VBox alignment="CENTER_LEFT" spacing="5">
-                            <Label text="Answer to Question 2" />
+                            <Label text="Click the &quot;Plan A Trip&quot; button and a calculator should appear. Input your budget and move slider to where you see fit." />
                         </VBox>
                     </TitledPane>
                     <TitledPane fx:id="question9Pane" text="How to add Friends?">
                         <VBox alignment="CENTER_LEFT" spacing="5">
-                            <Label text="Answer to Question 2" />
+                            <Label text="Click the &quot;My Friends&quot; Button and click the &quot;Add Friends&quot; button to add friends by email." />
                         </VBox>
                     </TitledPane>
                     <TitledPane fx:id="question10Pane" text="How to change Mode?">
                         <VBox alignment="CENTER_LEFT" spacing="5">
-                            <Label text="Answer to Question 2" />
+                            <Label text="Click the ..." />
                         </VBox>
                     </TitledPane>
                 </panes>
-            <VBox.margin>
-               <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
-            </VBox.margin>
+                <VBox.margin>
+                    <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+                </VBox.margin>
             </Accordion>
         </VBox>
+        </ScrollPane>
     </center>
 </BorderPane>

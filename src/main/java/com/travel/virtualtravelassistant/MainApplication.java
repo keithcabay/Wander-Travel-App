@@ -8,6 +8,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Dialog;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.io.IOException;
@@ -25,6 +29,10 @@ public class MainApplication extends Application {
     private static Dialog chatBot;
     private static boolean chatbotOpen;
 
+
+
+    private static WebView webView;
+
     @Override
     public void start(Stage stage) throws IOException {
         primaryStage = stage;
@@ -38,6 +46,7 @@ public class MainApplication extends Application {
             return;
         }
 
+
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("ChatbotUI.fxml"));
         Parent root = fxmlLoader.load();
 
@@ -49,6 +58,53 @@ public class MainApplication extends Application {
         dialog.initModality(Modality.NONE); // Dialog does not block other user interaction
         chatBot = dialog;
     }
+
+    public static void showVideo() throws IOException {
+        if (primaryStage == null) {
+            System.out.println("Primary Stage is null");
+            return;
+        }
+
+        VBox videoContainer = (VBox) primaryStage.getScene().lookup("#videoContainer");
+        //Pane videoContainer = (Pane) primaryStage.getScene().lookup("#videoContainer");
+        if (videoContainer == null) {
+            System.out.println("Video container not found. Make sure primaryStage is set with the correct scene.");
+            return;
+        }
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/com/travel/virtualtravelassistant/videoTest.fxml"));
+        Parent videoContent = fxmlLoader.load();
+        YoutubeVideo controller = fxmlLoader.getController();
+        WebView webView = controller.getWebView();
+        initWebEngine(webView);
+        videoContainer.getChildren().add(videoContent);
+        primaryStage.show();
+    }
+
+    private static void initWebEngine(WebView webView) {
+        WebEngine engine = webView.getEngine();
+
+        // Listener for successful loading
+        engine.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
+            System.out.println("WebView Load State: " + newState);
+            if (newState == javafx.concurrent.Worker.State.SUCCEEDED) {
+                System.out.println("Content loaded successfully!");
+            }
+        });
+        //webView.setPrefSize(600, 450); // Set preferred size directly if necessary
+        //webView.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+
+        // Listener for errors during loading to trace errors that i had prev
+        engine.getLoadWorker().exceptionProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                System.out.println("Exception occurred during loading: " + newValue.getMessage());
+            }
+        });
+
+        engine.load("https://www.youtube.com/embed/JXMWOmuR1hU");
+        engine.setOnAlert(event -> System.out.println("WebView Alert: " + event.getData()));
+        engine.locationProperty().addListener((observable, oldValue, newValue) -> System.out.println("WebView Navigated to: " + newValue));
+    }
+
 
     public static void showOrHideChatbot(){
         if(chatBot == null){

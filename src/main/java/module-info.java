@@ -20,9 +20,10 @@ module com.travel.virtualtravelassistant {
     requires com.fasterxml.jackson.annotation;
     requires com.fasterxml.jackson.databind;
     requires java.net.http;
+    requires javafx.media;
 
 
-    opens com.travel.virtualtravelassistant to javafx.fxml;
+    opens com.travel.virtualtravelassistant to javafx.fxml,javafx.media;
     exports com.travel.virtualtravelassistant;
     exports com.travel.virtualtravelassistant.User;
     opens com.travel.virtualtravelassistant.User to javafx.fxml;

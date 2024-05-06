@@ -16,8 +16,8 @@
 <BorderPane prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.travel.virtualtravelassistant.AuthenticationControllers.LogInController">
    <left>
       <VBox prefHeight="768.0" prefWidth="389.0" BorderPane.alignment="CENTER">
-         <Pane prefHeight="196.0" prefWidth="389.0" style="-fx-background-color: #558644;" VBox.vgrow="ALWAYS"/>
-         <VBox alignment="CENTER" prefHeight="241.0" prefWidth="389.0" style="-fx-background-color: #558644;">
+         <Pane prefHeight="196.0" prefWidth="389.0" style="-fx-background-color: #385170;" VBox.vgrow="ALWAYS"/>
+         <VBox alignment="CENTER" prefHeight="241.0" prefWidth="389.0" style="-fx-background-color: #385170;">
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Images/wander-logo.png"/>
@@ -32,7 +32,7 @@
                </VBox.margin>
             </Label>
          </VBox>
-         <Pane prefHeight="321.0" prefWidth="389.0" style="-fx-background-color: #558644;" VBox.vgrow="ALWAYS"/>
+         <Pane prefHeight="321.0" prefWidth="389.0" style="-fx-background-color: #385170;" VBox.vgrow="ALWAYS"/>
       </VBox>
    </left>
    <center>

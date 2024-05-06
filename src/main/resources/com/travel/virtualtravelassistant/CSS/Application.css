@@ -1,3 +1,43 @@
 .root {
     -fx-background-color: #ececec; /* first-color */
 }
+.textBox {
+    -fx-text-fill: #111111;
+}
+.button {
+    -fx-background-color: linear-gradient(#4a77d4, #395998); /* Gradient effect for button */
+    -fx-text-fill: #FFFFFF;
+    -fx-font-weight: bold; /* Bold text for better readability */
+}
+
+.button:hover {
+    -fx-background-color: linear-gradient(#6ea1f1, #5679c0); /* Lighter gradient on hover */
+}
+
+
+.titlePane {
+
+    --fx-background-color: #142d4c;
+    -fx-text-fill: #FFFFFF;
+
+
+}
+
+
+.helpVbox {
+    --fx-background-color: #385170;
+    -fx-text-fill: #FFFFFF;
+}
+
+.darkRoot {
+    -fx-background-color: #ee11;
+}
+.video-container {
+    -fx-alignment: center;
+}
+.web-container {
+    -fx-max-width: 640px;
+    -fx-max-height: 360px;
+    -fx-pref-height: 640px;
+    -fx-pref-width: 360px;
+}

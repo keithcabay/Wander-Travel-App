@@ -3,13 +3,13 @@
 }
 
 .tripsButton {
-    -fx-background-color: #728c79;
+    -fx-background-color: #85e2ec;
     -fx-background-radius: 10, 0, 0 0;
     -fx-text-fill: white;
 }
 
 .tripsButton:hover{
-    -fx-background-color: #5c665c;
+    -fx-background-color: #AFE2EC;
     -fx-font-weight: 700;
     -fx-text-fill: white;
     -fx-font-size: 125%;
@@ -28,19 +28,19 @@
 }
 
 .save-changes-button{
-    -fx-background-color: #97c297;
+    -fx-background-color: #AFE2EC;
     -fx-text-fill: white;
     -fx-font-weight: 700;
 }
 
 .save-changes-button:hover{
-    -fx-background-color: #e8e8e8;
+    -fx-background-color: #AFE2EC;
     -fx-text-fill: #97c297;
     -fx-font-weight: 700;
 }
 
 .continue-button{
-    -fx-background-color: #97c297;
+    -fx-background-color: #AFE2EC;
     -fx-text-fill: white;
     -fx-font-weight: 700;
     -fx-font-size: 17px;
@@ -48,7 +48,7 @@
 
 .continue-button:hover{
     -fx-background-color: #e8e8e8;
-    -fx-text-fill: #97c297;
+    -fx-text-fill: #AFE2EC;
     -fx-font-weight: 700;
     -fx-font-size: 20px;
 }
