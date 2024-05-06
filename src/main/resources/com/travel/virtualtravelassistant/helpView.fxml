@@ -3,20 +3,20 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.control.ScrollPane?>
 <BorderPane prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.travel.virtualtravelassistant.helpFAQ.helpController">
     <left>
         <fx:include source="NavBar.fxml" />
     </left>
     <center>
-        <ScrollPane fitToWidth="true" fitToHeight="true"> <!-- ScrollPane added here -->
+        <ScrollPane fitToHeight="true" fitToWidth="true"> <!-- ScrollPane added here -->
         <VBox alignment="TOP_CENTER" spacing="10">
-            <VBox fx:id="videoContainer" alignment="TOP_CENTER" prefHeight="326.0" prefWidth="1116.0">
+            <VBox fx:id="videoContainer" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="326.0" prefWidth="800.0">
                 <children>
                     <Label text="HELP FAQ">
                   <VBox.margin>
@@ -28,7 +28,7 @@
                   <opaqueInsets>
                      <Insets bottom="5.0" />
                   </opaqueInsets></Label>
-                    <fx:include source="videoTest.fxml" />
+                    <fx:include maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="400.0" prefWidth="800.0" source="videoTest.fxml" />
                 </children>
                 <VBox.margin>
                     <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />

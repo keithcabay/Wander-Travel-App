@@ -35,8 +35,8 @@ public class HomeController {
         defaultImages = new defaultImages();
         fetchDestinationImages();
 
-        configureVideo();
-        configureButton();
+      //  configureVideo();
+        // configureButton();
     }
 
     private void configureVideo() {
