@@ -6,6 +6,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -20,7 +21,7 @@
                         <Insets />
                      </HBox.margin>
                      <children>
-                        <ImageView fx:id="albumPreviewImage" fitHeight="341.0" fitWidth="460.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="albumPreviewImage" fitHeight="448.0" fitWidth="460.0" pickOnBounds="true" preserveRatio="true" />
                      </children>
                   </HBox>
                </children>
@@ -42,10 +43,31 @@
          </children></VBox>
    </center>
    <bottom>
-      <Button fx:id="viewAlbum" mnemonicParsing="false" onAction="#handleViewAlbumButton" prefHeight="46.0" prefWidth="125.0" styleClass="save-changes-button" stylesheets="@CSS/Button.css" text="View Album" BorderPane.alignment="CENTER">
+      <HBox alignment="BOTTOM_CENTER" prefHeight="70.0" prefWidth="500.0" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets bottom="10.0" />
          </BorderPane.margin>
-      </Button>
+         <children>
+            <ImageView fx:id="coverStar" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin>
+            </ImageView>
+            <Pane prefHeight="200.0" prefWidth="136.0" HBox.hgrow="ALWAYS" />
+            <Button fx:id="viewAlbum" disable="true" mnemonicParsing="false" onAction="#handleViewAlbumButton" prefHeight="46.0" prefWidth="125.0" styleClass="save-changes-button" stylesheets="@CSS/Button.css" text="View Album" />
+            <Pane prefHeight="200.0" prefWidth="59.0" HBox.hgrow="ALWAYS" />
+            <Button fx:id="settingsButton" mnemonicParsing="false" onAction="#handleSettingsButton" prefHeight="35.0" prefWidth="35.0" styleClass="editProfileButton" stylesheets="@CSS/Button.css" visible="false">
+               <HBox.margin>
+                  <Insets right="5.0" />
+               </HBox.margin>
+            </Button>
+            <Pane prefHeight="200.0" prefWidth="0.0" HBox.hgrow="ALWAYS" />
+            <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteSelf" prefHeight="35.0" prefWidth="35.0" styleClass="denyRequest" stylesheets="@CSS/Button.css">
+               <HBox.margin>
+                  <Insets right="20.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
    </bottom>
 </BorderPane>

@@ -10,6 +10,7 @@ import javafx.scene.image.Image;
 import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -175,7 +176,7 @@ public class FirebaseStorageAction {
 
             if(bucket.get(folderName) == null){
                 bucket.create(folderName, new byte[0]);
-           }
+            }
             album.setFirestoreId(id);
         }
 
@@ -219,6 +220,51 @@ public class FirebaseStorageAction {
      */
     public static Image getImageWithURL(UserImage userImage){
         return new Image(userImage.getImageURL());
+    }
+
+    public static void deleteAlbum(Album album){
+        List<UserImage> images = album.getImages();
+        System.out.println("IMAGES SIZE: " + images.size());
+        for(UserImage image : images) {
+            System.out.println("IMAGE ID: " +image.getFirestoreId());
+            deleteFromFirebase(album.getFirestoreId() + "/" + image.getFirestoreId());
+        }
+        deleteEmptyAlbumFolder(album.getFirestoreId());
+    }
+
+    public static void deleteImage(Album album, UserImage userImage){
+        deleteFromFirebase(album.getFirestoreId() + "/" + userImage.getFirestoreId());
+    }
+
+    private static void deleteFromFirebase(String folderPath){
+        GoogleCredentials credentials = getCredentials();
+        Storage storage = StorageOptions.newBuilder().setCredentials(credentials).setProjectId(PROJECT_ID).build().getService();
+
+        String filePath = CurrentUser.getInstance().getUserInfo().getUID() + "/" + folderPath;
+        System.out.println("DELETING FROM FIREBASE STORAGE: " + filePath);
+
+        // Create BlobId for the file
+        BlobId blobId = BlobId.of(BUCKET_ID, filePath);
+
+        // Delete the file
+        boolean delete = storage.delete(blobId);
+        System.out.println("WORKED? - " + delete);
+    }
+
+    private static void deleteEmptyAlbumFolder(String folderName){
+        GoogleCredentials credentials = getCredentials();
+        Storage storage = StorageOptions.newBuilder().setCredentials(credentials).setProjectId(PROJECT_ID).build().getService();
+
+        String filePath = CurrentUser.getInstance().getUserInfo().getUID() + "/" + folderName + "/";
+        System.out.println("DELETING FROM FIREBASE STORAGE: " + filePath);
+
+        // Create BlobId for the file
+        BlobId blobId = BlobId.of(BUCKET_ID, filePath);
+
+        // Delete the file
+        boolean delete = storage.delete(blobId);
+        System.out.println("WORKED? - " + delete);
+
     }
 
 

@@ -1,17 +1,25 @@
 package com.travel.virtualtravelassistant;
 
-import java.util.List;
-
-public class Activity {
+public class Activity{
     private String location_id;
 
     private String name;
 
     private String urlToFirstImage;
 
+    private String urlMoreInfo;
+
     private String description;
 
     private String date;
+
+    private String city;
+
+    private String country;
+
+    private String latitude;
+
+    private String longitude;
 
     public String getLocation_id() {
         return location_id;
@@ -37,6 +45,14 @@ public class Activity {
         this.urlToFirstImage = urlToFirstImage;
     }
 
+    public String getUrlMoreInfo() {
+        return urlMoreInfo;
+    }
+
+    public void setUrlMoreInfo(String urlMoreInfo) {
+        this.urlMoreInfo = urlMoreInfo;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -51,5 +67,37 @@ public class Activity {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
     }
 }

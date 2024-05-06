@@ -8,6 +8,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
@@ -52,7 +53,7 @@
                   <HBox prefHeight="23.0" prefWidth="261.0">
                      <ImageView fitHeight="22.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
                         <image>
-                           <Image url="@Images/location-pin-drop-icon.png" />
+                           <Image url="@Images/location-pin-drop.png" />
                         </image>
                      </ImageView>
                      <Label fx:id="locationLabel" text="Location">
@@ -88,12 +89,15 @@
             <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
          </HBox>
          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-            <ScrollPane prefHeight="768.0" prefWidth="1115.0">
+            <ScrollPane prefHeight="768.0" prefWidth="1101.0">
                <content>
                   <GridPane fx:id="upcomingTripsGrid" prefHeight="0.0" prefWidth="11.0">
                      <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="191.0" />
+                        <RowConstraints />
                      </rowConstraints>
+                     <columnConstraints>
+                        <ColumnConstraints />
+                     </columnConstraints>
                   </GridPane>
                </content>
             </ScrollPane>

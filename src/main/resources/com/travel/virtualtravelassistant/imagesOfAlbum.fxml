@@ -22,12 +22,13 @@
             <children>
                 <HBox alignment="CENTER" prefHeight="183.0" prefWidth="1166.0" VBox.vgrow="ALWAYS">
                     <children>
-                  <Label fx:id="albumTitle" prefHeight="66.0" text="Label">
-                     <font>
-                        <Font name="System Bold" size="31.0" />
-                     </font>
-                  </Label>
-                        <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                        <Pane prefHeight="91.0" prefWidth="0.0" HBox.hgrow="ALWAYS" />
+                        <Label fx:id="albumTitle" prefHeight="66.0" text="Label">
+                            <font>
+                                <Font name="System Bold" size="31.0" />
+                            </font>
+                        </Label>
+                        <Pane prefHeight="91.0" prefWidth="641.0" HBox.hgrow="ALWAYS" />
                         <Button fx:id="saveChanges" mnemonicParsing="false" onAction="#handleSaveChangesButton" prefHeight="50.0" prefWidth="100.0" styleClass="save-changes-button" stylesheets="@CSS/Button.css" text="Save Changes" visible="false">
                             <HBox.margin>
                                 <Insets right="10.0" />
@@ -38,11 +39,13 @@
                                 <Insets right="10.0" />
                             </HBox.margin>
                         </Button>
+                        <Pane prefHeight="91.0" prefWidth="52.0" />
                     </children>
                 </HBox>
                 <HBox alignment="CENTER" prefHeight="750.0" VBox.vgrow="ALWAYS">
                     <children>
-                        <ScrollPane prefHeight="750.0" HBox.hgrow="ALWAYS">
+                        <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                        <ScrollPane prefHeight="750.0" prefWidth="1200.0" HBox.hgrow="ALWAYS">
                             <content>
                                 <GridPane fx:id="imagesGrid" alignment="CENTER" hgap="20.0" vgap="20.0">
                                     <columnConstraints>
@@ -60,6 +63,7 @@
                                 <Insets />
                             </HBox.margin>
                         </ScrollPane>
+                        <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
                     </children>
                 </HBox>
             </children>

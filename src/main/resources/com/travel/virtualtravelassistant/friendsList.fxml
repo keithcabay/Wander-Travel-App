@@ -29,9 +29,9 @@
                             </font></Label>
                         <Pane prefHeight="90.0" prefWidth="339.0" HBox.hgrow="ALWAYS" />
                         <Button mnemonicParsing="false" onAction="#handleAddFriendButton" prefHeight="37.0" prefWidth="85.0" styleClass="editProfileButton" stylesheets="@CSS/Button.css" text="Add Friend">
-                     <HBox.margin>
-                        <Insets right="25.0" />
-                     </HBox.margin></Button>
+                            <HBox.margin>
+                                <Insets right="25.0" />
+                            </HBox.margin></Button>
                     </children>
                 </HBox>
                 <HBox alignment="CENTER" VBox.vgrow="ALWAYS">

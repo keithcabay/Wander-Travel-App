@@ -33,40 +33,40 @@
                         </image>
                     </ImageView>
                     <VBox alignment="CENTER_LEFT" prefHeight="562.0" prefWidth="331.0">
-                  <HBox>
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                     <children>
-                              <Label fx:id="firstName" prefHeight="46.0" text="User">
-                                  <font>
-                                      <Font size="28.0" />
-                                  </font>
-                                  <padding>
-                                      <Insets left="5.0" />
-                                  </padding>
-                              </Label>
-                        <Label fx:id="lastName" prefHeight="46.0" text="Name">
-                           <font>
-                              <Font size="28.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets left="10.0" />
-                           </HBox.margin>
-                        </Label>
-                     </children>
-                  </HBox>
+                        <HBox>
+                            <VBox.margin>
+                                <Insets />
+                            </VBox.margin>
+                            <children>
+                                <Label fx:id="firstName" prefHeight="46.0" text="User">
+                                    <font>
+                                        <Font size="28.0" />
+                                    </font>
+                                    <padding>
+                                        <Insets left="5.0" />
+                                    </padding>
+                                </Label>
+                                <Label fx:id="lastName" prefHeight="46.0" text="Name">
+                                    <font>
+                                        <Font size="28.0" />
+                                    </font>
+                                    <HBox.margin>
+                                        <Insets left="10.0" />
+                                    </HBox.margin>
+                                </Label>
+                            </children>
+                        </HBox>
                         <HBox prefHeight="23.0" prefWidth="261.0">
                             <ImageView fitHeight="22.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
                                 <image>
-                                    <Image url="@Images/location-pin-drop-icon.png" />
+                                    <Image url="@Images/location-pin-drop.png" />
                                 </image>
                             </ImageView>
-                     <Label fx:id="locationLabel" text="Location">
-                        <font>
-                           <Font size="15.0" />
-                        </font>
-                     </Label>
+                            <Label fx:id="locationLabel" text="Location">
+                                <font>
+                                    <Font size="15.0" />
+                                </font>
+                            </Label>
                         </HBox>
                     </VBox>
                     <Button mnemonicParsing="false" onAction="#onUploadProfilePictureClick" prefHeight="38.0" prefWidth="141.0" styleClass="editProfileButton" text="Upload Profile Picture" />

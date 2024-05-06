@@ -15,6 +15,8 @@ public class Notification {
 
     String message;
 
+    String tripInfo;
+
     public String getNotification_id() {
         return notification_id;
     }
@@ -69,5 +71,12 @@ public class Notification {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public String getTripInfo(){
+        return tripInfo;
+    }
+    public void setTripInfo(String tripInfo) {
+        this.tripInfo = tripInfo;
     }
 }

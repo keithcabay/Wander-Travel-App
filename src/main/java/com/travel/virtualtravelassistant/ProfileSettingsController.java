@@ -18,7 +18,7 @@ import java.io.File;
 import java.util.Objects;
 
 public class ProfileSettingsController {
-    
+
     @FXML
     ImageView imageView;
 

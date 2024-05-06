@@ -7,15 +7,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ImagesOfAlbumController {
 
@@ -33,7 +33,7 @@ public class ImagesOfAlbumController {
     private int currGridColumn = 0;
     private int currGridRow = 0;
 
-    List<UserImage> newImages;
+    Map<UserImage, AlbumCardController> newImages;
 
     public void setAlbum(Album album){
         this.album = album;
@@ -43,7 +43,7 @@ public class ImagesOfAlbumController {
     }
 
     public void initialize(){
-        newImages = new ArrayList<>();
+        newImages = new HashMap<>();
     }
 
     /***
@@ -52,9 +52,12 @@ public class ImagesOfAlbumController {
      */
     public void handleAddAlbumButton(){
         UserImage newImage = createImageForm();
-        newImages.add(newImage);
+        if(newImage != null) {
+            AlbumCardController imageController = loadAlbumPreview(newImage);
+            newImages.put(newImage, imageController);
+            saveChanges.setVisible(true);
+        }
 
-        saveChanges.setVisible(true);
     }
 
     /***
@@ -64,13 +67,15 @@ public class ImagesOfAlbumController {
     public void handleSaveChangesButton(){
         saveChanges.setVisible(false);
 
-        for(UserImage image : newImages) {
-            String httpURL = FirebaseStorageAction.uploadImageToAlbum(album, image);
-            image.setImageURL(httpURL);
+        for(Map.Entry<UserImage, AlbumCardController> image : newImages.entrySet()) {
+            UserImage userImage = image.getKey();
+            String httpURL = FirebaseStorageAction.uploadImageToAlbum(album, userImage);
+            userImage.setImageURL(httpURL);
 
-            FirestoreAction.storeImage(album, image);
+            FirestoreAction.storeImage(album, userImage);
+            image.getValue().setSavedFirebase(true);
         }
-        newImages = new ArrayList<>();
+        newImages = new HashMap<>();
     }
 
 
@@ -86,19 +91,29 @@ public class ImagesOfAlbumController {
             createAlbumFormController = loader.getController();
             Stage popupStage = new Stage();
             popupStage.initModality(Modality.APPLICATION_MODAL);
-            popupStage.setTitle("Album Information Form");
+            popupStage.setTitle("Add image to " + album.getTitle() + " album");
             popupStage.setScene(new Scene(borderPane));
+            createAlbumFormController.setImageForm(true);
+            createAlbumFormController.setStage(popupStage);
 
+//            popupStage.setOnCloseRequest(Event::consume);
             popupStage.showAndWait();
 
+            boolean canceled = createAlbumFormController.getCancelled();
+            if(canceled){
+                return null;
+            }
+
             String pathToImage = createAlbumFormController.getImage();
-            String caption = createAlbumFormController.getTitle();
+            String caption = createAlbumFormController.getCaption();
+
+            if(pathToImage == null){
+                return null;
+            }
 
             UserImage userImage = new UserImage();
             userImage.setLocalPathToImage(pathToImage);
             userImage.setCaption(caption);
-
-            loadAlbumPreview(userImage);
 
             return  userImage;
         } catch (IOException e) {
@@ -106,7 +121,17 @@ public class ImagesOfAlbumController {
         }
     }
 
-    private void loadAlbumPreview(UserImage image){
+    public void deleteImageFromNew(UserImage image){
+        newImages.remove(image);
+        currGridColumn--;
+        if(currGridColumn == -1){
+            currGridColumn = 2;
+            currGridRow--;
+        }
+
+    }
+
+    private AlbumCardController loadAlbumPreview(UserImage image){
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("/com/travel/virtualtravelassistant/albumCard.fxml"));
 
@@ -114,12 +139,17 @@ public class ImagesOfAlbumController {
             BorderPane borderPane = fxmlLoader.load();
             AlbumCardController albumCardController = fxmlLoader.getController();
             albumCardController.setAlbumInfoWithUserImage(image);
+            albumCardController.setNode(borderPane);
+            albumCardController.setCurrAlbum(album);
+            albumCardController.setCurrUserImage(image);
+            albumCardController.setParent(this);
             albumCardController.viewAlbum.setVisible(false);
-            if(currGridColumn == 3){
+            if(currGridColumn == 2){
                 currGridColumn = 0;
                 currGridRow++;
             }
             imagesGrid.add(borderPane, currGridColumn++, currGridRow);
+            return albumCardController;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -137,8 +167,13 @@ public class ImagesOfAlbumController {
                 BorderPane borderPane = fxmlLoader.load();
                 AlbumCardController albumCardController = fxmlLoader.getController();
                 albumCardController.setAlbumInfoWithUserImageFromDB(image);
+                albumCardController.setNode(borderPane);
+                albumCardController.setCurrAlbum(album);
+                albumCardController.setCurrUserImage(image);
+                albumCardController.setSavedFirebase(true);
+                albumCardController.setParent(this);
                 albumCardController.viewAlbum.setVisible(false);
-                if(currGridColumn == 3){
+                if(currGridColumn == 2){
                     currGridColumn = 0;
                     currGridRow++;
                 }

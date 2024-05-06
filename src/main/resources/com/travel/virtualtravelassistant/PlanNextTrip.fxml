@@ -240,11 +240,11 @@
                      </ScrollPane>
                   </content>
                </Tab>
-               <Tab text="Reviews">
+               <Tab text="Restaurants">
                   <content>
                      <ScrollPane>
                         <content>
-                           <GridPane fx:id="reviewsGrid" vgap="10.0">
+                           <GridPane fx:id="restaurantsGrid" vgap="10.0">
                               <columnConstraints>
                                  <ColumnConstraints hgrow="SOMETIMES" />
                               </columnConstraints>

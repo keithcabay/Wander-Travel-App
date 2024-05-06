@@ -1,56 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Text?>
 
-<?import javafx.scene.control.Button?>
 <VBox fx:id="mainContainer" alignment="CENTER" spacing="0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.travel.virtualtravelassistant.ChatGPT.ChatbotUIController"
       stylesheets="@CSS/chatbot-style.css">
-    <!-- Control Bar -->
-    <HBox styleClass="control-bar">
-        <MenuButton text="Options" styleClass="tab-close-button">
-            <MenuItem text="Close" onAction="#handleClose"/>
-            <!-- You can add more menu items here -->
-        </MenuButton>
-    </HBox>
 
-    <!-- Header -->
-    <HBox id="header" alignment="CENTER_LEFT" spacing="10" styleClass="header">
-        <Circle fx:id="statusIndicator" radius="5" styleClass="status-indicator" />
-        <Text text="Chatbot" styleClass="header-text"/>
-    </HBox>
-
-    <!-- Messages Scroll Pane -->
-    <ScrollPane fx:id="scrollPane" fitToWidth="true" VBox.vgrow="ALWAYS">
-        <VBox fx:id="chatBox" spacing="10" fillWidth="true">
-            <padding>
-                <Insets top="10" right="10" bottom="10" left="10"/>
-            </padding>
-        </VBox>
+    <!-- ScrollPane for displaying chat messages, with vertical scrollbar always visible -->
+    <ScrollPane fx:id="scrollPane" fitToWidth="true" vbarPolicy="AS_NEEDED" hbarPolicy="NEVER">
+        <VBox fx:id="chatBox" prefWidth="400" maxWidth="400" maxHeight="600" />
     </ScrollPane>
 
-    <!-- Message Input Area -->
+
+
+    <!-- Input area for message composition and sending -->
     <HBox styleClass="input-area" spacing="5.0" alignment="CENTER">
+        <!-- TextField for input with horizontal growth always and padding -->
         <TextField fx:id="inputField" HBox.hgrow="ALWAYS" promptText="Type here...">
             <padding>
                 <Insets top="5.0" right="5.0" bottom="5.0" left="5.0"/>
             </padding>
             <font>
-                <Font size="14"/>
+                <Font size="12"/> <!-- Font size setting directly inside TextField -->
             </font>
         </TextField>
+        <!-- Button for sending messages -->
         <Button fx:id="sendButton" text="Send" onAction="#onSend" prefWidth="100.0">
             <font>
-                <Font size="14"/>
+                <Font size="12"/> <!-- Matching font size with the input field -->
             </font>
         </Button>
-        <Button fx:id="chatbotButton" text="Chatbot" onAction="#onChatbotClick" prefWidth="100.0" visible="false"/> <!-- Hidden as per the initial structure -->
     </HBox>
 </VBox>
