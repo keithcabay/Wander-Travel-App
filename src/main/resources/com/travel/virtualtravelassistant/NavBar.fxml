@@ -42,6 +42,18 @@
                </padding>
             </Label>
             <Separator prefHeight="61.0" prefWidth="200.0" />
+
+            <Button fx:id="homeView" mnemonicParsing="false" onAction="#onHomeClick" prefWidth="200.0" text="Home" VBox.vgrow="ALWAYS">
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="myProfile" mnemonicParsing="false" onAction="#onMyProfileClick" prefHeight="29.0" prefWidth="200.0" text="My Profile" VBox.vgrow="ALWAYS">
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </VBox.margin>
+            </Button>
+
             <Button fx:id="planTrip" mnemonicParsing="false" onAction="#onPlanTripClick" prefHeight="29.0" prefWidth="200.0" text="Plan A Trip" VBox.vgrow="ALWAYS">
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

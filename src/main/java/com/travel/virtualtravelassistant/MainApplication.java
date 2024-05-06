@@ -90,7 +90,7 @@ public class MainApplication extends Application {
                 System.out.println("Content loaded successfully!");
             }
         });
-        //webView.setPrefSize(600, 450); // Set preferred size directly if necessary
+        //webView.setPrefSize(600, 450);
         //webView.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 
         // Listener for errors during loading to trace errors that i had prev

@@ -6,5 +6,5 @@
 <?import javafx.scene.web.WebView?>
 
 <VBox alignment="CENTER" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.travel.virtualtravelassistant.YoutubeVideo">
-   <WebView fx:id="webView" minHeight="400.0" minWidth="400.0" />
+   <WebView fx:id="webView" minHeight="500.0" minWidth="400.0" />
 </VBox>

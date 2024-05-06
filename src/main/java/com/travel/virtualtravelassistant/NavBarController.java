@@ -34,7 +34,7 @@ public class NavBarController {
     @FXML
     protected Button chatbotButton;
     @FXML
-    protected Button test;
+    protected Button homeView;
 
     // Method to set the username on the Hello label
     public void setUsername(String username) {
@@ -105,6 +105,11 @@ public class NavBarController {
     protected void onLogOutClick(ActionEvent event) {
         switchScene(event, "/com/travel/virtualtravelassistant/LogIn.fxml");
         CurrentUser.getInstance().setUserInfo(null);
+    }
+
+    @FXML
+    protected void onHomeClick(ActionEvent event) {
+        switchScene(event, "/com/travel/virtualtravelassistant/homeView.fxml");
     }
 
     @FXML
