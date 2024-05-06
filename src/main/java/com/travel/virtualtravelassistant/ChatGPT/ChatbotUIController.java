@@ -1,6 +1,7 @@
 package com.travel.virtualtravelassistant.ChatGPT;
 
 import com.travel.virtualtravelassistant.MainApplication;
+import com.travel.virtualtravelassistant.User.CurrentUser;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,6 +11,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -17,9 +19,6 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public class ChatbotUIController implements ChatbotAwareController {
-
-    private static final double WIDTH = 200;
-    private static final double HEIGHT = 400;
 
     @FXML
     private VBox chatBox;
@@ -31,28 +30,42 @@ public class ChatbotUIController implements ChatbotAwareController {
 
     @FXML
     public void initialize() {
+        loadProperties();
+        setupChatBox();
+        configureTextField();
+        configureDynamicSizing();
+    }
+
+    private void loadProperties() {
         Properties properties = new Properties();
         try (InputStream input = getClass().getClassLoader().getResourceAsStream("application.properties")) {
             if (input == null) {
                 throw new RuntimeException("Cannot find application.properties");
             }
             properties.load(input);
+            chatGPTService = ChatGPTService.getInstance(properties);
         } catch (Exception ex) {
             ex.printStackTrace();
             throw new RuntimeException("Failed to load properties", ex);
         }
+    }
 
-        // Correctly get instance of ChatGPTService with properties loaded
-        chatGPTService = ChatGPTService.getInstance(properties);
+    private void setupChatBox() {
+        chatBox.setPrefSize(400, 400);
+        chatBox.setMinHeight(600); // Ensure it has a minimum height but can expand
+    }
 
-        chatBox.setPrefSize(WIDTH, HEIGHT);
-        chatBox.setMinSize(WIDTH, HEIGHT);
-        chatBox.setMaxSize(WIDTH, HEIGHT);
+    private void configureTextField() {
+        inputField.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                onSend(new ActionEvent());
+            }
+        });
     }
 
     @FXML
     private void onChatbotClick(ActionEvent event) {
-        chatBox.setVisible(!chatBox.isVisible()); // Toggle visibility
+        chatBox.setVisible(!chatBox.isVisible());
         if (chatBox.isVisible()) {
             inputField.requestFocus();
         }
@@ -62,27 +75,55 @@ public class ChatbotUIController implements ChatbotAwareController {
     private void onSend(ActionEvent event) {
         String userInput = inputField.getText().trim();
         if (!userInput.isEmpty()) {
-            displayMessage("User: " + userInput, true);
+            displayMessage(CurrentUser.getInstance().getUserInfo().getFirst_name() + ": " + userInput, true);
             inputField.clear();
             chatGPTService.generateResponse(userInput).thenAccept(response ->
-                    Platform.runLater(() -> displayMessage("Wander: " + response, false))
+                    Platform.runLater(() -> {
+                        displayMessage("Wander: " + response, false);
+                        scrollToBottom();
+                    })
             );
         }
     }
 
     private void displayMessage(String message, boolean isUser) {
         Label messageLabel = new Label(message);
-        messageLabel.getStyleClass().add(isUser ? "user-bubble" : "bot-bubble");
         messageLabel.setWrapText(true);
+        messageLabel.setMaxWidth(Double.MAX_VALUE); // Allow full text display
+
+        messageLabel.getStyleClass().add(isUser ? "user-bubble" : "bot-bubble");
 
         HBox hbox = new HBox(messageLabel);
         hbox.setAlignment(isUser ? Pos.CENTER_RIGHT : Pos.CENTER_LEFT);
-        hbox.setMaxWidth(chatBox.getWidth() - 20);
         hbox.setPadding(new Insets(5, 10, 5, 10));
 
         Platform.runLater(() -> {
             chatBox.getChildren().add(hbox);
-            scrollPane.setVvalue(1.0); // This line ensures the scrollPane scrolls to the bottom
+            scrollPane.requestLayout();
+            scrollPane.layout();
+            scrollToBottom(); // Ensure the scroll pane scrolls to show the latest message
+        });
+    }
+
+    private void scrollToBottom() {
+        Platform.runLater(() -> {
+            scrollPane.setVvalue(1.0); // Scroll to the very bottom
+        });
+    }
+
+    private void configureDynamicSizing() {
+        scrollPane.widthProperty().addListener((observable, oldValue, newValue) -> {
+            double newWidth = newValue.doubleValue() * 0.75; // Adjust the factor as needed
+            for (Node node : chatBox.getChildren()) {
+                if (node instanceof HBox) {
+                    HBox hbox = (HBox) node;
+                    for (Node innerNode : hbox.getChildren()) {
+                        if (innerNode instanceof Label) {
+                            ((Label) innerNode).setMaxWidth(newWidth);
+                        }
+                    }
+                }
+            }
         });
     }
 
@@ -99,5 +140,4 @@ public class ChatbotUIController implements ChatbotAwareController {
     public void onHide(){
         MainApplication.showOrHideChatbot();
     }
-
 }

@@ -41,14 +41,16 @@ public class ChatGPTService {
 
     public CompletableFuture<String> generateResponse(String prompt) {
         CompletableFuture<String> futureResponse = new CompletableFuture<>();
+        int maxTokens = 300; // Set the max_tokens to 300 for longer responses
+
         String requestBody = String.format("""
             {
               "model": "gpt-3.5-turbo",
               "messages": [{"role": "user", "content": "%s"}],
               "temperature": 0.7,
-              "max_tokens": 100
+              "max_tokens": %d
             }
-            """, prompt);
+            """, prompt, maxTokens);
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(url))
