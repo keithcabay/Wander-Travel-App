@@ -370,15 +370,18 @@ public class FirestoreAction {
             daysDoc.set(Map.of("day", String.valueOf(count)));
             Map<String, Object> activityMap = new HashMap<>();
 
-            DocumentReference activityRef = daysDoc.collection("activities").document();
+            CollectionReference activityRef = daysDoc.collection("activities");
+
             for(Activity activity : activitySet){
+                activityMap = new HashMap<>();
+                DocumentReference doc = activityRef.document();
                 activityMap.put("location-id", activity.getLocation_id());
                 activityMap.put("name", activity.getName());
                 activityMap.put("url-more-info", activity.getUrlMoreInfo());
                 activityMap.put("description", activity.getDescription());
                 activityMap.put("city", activity.getCity());
                 activityMap.put("country", activity.getCountry());
-                activityRef.set(activityMap);
+                doc.set(activityMap);
             }
             count++;
         }
