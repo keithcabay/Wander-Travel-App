@@ -12,19 +12,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import okhttp3.*;
 import org.json.JSONArray;
@@ -132,7 +126,7 @@ public class PlanNextTripController implements Initializable {
                     JsonObject firstLocation = locations.get(0).getAsJsonObject();
                     String locationId = firstLocation.get("location_id").getAsString();
                     LOCATION_ID = searchQuery;
-                    System.out.println("Location ID: " + locationId);
+                    loadLocationAndReviewPhotos(locationId, API_KEY);
                     loadLocationDetails(locationId, API_KEY);
                     loadGrid(loadLocationAttractions(LOCATION_ID, "attractions"), attractionsGrid);
                     loadGrid(loadLocationAttractions(LOCATION_ID, "hotels"), hotelsGrid);
@@ -169,8 +163,12 @@ public class PlanNextTripController implements Initializable {
                 JSONObject jsonResponse = new JSONObject(responseBody);
 
                 String name = jsonResponse.getString("name");
-                String description = jsonResponse.getString("description");
-                locationDetailsTextArea.setText(description);
+                if(jsonResponse.has("description")){
+                    String description = jsonResponse.getString("description");
+                    locationDetailsTextArea.setText(description);
+                }else{
+                    locationDetailsTextArea.setText("No description found.");
+                }
 
             } else {
                 System.out.println("Unsuccessful response: " + response.code());
@@ -533,6 +531,7 @@ public class PlanNextTripController implements Initializable {
 
             try {
                 HBox hbox = fxmlLoader.load();
+                hbox.setPrefWidth(825);
                 ActivityCardController activityCardController = fxmlLoader.getController();
                 activityCardController.setActivity(activity);
                 activityCardController.setNode(hbox);
@@ -734,49 +733,49 @@ public class PlanNextTripController implements Initializable {
         });
 
         // Load review photos
-        Request reviewsRequest = new Request.Builder()
-                .url(reviewsUrl)
-                .get()
-                .addHeader("accept", "application/json")
-                .build();
-
-        client.newCall(reviewsRequest).enqueue(new Callback() {
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                if (response.isSuccessful()) {
-                    String responseBody = response.body().string();
-                    JSONObject jsonResponse = new JSONObject(responseBody);
-                    JSONArray reviewsArray = jsonResponse.getJSONArray("data");
-
-                    Platform.runLater(() -> {
-                        try {
-                            for (int i = 0; i < reviewsArray.length(); i++) {
-                                JSONObject review = reviewsArray.getJSONObject(i);
-                                if (review.has("user") && review.getJSONObject("user").has("avatar")) {
-                                    JSONObject avatar = review.getJSONObject("user").getJSONObject("avatar");
-                                    String photoUrl = avatar.optString("large", "");
-
-                                    if (!photoUrl.isEmpty()) {
-                                        ImageView imageView = new ImageView(new Image(photoUrl, true));
-                                        imageView.setPreserveRatio(true);
-                                        imageView.setFitHeight(220); // Set max height
-                                        photosContainer.getChildren().add(imageView);
-                                    }
-                                }
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    });
-                } else {
-                    System.out.println("Failed to fetch review photos: " + response.code());
-                }
-            }
-
-            @Override
-            public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
-            }
-        });
+//        Request reviewsRequest = new Request.Builder()
+//                .url(reviewsUrl)
+//                .get()
+//                .addHeader("accept", "application/json")
+//                .build();
+//
+//        client.newCall(reviewsRequest).enqueue(new Callback() {
+//            @Override
+//            public void onResponse(Call call, Response response) throws IOException {
+//                if (response.isSuccessful()) {
+//                    String responseBody = response.body().string();
+//                    JSONObject jsonResponse = new JSONObject(responseBody);
+//                    JSONArray reviewsArray = jsonResponse.getJSONArray("data");
+//
+//                    Platform.runLater(() -> {
+//                        try {
+//                            for (int i = 0; i < reviewsArray.length(); i++) {
+//                                JSONObject review = reviewsArray.getJSONObject(i);
+//                                if (review.has("user") && review.getJSONObject("user").has("avatar")) {
+//                                    JSONObject avatar = review.getJSONObject("user").getJSONObject("avatar");
+//                                    String photoUrl = avatar.optString("large", "");
+//
+//                                    if (!photoUrl.isEmpty()) {
+//                                        ImageView imageView = new ImageView(new Image(photoUrl, true));
+//                                        imageView.setPreserveRatio(true);
+//                                        imageView.setFitHeight(220); // Set max height
+//                                        photosContainer.getChildren().add(imageView);
+//                                    }
+//                                }
+//                            }
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                    });
+//                } else {
+//                    System.out.println("Failed to fetch review photos: " + response.code());
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call call, IOException e) {
+//                e.printStackTrace();
+//            }
+//        });
     }
 }
