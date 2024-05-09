@@ -16,18 +16,15 @@ public class LargeTripPreviewBannerController {
     ScrollPane scrollPane;
 
     public void setTrip(Trip trip) {
-       titleLabel.setText(trip.getTitle());
-        System.out.println("IN TRIP URL" + trip.getUrlToFirstImage());
-       if(trip.getUrlToFirstImage() != null) {
-           imageView.setOpacity(0.45);
-           Image image = new Image(trip.getUrlToFirstImage());
-           imageView.setImage(image);
-           imageView.setPreserveRatio(true);
-           double scale = 1200.0 / image.getWidth();
-           imageView.setFitWidth(1200);
-           imageView.setFitHeight(image.getHeight() * scale);
-
-
-       }
+        titleLabel.setText(trip.getTitle());
+        if(trip.getUrlToFirstImage() != null) {
+            imageView.setOpacity(0.45);
+            Image image = new Image(trip.getUrlToFirstImage());
+            imageView.setImage(image);
+            imageView.setPreserveRatio(true);
+            double scale = 1200.0 / image.getWidth();
+            imageView.setFitWidth(1200);
+            imageView.setFitHeight(image.getHeight() * scale);
+        }
     }
 }
