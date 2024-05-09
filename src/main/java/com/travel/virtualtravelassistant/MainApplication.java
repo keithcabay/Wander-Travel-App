@@ -90,7 +90,7 @@ public class MainApplication extends Application {
                 System.out.println("Content loaded successfully!");
             }
         });
-        //webView.setPrefSize(600, 450);
+        //webView.setPrefSize(600, 450); // Set preferred size directly if necessary
         //webView.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 
         // Listener for errors during loading to trace errors that i had prev
@@ -100,7 +100,7 @@ public class MainApplication extends Application {
             }
         });
 
-        engine.load("https://www.youtube.com/embed/JXMWOmuR1hU");
+        engine.load("https://www.youtube.com/embed/8-jpAJViVbo");
         engine.setOnAlert(event -> System.out.println("WebView Alert: " + event.getData()));
         engine.locationProperty().addListener((observable, oldValue, newValue) -> System.out.println("WebView Navigated to: " + newValue));
     }
@@ -165,6 +165,11 @@ public class MainApplication extends Application {
             firebaseStorage = StorageClient.getInstance().bucket();
             System.out.println("Firebase initialized.");
         }
+    }
+
+    public static void closeBot(){
+        showOrHideChatbot();
+        chatBot = null;
     }
 
     public static void main(String[] args) {
