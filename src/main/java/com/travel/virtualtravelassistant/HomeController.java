@@ -35,21 +35,21 @@ public class HomeController {
         defaultImages = new defaultImages();
         fetchDestinationImages();
 
-      //  configureVideo();
-        // configureButton();
+        configureVideo();
+        configureButton();
     }
 
     private void configureVideo() {
         // webView already set up via FXML, just set the initial visibility
-      //  webView.setVisible(false);
+        //  webView.setVisible(false);
         // Loading the video URL in advance; if this is not desired, move to the button's action event
-       // webView.getEngine().load("https://www.youtube.com/embed/JXMWOmuR1hU");
+        // webView.getEngine().load("https://www.youtube.com/embed/JXMWOmuR1hU");
 
         System.out.println("Hello");
     }
 
     private void configureButton() {
-     //   playVideoButton.setOnAction(e -> webView.setVisible(true));  // Toggle WebView visibility
+        //   playVideoButton.setOnAction(e -> webView.setVisible(true));  // Toggle WebView visibility
         System.out.println("World");
 
     }
