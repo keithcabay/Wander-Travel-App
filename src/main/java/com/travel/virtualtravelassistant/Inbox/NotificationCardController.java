@@ -47,7 +47,7 @@ public class NotificationCardController {
 
     public void setNotification(Notification notification){
         this.notification = notification;
-        if(notification.getTripInfo() != null){
+        if(notification.getTripInfo() != null && !notification.getTripInfo().isEmpty()){
             viewTripButton.setVisible(true);
         }
         senderNameLabel.setText(notification.getSenderFirstName() + " " + notification.getSenderLastName());
